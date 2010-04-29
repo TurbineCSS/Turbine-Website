@@ -21,7 +21,6 @@
 				<li><a href="docs.php"><span>Docs</span></a></li>
 				<li><a href="shell.php"><span>Shell</span></a></li>
 				<li><a href="converter.php"><span>Converter</span></a></li>
-				<li class="last"><a href="questions.php"><span>Questions?</span></a></li>
 			</ul>
 		</nav>
 	</header>

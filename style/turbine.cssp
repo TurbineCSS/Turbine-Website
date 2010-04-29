@@ -137,6 +137,21 @@ pre
 	margin:1em 0
 
 
+// Forms
+input, select, textarea
+	color:$txt
+	background:$codebg
+	border:copy(pre border)
+	padding:0.5em
+textarea
+	width:97%
+	display:block
+	font-family:copy(pre font-family)
+	font-size:copy(pre font-size)
+	line-height:copy(pre line-height)
+	padding:copy(pre padding)
+
+
 // Layout
 #wrapper
 	width:960px
@@ -237,9 +252,8 @@ h1 a
 	clear:both
 	p
 		clear:both
-		text-align:right
-		padding:0 1% !important
 	#go
+		float:right
 		extends:#wrapper table
 		font-weight:bold
 		background:$dark
@@ -269,29 +283,6 @@ h1 a
 
 
 // Converter
-.converter
-	#header h1
-		extends:.shell #header h1
-		margin:8px 2%
-		span
-			extends:.shell #header h1 span
-.converterwrapper
-	extends:.shellwrapper
-	.cell
-		width:48%
-		float:left
-		padding:1%
-		margin-top:-4%
-		textarea
-			color:$txt
-			width:100%
-			height:10%
-			background:$codebg
-			border:copy(#wrapper pre border)
-			font-family:copy(#wrapper pre font-family)
-			font-size:copy(#wrapper pre font-size)
-			line-height:copy(#wrapper pre line-height)
-	p
-		extends:.shellwrapper p
+#converter
 	#convert
 		extends:.shellwrapper #go
