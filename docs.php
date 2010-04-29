@@ -1,18 +1,7 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8">
-		<title>Turbine Documentation</title>
-		<!--<link rel="stylesheet" href="../css.php?files=docs/docs.cssp">-->
-		<link rel="stylesheet" href="docs.css">
-	</head>
-	<!--[if IE 6]><body id="ie6"><![endif]-->
-	<!--[if IE 7]><body id="ie7"><![endif]-->
-	<!--[if IE 8]><body id="ie8"><![endif]-->
-	<!--[if !IE]><!--><body><!-- <![endif]-->
+<?php include('header.php'); ?>
 
 
-<div id="wrapper">
+<div id="docs">
 
 
 <div id="toc">
@@ -1759,17 +1748,4 @@ span.test
 </div>
 
 
-
-
-</div>
-
-
-
-<script src="http://ajax.googleapis.com/ajax/libs/mootools/1.2.4/mootools-yui-compressed.js"></script>
-<script src="mootools-more.js"></script>
-<script src="docs.js"></script>
-
-
-
-	</body>
-</html>
+<?php include('footer.php'); ?>

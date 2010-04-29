@@ -1,29 +1,17 @@
-<!DOCTYPE html>
-<html class="shell">
-	<head>
-		<meta charset="utf-8">
-		<title>Turbine Shell</title>
-		<!--<link rel="stylesheet" href="../../css.php?files=docs/docs.cssp">-->
-		<link rel="stylesheet" href="../../docs/docs.css">
-	</head>
-	<!--[if IE 6]><body class="shell" id="ie6"><![endif]-->
-	<!--[if IE 7]><body class="shell" id="ie7"><![endif]-->
-	<!--[if IE 8]><body class="shell" id="ie8"><![endif]-->
-	<!--[if !IE]><!--><body class="shell"><!-- <![endif]-->
+<?php include('header.php'); ?>
 
 
-<div id="header">
-	<h1><span>Turbine Shell</span></h1>
-</div>
+<div id="shell">
+
+
+<h2>CSS to Turbine converter</h2>
+
 
 <?php
-	include('../../lib/base.php');
-	include('../../lib/browser.php');
-	$browser = new Browser();
+	//include('../../lib/base.php');
+	//include('../../lib/browser.php');
+	//$browser = new Browser();
 ?>
-
-<div id="wrapper" class="shellwrapper">
-
 
 <div class="shellcell fl">
 	<h2>Paste Turbine code here</h2>
@@ -63,9 +51,5 @@
 
 </div>
 
-<script src="http://ajax.googleapis.com/ajax/libs/mootools/1.2.4/mootools-yui-compressed.js"></script>
-<script src="Editor.js"></script>
-<script src="shell.js"></script>
 
-</body>
-</html>
+<?php include('footer.php'); ?>

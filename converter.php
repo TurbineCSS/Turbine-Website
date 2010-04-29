@@ -1,26 +1,17 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8">
-	<title>CSS to Turbine converter</title>
-	<!--<link rel="stylesheet" href="../../css.php?files=docs/docs.cssp">-->
-	<link rel="stylesheet" href="../../docs/docs.css">
-</head>
-<body class="converter">
-
-<div id="header">
-	<h1><span>CSS to Turbine converter</span></h1>
-</div>
+<?php include('header.php'); ?>
 
 
-<div id="wrapper" class="converterwrapper">
+<div id="converter">
+
+
+<h2>CSS to Turbine converter</h2>
 
 <?php
-	require('parser.php');
-	require('converter.php');
+	require('lib/converter/parser.php');
+	require('lib/converter/converter.php');
 ?>
 
-<form action="index.php" method="post">
+<form action="converter" method="post">
 <div class="cell" id="converterIn">
 	<h2>CSS</h2>
 	<textarea cols="120" rows="20" name="css"><?php if(isset($_POST['css'])){echo stripslashes($_POST['css']);}?></textarea>
@@ -54,5 +45,4 @@
 
 </div>
 
-</body>
-</html>
+<?php include('footer.php'); ?>
