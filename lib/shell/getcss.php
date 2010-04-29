@@ -27,11 +27,11 @@ define('TURBINEPATH', dirname($_SERVER['SCRIPT_NAME']));
 
 
 // Load libraries
-include('../../lib/base.php');
-include('../../lib/browser.php');
-include('../../lib/parser.php');
-include('../../lib/cssp.php');
-include('../../lib/cssmin.php');
+include('../../turbine/lib/base.php');
+include('../../turbine/lib/browser.php');
+include('../../turbine/lib/parser.php');
+include('../../turbine/lib/cssp.php');
+include('../../turbine/lib/cssmin.php');
 
 
 // Create the Turbine instance

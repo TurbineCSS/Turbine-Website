@@ -236,6 +236,37 @@ h1 a
 
 
 // Shell
+.shellcell1
+	float:left
+.shellcell2
+	float:right
+.shellcell1, .shellcell2
+	width:48%
+	height:360px
+#shell
+	p
+		clear:both
+	#go
+		float:right
+		extends:#wrapper table
+		font-weight:bold
+		background:$dark
+		color:$white
+		border:1px solid $border
+		padding:0.5em 1em
+		cursor:pointer
+	textarea
+		display:block
+		height:240px
+		width:95%
+	iframe
+		border:copy(pre border)
+		height:264px
+		width:100%
+
+
+
+--
 .shell
 	height:100%
 	#header h1
@@ -252,15 +283,7 @@ h1 a
 	clear:both
 	p
 		clear:both
-	#go
-		float:right
-		extends:#wrapper table
-		font-weight:bold
-		background:$dark
-		color:$white
-		border:1px solid $border
-		padding:0.5em 1em
-		cursor:pointer
+
 .shellcell
 	position:relative
 	width:48%
@@ -280,9 +303,10 @@ h1 a
 		font-family:copy(#wrapper pre font-family)
 		font-size:copy(#wrapper pre font-size)
 		line-height:copy(#wrapper pre line-height)
+--
 
 
 // Converter
 #converter
 	#convert
-		extends:.shellwrapper #go
+		extends:#shell #go

@@ -198,7 +198,7 @@ if(turbineinput && cssinput){
 			browservars += '&' + el.get('name') + '=' + el.value;
 		});
 		var csspRequest = new Request({
-			url: 'getcss.php',
+			url: 'lib/shell/getcss.php',
 			data: 'css=' + turbineinput.value + browservars,
 			onSuccess: function(txt){
 				// Update textarea
