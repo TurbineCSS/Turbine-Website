@@ -44,6 +44,7 @@ $cssp->config['debug_level'] = 0;
 
 // Get and store browser properties
 $browser = new Browser();
+$browser->parse();
 
 
 // Set global path constant SCRIPTPATH for use in the special constant $_SCRIPTPATH
@@ -58,15 +59,13 @@ $plugins_loaded = false;
 if($_POST['css']){
 
 	// Set browser properties
-	$browser->name = $_POST['browser'];
-	$browser->version = $_POST['browserversion'];
-	$browser->family = $_POST['family'];
-	$browser->familyversion = $_POST['familyversion'];
+	$browser->browser = $_POST['browser'];
+	$browser->browser_version = $_POST['browser_version'];
 	$browser->engine = $_POST['engine'];
-	$browser->engineversion = $_POST['engineversion'];
+	$browser->engine_version = $_POST['engine_version'];
 	$browser->platform = $_POST['platform'];
-	$browser->platformversion = $_POST['platformversion'];
-	$browser->platformtype = $_POST['platformtype'];
+	$browser->platform_version = $_POST['platform_version'];
+	$browser->platform_type = $_POST['platform_type'];
 
 
 	// Load plugins (if not already loaded)
