@@ -1781,7 +1781,13 @@ span.test
 
 <h3 id="tools-converter">CSS to Turbine converter</h3><div>
 <p>
-	TODO
+	<a href="http://turbine.peterkroener.de/converter.php">The CSS to Turbine Converter</a> transforms normal CSS code into ready-to-use Turbine code. Note
+	that the converter is a rather simple script and only changes the syntax of the input code! It doesn't use <strong>any</strong> of the more sophisticated
+	Turbine features. It can help you to migrate a project to Turbine but should not be used for more as a starting point.
+</p>
+<h4>Usage</h4>
+<p>
+	Paste code, change indention settings, click "Convert!". Done!
 </p>
 </div>
 
