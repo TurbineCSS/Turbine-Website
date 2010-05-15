@@ -1675,11 +1675,60 @@ span.test
 <h4>Useful classes and methods for plugin development</h4>
 <h5>The <code>$cssp</code> instance</h5>
 <p>
-	TODO
+	Turbine's main class, extends the parser and contains the follwing useful methods:
 </p>
-<h5>The browser class</h5>
+<h5>The <code>$browser</code> instance</h5>
 <p>
-	TODO
+	Turbine's browser sniffer. By the time any plugin executes, it will already have parsed the visitor's user agent string. The following variables might be useful:
+</p>
+<table>
+	<thead>
+		<tr>
+			<th>Variable</th>
+			<th>Contains</th>
+			<th>Possible values</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<th><code>$browser->browser</code></th>
+			<td>Browser name (Lowercase string)</td>
+			<td>A browser name (e.g. "safari") or the name of the larger family the browser belogs to. For example Flock and Songbird would be detected as "firefox"</td>
+		</tr>
+		<tr>
+			<th><code>$browser->browser_version</code></th>
+			<td>Browser version (Float)</td>
+			<td>The browser's version number as a float value. Firefox 3.6.4 would be detected as "3.64".</td>
+		</tr>
+		<tr>
+			<th><code>$browser->engine</code></th>
+			<td>Browser engine (lowercase string)</td>
+			<td>Contains the browser's engine if this information is available from the user agent string (usually the case in Webkit and Gecko browsers) or otherwise the browser's family name (Opera, IE)</td>
+		</tr>
+		<tr>
+			<th><code>$browser->engine_version</code></th>
+			<td>Browser engine version (Float)</td>
+			<td>The browser's engine version number as a float value. Gecko 1.9.2.3 would be detected as "1.923".</td>
+		</tr>
+		<tr>
+			<th><code>$browser->platform</code></th>
+			<td>OS name (lowercase string)</td>
+			<td>Contains the user's operating system name (e.g. "Windows", "Mac", "Linux" or "Unix")</td>
+		</tr>
+		<tr>
+			<th><code>$browser->platform_version</code></th>
+			<td>OS version (Float)</td>
+			<td>Contains the user's operating system version if this information is available from the user agent string (eg. "5.1" for Windows XP or "10.5" for OS X Leopard)</td>
+		</tr>
+		<tr>
+			<th><code>$browser->platform_type</code></th>
+			<td>Platform type (Lowercase string)</td>
+			<td>Either "Desktop" or "Mobile"</td>
+		</tr>
+	</tbody>
+</table>
+<p>
+	When the browser sniffer failes to detect one of the above properties, the lowercase string "unknown" is used.
 </p>
 
 
