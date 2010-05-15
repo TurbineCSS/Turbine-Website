@@ -1677,6 +1677,42 @@ span.test
 <p>
 	Turbine's main class, extends the parser and contains the follwing useful methods:
 </p>
+<table>
+	<thead>
+		<tr>
+			<th>Method</th>
+			<th>Return</th>
+			<th>Use</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<th><code>TODO</code></th>
+			<td><code>TODO</code></td>
+			<td>TODO</td>
+		</tr>
+	</tbody>
+</table>
+<p>
+	The following variables might be of interest too:
+</p>
+<table>
+	<thead>
+		<tr>
+			<th>Variable</th>
+			<th>Contains</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<th><code>TODO</code></th>
+			<td>TODO</td>
+		</tr>
+	</tbody>
+</table>
+
+
+
 <h5>The <code>$browser</code> instance</h5>
 <p>
 	Turbine's browser sniffer. By the time any plugin executes, it will already have parsed the visitor's user agent string. The following variables might be useful:
