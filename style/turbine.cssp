@@ -59,7 +59,7 @@ h2
 	margin:0
 	padding:1em 0 0.5em 0
 h3
-	font-size:1.45em
+	font-size:1.5em
 	margin:1.5em 0 -0.5em 0
 	padding:0.5em 0
 	span
@@ -94,7 +94,7 @@ table
 		border:1px solid $border
 		padding:0.5em
 	th
-		extends:#wrapper table td
+		extends:table td
 		font-weight:bold
 		font-size:0.9em
 		vertical-align:middle

@@ -101,7 +101,7 @@
 	css's limitations, page performance or your least favourite browser's latest bugs. Think jQuery for CSS. Being fully extensible, you
 	can customize Turbine to your liking.
 </p>
-<h2 id="intro-goalsandfeatures">Goals and Features</h3><div>
+<h3 id="intro-goalsandfeatures">Goals and Features</h3><div>
 <p>
 	Turbine's basic features include:
 </p>
@@ -122,9 +122,9 @@
 </div>
 
 
-<h1 id="usage">Usage</h2><div>
+<h2 id="usage">Usage</h2><div>
 
-<h2 id="usage-setup">Installation and setup</h3><div>
+<h3 id="usage-setup">Installation and setup</h3><div>
 <h4>Installation</h4>
 <p>
 	Simply download the latest release from <a href="http://github.com/SirPepe/Turbine">Github</a> and unpack it to a directory on your
@@ -185,7 +185,7 @@
 </p>
 
 
-<h2 id="usage-syntax">Basic syntax</h3><div>
+<h3 id="usage-syntax">Basic syntax</h3><div>
 <p>
 	The one important thing about Turbine's syntax is that it is all about <strong>lines</strong>. The context of any statements
 	in the code depends of the context of the statement's line.
@@ -276,7 +276,7 @@ This is a block comment
 
 </pre>
 </p>
-<h3 id="usage-syntax-prefixes">Prefixes</h4>
+<h4 id="usage-syntax-prefixes">Prefixes</h4>
 <p>
 	There a a few reserved profixes for properties, values and selectors:
 </p>
@@ -318,7 +318,7 @@ This is a block comment
 </div>
 
 
-<h2 id="usage-configuration">Configuration</h3><div>
+<h3 id="usage-configuration">Configuration</h3><div>
 <p>
 	The configuration options of Turbine can be set in the stylesheets themselves&nbsp;&ndash a <code>@turbine</code> block (called
 	<strong>configuration block</strong>) allows for options to be set like properties and values in normal CSS code. There are
@@ -354,7 +354,7 @@ This is a block comment
 </div>
 
 
-<h2 id="usage-advanced">Advanced syntax features</h3><div>
+<h3 id="usage-advanced">Advanced syntax features</h3><div>
 <h4>Expanding properties</h4>
 <p>
 	if you want to use multiple properties with the same value inside a selector, you can take advantage of expanding properties. This
@@ -462,11 +462,14 @@ This is a block comment
 	color: red;
 }
 }</pre>
+<p>
+	If you have to use css hacks, this is the way to go.
+</p>
 </div>
 
 
 
-<h2 id="usage-constantsaliases">Constants and aliases</h3><div>
+<h3 id="usage-constantsaliases">Constants and aliases</h3><div>
 
 
 <h4>Constants</h4>
@@ -564,7 +567,7 @@ $mainNavigation
 
 
 
-<h2 id="usage-inheritancetemplating">Inheritance and Prototyping</h3><div>
+<h3 id="usage-inheritancetemplating">Inheritance and Prototyping</h3><div>
 <p>
 	Turbine's inheritance, prototyping and copying features allow you to pass around chunks of properties and values between elements in
 	your code. Note that <code>@font-face</code> and <code>@import</code> elements can copy and interit properties from other elements,
@@ -588,7 +591,7 @@ $mainNavigation
 #bar {
     color: #F00
 }</pre>
-<h5>Copying from other properties</h5>
+<h4>Copying from other properties</h4>
 <p>
 	The copied and copying properties don't have to be the same:
 </p>
@@ -606,7 +609,7 @@ $mainNavigation
 #bar {
     background: #F00
 }</pre>
-<h5>Copying with aliases</h5>
+<h4>Copying with aliases</h4>
 <p>
 	Copying works with aliases too. If you want to copy the <code>color</code> value from $foo to #bar, you can simple use
 	<code>copy($foo color)</code>:
@@ -700,8 +703,8 @@ div.child {
 	font-weight: bold;
 }
 </pre>
-<h3 id="usage-inheritancetemplating-prototyping">Prototyping</h4>
-<h5>Using prototypes</h5>
+<h3 id="usage-inheritancetemplating-prototyping">Prototyping</h3>
+<h4>Using prototypes</h4>
 <p>
 	The <code>?</code> prefix allows you to define elements that will be removed before output but from which properties can be inherited
 	or copied from (see <a class="smoothscroll" href="#usage-syntax-prefixes">prefixes</a>). These elements can be used to declare complete
@@ -744,7 +747,7 @@ div.blackRound {
 }</pre>
 
 
-<h4 id="usage-inheritancetemplating-prototyping-recycling">Recycling prototypes</h5>
+<h4 id="usage-inheritancetemplating-prototyping-recycling">Recycling prototypes</h4>
 <p>
 	The <a href="#plugins-load" class="smoothscroll">loader plugin</a> allows you (among other things) to build a library of prototypes,
 	store them in an external file and include them when you need them. The code for the black and white boxes above could then be shortend
@@ -769,11 +772,11 @@ div.blackRound
 
 
 
-<h1 id="plugins">Core plugins</h2><div>
+<h2 id="plugins">Core plugins</h2><div>
 
 
 
-<h2 id="plugins-borderradius">Border radius</h3><div>
+<h3 id="plugins-borderradius">Border radius</h3><div>
 <p class="abstract">
 	Automatically adds vendor-specific versions of <code>border-radius</code> and implements some shortcuts.
 </p>
@@ -825,7 +828,7 @@ div.blackRound
 
 
 
-<h2 id="plugins-boxshadow">Box shadow</h3><div>
+<h3 id="plugins-boxshadow">Box shadow</h3><div>
 <p class="abstract">
 	Automatically adds vendor-specific versions of <code>box-shadow</code>.
 </p>
@@ -859,7 +862,7 @@ div.blackRound
 
 
 
-<h2 id="plugins-fontface">Simple @font-face</h3><div>
+<h3 id="plugins-fontface">Simple @font-face</h3><div>
 <p class="abstract">
 	Generates @font-face declarations from a simplified syntax.
 </p>
@@ -934,7 +937,7 @@ div.blackRound
 
 
 
-<h2 id="plugins-browser">Browser detection</h3><div>
+<h3 id="plugins-browser">Browser detection</h3><div>
 <p class="abstract">
 	TODO
 </p>
@@ -953,7 +956,7 @@ div.blackRound
 
 
 
-<h2 id="plugins-bugfix">Automatic browser bugfixes</h3><div>
+<h3 id="plugins-bugfix">Automatic browser bugfixes</h3><div>
 <p class="abstract">
 	Tries to fix some common browser rendering bugs automatically.
 </p>
@@ -977,7 +980,7 @@ div.blackRound
 
 
 
-<h2 id="plugins-colormodels">Colormodels</h3><div>
+<h3 id="plugins-colormodels">Colormodels</h3><div>
 <p class="abstract">
 	Smart color models for older browsers
 </p>
@@ -1051,7 +1054,7 @@ p.foobar
 
 
 
-<h2 id="plugins-datauri">Data URIs</h3><div>
+<h3 id="plugins-datauri">Data URIs</h3><div>
 <p class="abstract">
 	Inlines images into the css output.
 </p>
@@ -1079,7 +1082,7 @@ p.foobar
 
 
 
-<h2 id="plugins-html5">HTML5</h3><div>
+<h3 id="plugins-html5">HTML5</h3><div>
 <p class="abstract">
 	Adds the correct default styles for HTML5 elements
 </p>
@@ -1097,7 +1100,7 @@ p.foobar
 
 
 
-<h2 id="plugins-iee">IE enhancements</h3><div>
+<h3 id="plugins-iee">IE enhancements</h3><div>
 <p class="abstract">
 	Enables a bunch of usually absent features in IE 6 and 7
 </p>
@@ -1115,7 +1118,7 @@ p.foobar
 
 
 
-<h2 id="plugins-minifier">Minifier</h3><div>
+<h3 id="plugins-minifier">Minifier</h3><div>
 <p class="abstract">
 	Performs a number of micro-optimizations.
 </p>
@@ -1127,24 +1130,28 @@ p.foobar
 <p>
 	Just add <code>minifier</code> to your <code>@turbine</code> plugins rule. Done!
 </p>
-<h4>Example</h4>
+<h3>Example</h3>
 <pre class="cssp">#foo
     font-family: Verdana, Arial, sans-serif
     color: #FF0000
     margin: 1em 0em</pre>
 <p>
-	Result:
+	Result (pretty-printed):
 </p>
 <pre>#foo {
 	font-family: Verdana,Arial,sans-serif;
 	color: #F00;
 	margin: 1em 0;
 }</pre>
+<p>
+	Compressed result:
+</p>
+<pre>#foo{font-family:Verdana,Arial,sans-serif;color:#F00;margin:1em 0}</pre>
 </div>
 
 
 
-<h2 id="plugins-load">Load</h3><div>
+<h3 id="plugins-load">Load</h3><div>
 <p class="abstract">
 	Loads another .cssp file.
 </p>
@@ -1196,7 +1203,7 @@ p.foobar
 
 
 
-<h2 id="plugins-os">OS and device detection</h3><div>
+<h3 id="plugins-os">OS and device detection</h3><div>
 <p class="abstract">
 	TODO
 </p>
@@ -1215,7 +1222,7 @@ p.foobar
 
 
 
-<h2 id="plugins-quote">Quotes</h3><div>
+<h3 id="plugins-quote">Quotes</h3><div>
 <p class="abstract">
 	Inserts language- and country-specific quotation marks.
 </p>
@@ -1269,7 +1276,7 @@ p.foobar
 
 
 
-<h2 id="plugins-reset">Reset stylesheet</h3><div>
+<h3 id="plugins-reset">Reset stylesheet</h3><div>
 <p class="abstract">
 	Includes a reset stylesheet.
 </p>
@@ -1337,7 +1344,7 @@ table {
 
 
 
-<h2 id="plugins-transforms">Transforms</h3><div>
+<h3 id="plugins-transforms">Transforms</h3><div>
 <p class="abstract">
 	TODO
 </p>
@@ -1348,7 +1355,7 @@ table {
 
 
 
-<h2 id="plugins-meta">Meta plugins</h3><div>
+<h3 id="plugins-meta">Meta plugins</h3><div>
 <p class="abstract">
 	Meta plugins enable a group of other plugins.
 </p>
@@ -1396,7 +1403,7 @@ table {
 
 
 
-<!--<h2 id="plugins-experimental">Experimental plugins</h3><div>
+<!--<h3 id="plugins-experimental">Experimental plugins</h3><div>
 <p>
 	Some experimental plugins are not yet officially part of Turbine but you can play with them (or improve them) if you like. They
 	are available via the <a href="http://github.com/SirPepe/Turbine/tree/experimental">experimental development branch</a> on Github.
@@ -1416,11 +1423,11 @@ table {
 
 
 
-<h1 id="dev">Development</h2><div id="development">
+<h2 id="dev">Development</h2><div id="development">
 
 
 
-<h2 id="dev-contribute">Contribute</h3><div>
+<h3 id="dev-contribute">Contribute</h3><div>
 <p>
 	Turbine is free open source software (LGPL) and development takes place on <a href="http://github.com/">GitHub</a>,
 	a hosting platform for the excellent distributed version control system <a href="http://git-scm.com/">Git</a>. 
@@ -1441,7 +1448,7 @@ table {
 
 
 
-<h2 id="dev-plugins">Plugin development</h3><div>
+<h3 id="dev-plugins">Plugin development</h3><div>
 <p>
 	Plugin development for Turbine is rather simple. All you need is a file called <code>plugin_name.php</code> containing
 	a function of some sort (usually named <code>plugin_name()</code>), located in the plugins directory. The function must
@@ -1545,7 +1552,7 @@ table {
 		from the<code>@cssp</code> statement.
 	</li>
 </ul>
-<h5>Example array</h5>
+<h4>Example array</h4>
 <p>
 	Given the following Turbine input code&nbsp;&hellip;
 </p>
@@ -1684,10 +1691,10 @@ span.test
 
 
 
-<h1 id="tools">Tools</h2><div>
+<h2 id="tools">Tools</h2><div>
 
 
-<h2 id="tools-converter">CSS to Turbine converter</h3><div>
+<h3 id="tools-converter">CSS to Turbine converter</h3><div>
 <p>
 	TODO
 </p>
@@ -1695,7 +1702,7 @@ span.test
 
 
 
-<h2 id="tools-shell">Turbine shell</h3><div>
+<h3 id="tools-shell">Turbine shell</h3><div>
 <p>
 	TODO
 </p>
@@ -1707,10 +1714,10 @@ span.test
 
 
 
-<h1 id="faq">FAQ</h2><div>
+<h2 id="faq">FAQ</h2><div>
 
 
-<h2 id="faq-advice">Any general advice?</h3><div>
+<h3 id="faq-advice">Any general advice?</h3><div>
 <ul>
 	<li>
 		Turbine is beta software. Expect stuff to break everywhere, all the time. If you encounter bugs, <a href="http://github.com/SirPepe/Turbine/issues">report them</a>!
@@ -1728,7 +1735,7 @@ span.test
 
 
 
-<h2 id="faq-tradeoffs">What are the tradeoffs?</h3><div>
+<h3 id="faq-tradeoffs">What are the tradeoffs?</h3><div>
 <ul>
 	<li>
 		Turbine uses the input css files to generate <em>completely</em> new CSS code that won't necessarily look very much like it's source.
