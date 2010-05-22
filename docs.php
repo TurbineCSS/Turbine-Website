@@ -1126,8 +1126,9 @@ p.foobar
 	Performs a number of micro-optimizations.
 </p>
 <p>
-	The minifier plugins shortens hex color declarations, removes units from zero values and removes whitespace from comma-sepparated
-	strings, saving a (tiny) bit of space and loading time.
+	The minifier plugins shortens hex color declarations, removes units from zero values, removes loading zeros from floats, shortens long margin and padding
+	notation (<code>8px 4px 8x 4px</code> is turned into <code>8px 4px</code>) and removes whitespace from comma-sepparated strings, saving a bit of space and
+	loading time.
 </p>
 <h4>Usage</h4>
 <p>
@@ -1135,21 +1136,23 @@ p.foobar
 </p>
 <h3>Example</h3>
 <pre class="cssp">#foo
-    font-family: Verdana, Arial, sans-serif
+    font-family: Georgia, "Times New Roman", serif
     color: #FF0000
-    margin: 1em 0em</pre>
+    margin: 0.5em 0em
+    padding: 8px 4px 8px 4px</pre>
 <p>
 	Result (pretty-printed):
 </p>
 <pre>#foo {
-	font-family: Verdana,Arial,sans-serif;
+	font-family: Georgia,"Times New Roman",serif;
 	color: #F00;
-	margin: 1em 0;
+	margin: .5em 0;
+	padding: 8px 4px;
 }</pre>
 <p>
 	Compressed result:
 </p>
-<pre>#foo{font-family:Verdana,Arial,sans-serif;color:#F00;margin:1em 0}</pre>
+<pre>#foo{font-family:Georgia,"Times New Roman",serif;color:#F00;margin:.5em 0;padding:8px 4px}</pre>
 </div>
 
 
