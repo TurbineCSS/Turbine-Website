@@ -6,7 +6,8 @@
 	 * 
 	 * Usage: Nobrainer, just switch it on
 	 * Example: -
-	 * Status: Beta
+	 * Status:  Stable
+	 * Version: 1.0
 	 * 
 	 * @param mixed &$parsed
 	 * @return void
@@ -59,6 +60,11 @@
 						$htc_path = rtrim(dirname($_SERVER['SCRIPT_NAME']),'/').'/plugins/bugfixes/doublemargin.htc';
 						$cssp->parsed[$block][$selector]['behavior'][] = 'url("'.$htc_path.'")';
 						CSSP::comment($cssp->parsed[$block][$selector], 'behavior', 'Added by bugfix plugin');
+					}
+					// Min-height for IE6
+					if(isset($cssp->parsed[$block][$selector]['min-height']) && !isset($cssp->parsed[$block][$selector]['height'])){
+						$cssp->parsed[$block][$selector]['height'] = $cssp->parsed[$block][$selector]['min-height'];
+						CSSP::comment($cssp->parsed[$block][$selector], 'height', 'Added by bugfix plugin');
 					}
 				}
 

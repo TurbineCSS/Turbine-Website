@@ -8,8 +8,8 @@
 
 
 <?php
+	include('turbine/lib/browser/browser.php');
 	include('turbine/lib/base.php');
-	include('turbine/lib/browser.php');
 	$browser = new Browser();
 	$browser->parse();
 ?>

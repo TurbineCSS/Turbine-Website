@@ -3,7 +3,7 @@ Turbine
 
 ![Turbine logo][1]
 
-**→ [Online documentation][2]** (not quite complete yet)
+**→ [Online documentation][2]**
 
 Turbine is a collection of PHP-powered tools that are designed to decrease css devolopment time and web developer headache. This includes:
 
@@ -52,7 +52,7 @@ Turbine is still in active development. Help us to make it better!
 
  - Download Turbine, test it and [report any bugs you might find][5]
  - [Fork it][6] and tackle some bugs
- - Add some more [browser test cases][7]
+ - Help improving the [browser sniffer][7]
 
 
   [1]: http://turbine.peterkroener.de/turbine.png
@@ -61,4 +61,4 @@ Turbine is still in active development. Help us to make it better!
   [4]: http://github.com/anthonyshort/csscaffold
   [5]: http://github.com/SirPepe/Turbine/issues
   [6]: http://github.com/SirPepe/Turbine
-  [7]: http://github.com/SirPepe/Turbine/blob/master/tests/browser.php
+  [7]: http://github.com/SirPepe/Turbine-Browser
