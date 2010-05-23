@@ -972,6 +972,7 @@ div.blackRound
 	<li>IE6: Image margin bottom bug</li>
 	<li>IE6: Background image flickers on hover</li>
 	<li>IE6: Float double margin bug</li>
+	<li>IE6: <code>min-height</code> bug</li>
 	<li>IE6 and 7: <code>&lt;button&gt;</code> styleability (<a href="http://www.sitepoint.com/forums/showthread.php?t=547059">Source</a>)</li>
 	<li>Firefox: Ghost margin around buttons (<a href="http://www.sitepoint.com/forums/showthread.php?t=547059">Source</a>)</li>
 </ul>
