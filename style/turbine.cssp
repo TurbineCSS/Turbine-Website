@@ -1,6 +1,6 @@
 @turbine
 	compress:0
-	plugins:resetstyle, minifier, datauri
+	plugins:resetstyle, minifier, datauri, quotes
 
 
 @constants
@@ -42,6 +42,9 @@ strong, b
 	font-weight:bold !important
 em, i
 	font-style:italic
+q
+	font-style:italic
+	quotes:english-us
 .fl
 	float:left
 .fr
@@ -86,6 +89,13 @@ li
 p.abstract
 	font-weight:bold
 	color:$dark
+p.warning
+	border:8px solid $important
+	color:$important
+	text-shadow:none
+	font-weight:bold
+	background:$white
+	padding:2em
 table
 	margin:1em 0
 	td

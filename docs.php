@@ -26,7 +26,7 @@
 				<li><a href="#plugins-fontface">@font-face</a></li>
 				<li><a href="#plugins-borderradius">Border radius</a></li>
 				<li><a href="#plugins-boxshadow">Box shadow</a></li>
-				<li><a href="#plugins-sniffer">Browser and Platform sniffer</a></li>
+				<li><a href="#plugins-sniffer">Browser and platform sniffer</a></li>
 				<li><a href="#plugins-bugfix">Browser bugfixes</a></li>
 				<li><a href="#plugins-colormodels">Colormodels</a></li>
 				<li><a href="#plugins-datauri">Data-URIs</a></li>
@@ -941,24 +941,188 @@ div.blackRound
 
 
 
-<h3 id="plugins-sniffer">Browser and Platform sniffer</h3><div>
+<h3 id="plugins-sniffer">Browser and platform sniffer</h3><div>
 <p class="abstract">
-	TODO
-</p>
-<p class="warning">
-	TODO
+	Includes or excludes css rules based on the viewer's browser, operating system or platform.
 </p>
 <p>
-	TODO
+	The browser and platform sniffer allows you to use Turbine's build-in browser sniffer for your cssp files. It allows you to include or exclude css
+	rules based on the viewer's browser, operating system or platform, precisely targeting browser, engine or os versions (windows only).
+</p>
+<p class="warning">
+	<strong>Warning</strong>: Browser sniffing is <em>always</em> a complicated, messy and unreliable buisness. Don't use this plugin unless you
+	think you <em>really</em> know what you're doing!
 </p>
 <h4>Usage</h4>
 <p>
-	TODO
+	Add add <code>sniffer</code> to your <code>@turbine</code> plugins rule and use the <code>browser</code>, <code>engine</code>, <code>os</code> and
+	<code>device</code> properties.
 </p>
 <h5>Use cases</h5>
 <ul>
-	<li>TODO</li>
+	<li>Progressive enhancement</li>
+	<li>Hide <code>@font-face</code> from Windows XP to circumvent XP's rendering problems with non-windows fonts</li>
+	<li>Hide or display nagging <q>Update your browser!</q> messages to IE6 users</li>
 </ul>
+<h4>Examples</h4>
+<h5><code>device</code> property</h5>
+<p>
+	The <code>device</code> property allows you to target mobile devices or desktop computers:
+</p>
+<pre class="cssp">// Show red text only for dektop computers
+#foo
+    device:desktop
+    color:red
+
+// Show green text only for mobile devices
+#foo
+    device:mobile
+    color:green</pre>
+<p>
+	To exclude devices, use the <code>^</code> operator at the beginning of the value of a <code>device</code> property:
+</p>
+<pre class="cssp">// No red text for mobile devices
+#foo
+    device:^mobile
+    color:red</pre>
+<p>
+	You can use the following values for the <code>device</code> property:
+</p>
+<ul>
+	<li><code>desktop</code></li>
+	<li><code>mobile</code></li>
+</ul>
+<h5><code>os</code> property</h5>
+<p>
+	The <code>os</code> property allows you to target operating systems:
+</p>
+<pre class="cssp">// Show red text only for windows
+#foo
+    os:windows
+    color:red
+
+// Show green text only for mac os
+#foo
+    os:mac
+    color:green</pre>
+<p>
+	You can target the different versions of windows (and <em>only</em> windows) too:
+</p>
+<pre class="cssp">// Show red text only for windows versions equal or newer than vista
+#foo
+    os:windows&gt;=vista
+    color:red
+
+// Show green text only for windows xp
+#foo
+    os:windows=xp
+    color:green</pre>
+<p>
+	To exclude operating systems, use the <code>^</code> operator as usual:
+</p>
+<pre class="cssp">// No red text for linux
+#foo
+    os:^linux
+    color:red</pre>
+<p>
+	You can use the following values for the <code>os</code> property:
+</p>
+<ul>
+	<li><code>windows</code></li>
+	<li><code>mac</code></li>
+	<li><code>linux</code></li>
+	<li><code>unix</code> (Includes FreeBSD, OpenBSD etc)</li>
+	<li>Some mobile phone vendors (BlackBerry, NetFront) <em>may</em> also work as a value for <code>os</code> but this is <em>really</em> unreliable.</li>
+</ul>
+<p>
+	The following windows versions can be targeted:
+</p>
+<ul>
+	<li><code>95</code></li>
+	<li><code>nt4</code></li>
+	<li><code>98</code></li>
+	<li><code>me</code></li>
+	<li><code>2000</code> or <code>2k</code></li>
+	<li><code>xp</code></li>
+	<li><code>2003</code> or <code>2k3</code></li>
+	<li><code>vista</code></li>
+	<li><code>windows7</code> or <code>win7</code> or <code>7</code></li>
+</ul>
+<h5><code>browser</code> property</h5>
+<p>
+	The browser property doesn't target individual browsers but rather browser families. For example Flock, Songbird, Minefield and Firefor are all members
+	of the firefox family. To target one or multiple families, simply add their names to the <code>browser</code> property of an element:
+</p>
+<pre class="cssp">// Show red text only for firefox and opera
+#foo
+    browser:firefox opera
+    color:red</pre>
+<p>
+	You can target browser versions too:
+</p>
+<pre class="cssp">// Show red text only for firefox versions newer than 3.5
+#foo
+    browser:firefox&gt;3.5
+    color:red
+
+// Show green text only for safari 4
+#foo
+    browser:safari=4
+    color:green</pre>
+<p>
+	This also works for all browsers from the Firefox family with engine versions that are on par with firefox versions newer than 3.5. Version numbers must be
+	floats (e.g. to target Firefox 3.6.4 you have to write <code>browser:firefox=3.64</code>).
+</p>
+<p>
+	To exclude browsers, use the <code>^</code> operator as usual:
+</p>
+<pre class="cssp">// No red text for chrome
+#foo
+    browser:^chrome
+    color:red</pre>
+<p>
+	The device <code>browser</code> property can, like all properties of this plugin, also be used inside the <code>@turbine</code> element. This will affect the
+	stylesheet as a whole:
+</p>
+<pre class="cssp">// We don't want to bother with IE6, so we simply hide ALL STYLES from it.
+// That makes the page somewhat useable without much work
+@turbine
+    browser:^ie&lt;7</pre>
+<h5><code>engine</code> property</h5>
+<p>
+	Engine detection is a messy business because not all browsers anounce their engine and engine versions in the user agent string. To make the <code>engine</code>
+	property work, <strong>in some cases it has to be passed the browser name an version number instead of the actual engine!</strong> 
+</p>
+<pre class="cssp">// Webkit browsers usually tell us their engine, so we can target them easily
+#foo
+    engine:webkit&lt;525
+    color:red
+
+// IE7 doesn't tell us that it uses an engine called Trident 3.1, so we have to use the browser name and version number as a fallback
+#foo
+    engine:ie=7
+    color:green</pre>
+<p>
+	As with browser versions, engine version numbers must be floats too. To target WebKit 525.27.1 you have to write <code>engine:webkit=525.271</code>.
+</p>
+<p>
+	To exclude engines, use the <code>^</code> operator as usual:
+</p>
+<pre class="cssp">// No red text for webkit
+#foo
+    engine:^webkit
+    color:red</pre>
+<p>
+	You can use the following values for the <code>engine</code> property:
+</p>
+<ul>
+	<li><code>gecko</code></li>
+	<li><code>webkit</code></li>
+	<li><code>khtml</code></li>
+</ul>
+<p>
+	For all other engines (like Presto in Opera and Trident in IE) you have no choice but to target the Browser and its Version.
+</p>
 </div>
 
 
