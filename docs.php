@@ -23,10 +23,10 @@
 		</li>
 		<li>&darr; <a href="#plugins">Core Plugins</a>
 			<ul>
+				<li><a href="#plugins-fontface">@font-face</a></li>
 				<li><a href="#plugins-borderradius">Border radius</a></li>
 				<li><a href="#plugins-boxshadow">Box shadow</a></li>
-				<li><a href="#plugins-fontface">@font-face</a></li>
-				<li><a href="#plugins-browser">Browser detection</a></li>
+				<li><a href="#plugins-sniffer">Browser and Platform sniffer</a></li>
 				<li><a href="#plugins-bugfix">Browser bugfixes</a></li>
 				<li><a href="#plugins-colormodels">Colormodels</a></li>
 				<li><a href="#plugins-datauri">Data-URIs</a></li>
@@ -34,12 +34,10 @@
 				<li><a href="#plugins-iee">IE enhancements</a></li>
 				<li><a href="#plugins-minifier">Minifier</a></li>
 				<li><a href="#plugins-load">Load</a></li>
-				<li><a href="#plugins-os">OS and Device detection</a></li>
 				<li><a href="#plugins-quote">Quote style</a></li>
 				<li><a href="#plugins-reset">Reset stylesheet</a></li>
 				<li><a href="#plugins-transforms">Transforms</a></li>
 				<li><a href="#plugins-meta">Meta plugins</a></li>
-				<!--<li><a href="#plugins-experimental">Experimental plugins</a></li>-->
 			</ul>
 		</li>
 		<li>&darr; <a href="#dev">Development</a>
@@ -779,6 +777,81 @@ div.blackRound
 
 
 
+<h3 id="plugins-fontface">Simple @font-face</h3><div>
+<p class="abstract">
+	Generates @font-face declarations from a simplified syntax.
+</p>
+<p>
+	<a href="http://paulirish.com/2009/bulletproof-font-face-implementation-syntax/">Bulletproof @font-face syntax</a> is a syntax
+	for embedding web fonts in a manner that works for all browsers and takes care of numerous browser quirks. Its only downside is that
+	it's rather complicated:
+</p>
+<pre class="css">@font-face {
+	font-family: 'Graublau Web';
+	src: url('GraublauWeb.eot');
+	src: local('Graublau Web Regular'), local('Graublau Web'),
+		url("GraublauWeb.woff") format("woff"),
+		url("GraublauWeb.otf") format("opentype"),
+		url("GraublauWeb.svg#grablau") format("svg");
+}</pre>
+<p>
+	The @font-face syntax plugin generates <strong>browser-specific @font-face declarations</strong> from a very simplified syntax.
+</p>
+<h4>Usage</h4>
+<ol>
+	<li>Add <code>fontface</code> to <code>@turbine</code> plugin list</li>
+	<li>Put all different font-files into one directory and give them the same basename, e.g. "<code>SaginaMedium</code>":
+		<ul>
+			<li>SaginawMedium.eot</li>
+			<li>SaginawMedium.woff</li>
+			<li>SaginawMedium.otf</li>
+			<li>SaginawMedium.ttf</li>
+			<li>SaginawMedium.svg</li>
+		</ul>
+	</li>
+	<li>Build a special <code>@font-face</code>-rule with a single <code>src</code>-property pointing not to a real
+	file but to the common basename, e.g. "<code>src:url('fonts/SaginawMedium')</code>"</li>
+	<li>The plugin will look after any known fontfile format by appending the suffixes
+	<code>.eot, .woff, .otf, .ttf</code> and <code>.svg</code>.
+	<ul>
+		<li>For IE &lt;= 8 it will serve the .eot-file if there is one named <code>fonts/SaginawMedium.eot</code>.</li>
+		<li>For the other browser it will serve as many of the other flavors as available.<br />
+		A truetype-file will only be served when there is no opentype-file available.</li>
+	</ul>
+</ol>
+<h4>Example</h4>
+<pre class="cssp">@turbine
+	plugins:fontface
+
+@font-face
+	font-family:'SaginawMedium'
+	src:url('fonts/SaginawMedium')
+	font-weight:bold
+	font-style:italic</pre>
+<p>
+	Result for IE &lt;= 8:
+</p>
+<pre class="css">@font-face {
+	font-family: 'SaginawMedium';
+	src: url("fonts/SaginawMedium.eot");
+	font-weight: bold;
+	font-style: italic;
+}</pre>
+<p>
+	Result for all other browsers:
+</p>
+<pre class="css">@font-face {
+	font-family: 'SaginawMedium';
+	src: url("fonts/SaginawMedium.woff") format("woff"),
+	   url("fonts/SaginawMedium.ttf") format("truetype"),
+	   url("fonts/SaginawMedium.svg#SaginawMedium") format("svg");
+	font-weight: bold;
+	font-style: italic;
+}</pre>
+</div>
+
+
+
 <h3 id="plugins-borderradius">Border radius</h3><div>
 <p class="abstract">
 	Automatically adds vendor-specific versions of <code>border-radius</code> and implements some shortcuts.
@@ -865,83 +938,14 @@ div.blackRound
 
 
 
-<h3 id="plugins-fontface">Simple @font-face</h3><div>
+
+
+
+<h3 id="plugins-sniffer">Browser and Platform sniffer</h3><div>
 <p class="abstract">
-	Generates @font-face declarations from a simplified syntax.
+	TODO
 </p>
-<p>
-	<a href="http://paulirish.com/2009/bulletproof-font-face-implementation-syntax/">Bulletproof @font-face syntax</a> is a syntax
-	for embedding web fonts in a manner that works for all browsers and takes care of numerous browser quirks. Its only downside is that
-	it's rather complicated:
-</p>
-<pre class="css">@font-face {
-	font-family: 'Graublau Web';
-	src: url('GraublauWeb.eot');
-	src: local('Graublau Web Regular'), local('Graublau Web'),
-		url("GraublauWeb.woff") format("woff"),
-		url("GraublauWeb.otf") format("opentype"),
-		url("GraublauWeb.svg#grablau") format("svg");
-}</pre>
-<p>
-	The @font-face syntax plugin generates <strong>browser-specific @font-face declarations</strong> from a very simplified syntax.
-</p>
-<h4>Usage</h4>
-<ol>
-	<li>Add <code>fontface</code> to <code>@turbine</code> plugin list</li>
-	<li>Put all different font-files into one directory and give them the same basename, e.g. "<code>SaginaMedium</code>":
-		<ul>
-			<li>SaginawMedium.eot</li>
-			<li>SaginawMedium.woff</li>
-			<li>SaginawMedium.otf</li>
-			<li>SaginawMedium.ttf</li>
-			<li>SaginawMedium.svg</li>
-		</ul>
-	</li>
-	<li>Build a special <code>@font-face</code>-rule with a single <code>src</code>-property pointing not to a real
-	file but to the common basename, e.g. "<code>src:url('fonts/SaginawMedium')</code>"</li>
-	<li>The plugin will look after any known fontfile format by appending the suffixes
-	<code>.eot, .woff, .otf, .ttf</code> and <code>.svg</code>.
-	<ul>
-		<li>For IE &lt;= 8 it will serve the .eot-file if there is one named <code>fonts/SaginawMedium.eot</code>.</li>
-		<li>For the other browser it will serve as many of the other flavors as available.<br />
-		A truetype-file will only be served when there is no opentype-file available.</li>
-	</ul>
-</ol>
-<h4>Example</h4>
-<pre class="cssp">@turbine
-	plugins:fontface
-
-@font-face
-	font-family:'SaginawMedium'
-	src:url('fonts/SaginawMedium')
-	font-weight:bold
-	font-style:italic</pre>
-<p>
-	Result for IE &lt;= 8:
-</p>
-<pre class="css">@font-face {
-	font-family: 'SaginawMedium';
-	src: url("fonts/SaginawMedium.eot");
-	font-weight: bold;
-	font-style: italic;
-}</pre>
-<p>
-	Result for all other browsers:
-</p>
-<pre class="css">@font-face {
-	font-family: 'SaginawMedium';
-	src: url("fonts/SaginawMedium.woff") format("woff"),
-	   url("fonts/SaginawMedium.ttf") format("truetype"),
-	   url("fonts/SaginawMedium.svg#SaginawMedium") format("svg");
-	font-weight: bold;
-	font-style: italic;
-}</pre>
-</div>
-
-
-
-<h3 id="plugins-browser">Browser detection</h3><div>
-<p class="abstract">
+<p class="warning">
 	TODO
 </p>
 <p>
@@ -1205,25 +1209,6 @@ p.foobar
 	color: #C00000;
 	background: #EEE;
 }</pre>
-</div>
-
-
-
-<h3 id="plugins-os">OS and device detection</h3><div>
-<p class="abstract">
-	TODO
-</p>
-<p>
-	TODO
-</p>
-<h4>Usage</h4>
-<p>
-	TODO
-</p>
-<h5>Use cases</h5>
-<ul>
-	<li>TODO</li>
-</ul>
 </div>
 
 
