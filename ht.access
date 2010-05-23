@@ -1,0 +1,4 @@
+RewriteEngine On
+#RewriteCond %{HTTP_HOST} .
+#RewriteCond %{HTTP_HOST} !^turbine\.peterkroener\.de [NC]
+#RewriteRule (.*) http://turbine.peterkroener.de/$1 [R=301,L]
