@@ -2004,7 +2004,8 @@ span.test
 <ul>
 	<li><a href="http://www.initiative-fuer-ausbildung.de/">Initiative für Ausbildung</a></li>
 	<li><a href="http://html5-buch.de/">HTML5 - Webseiten innovativ und zukunftssicher</a></li>
-	<li><a href="http://beware-energy.com/">BeWare Energy GmbH </a></li>
+	<li><a href="http://beware-energy.com/">BeWare Energy GmbH</a></li>
+	<li><a href="http://www.lhg-garten.de/">LHG Gartengestaltung</a></li>
 </ul>
 </div>
 
