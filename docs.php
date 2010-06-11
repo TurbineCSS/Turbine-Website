@@ -26,6 +26,7 @@
 				<li><a href="#plugins-fontface">@font-face</a></li>
 				<li><a href="#plugins-borderradius">Border radius</a></li>
 				<li><a href="#plugins-boxshadow">Box shadow</a></li>
+				<li><a href="#plugins-boxsizing">Box sizing</a></li>
 				<li><a href="#plugins-sniffer">Browser and platform sniffer</a></li>
 				<li><a href="#plugins-bugfix">Browser bugfixes</a></li>
 				<li><a href="#plugins-colormodels">Colormodels</a></li>
@@ -939,6 +940,42 @@ div.blackRound
 
 
 
+<h3 id="plugins-boxsizing">Box sizing</h3><div>
+<p class="abstract">
+	Automatically adds vendor-specific versions of <code>box-sizing</code>.
+</p>
+<p>
+	Webkit and Mozilla browsers require vendor-specific prefixes for the CSS3 property <code>box-sizing</code>. This plugin automatically
+	inserts them wherever a <code>box-sizing</code> property is found and also adds a proprietary behaviour for Internet Explorer.
+</p>
+<h4>Usage</h4>
+<p>
+	Add <code>boxshadow</code> to your <code>@turbine</code> plugins rule and start using <code>box-shadow</code> to declare which box model
+	to use. The following values are available:
+</p>
+<ul>
+	<li><code>content-box</code>: Standard W3C box model</li>
+	<li><code>border-box</code>: The width and height properties of an element include the padding and border, but not the margin</li>
+	<li><code>inherit</code>: Same as the parant element (default)</li>
+</ul>
+<h4>Example</h4>
+<pre class="cssp">@turbine
+    plugins:boxsizing
+
+#foo
+    box-sizing:border-box</pre>
+<p>
+	Result:
+</p>
+<pre class="css">#foo {
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	behaviour: url(plugins/boxsizing/boxsizing.htc);
+	box-sizing: border-box;
+}</pre>
+</div>
+
+
 
 
 <h3 id="plugins-sniffer">Browser and platform sniffer</h3><div>
@@ -950,7 +987,7 @@ div.blackRound
 	rules based on the viewer's browser, operating system or platform, precisely targeting browser, engine or os versions (windows only).
 </p>
 <p class="warning">
-	<strong>Warning</strong>: Browser sniffing is <em>always</em> a complicated, messy and unreliable buisness. Don't use this plugin unless you
+	<strong>Warning</strong>: Browser sniffing is <em>always</em> a complicated, messy and unreliable business. Don't use this plugin unless you
 	think you <em>really</em> know what you're doing!
 </p>
 <h4>Usage</h4>
