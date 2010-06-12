@@ -178,6 +178,37 @@ if(toc){
 }
 
 
+
+// Shell supersize
+var shell = $('shell');
+if(shell){
+	var supersized = false;
+	var headline = $$('h2')[0];
+	headline.set('text', headline.get('text') + ' | ');
+	var link = new Element('a', {
+		'text': 'Resize',
+		'href': '#'
+	}).inject(headline);
+	link.addEvent('click', function(e){
+		if(supersized){
+			shell.setStyles({
+				'position': 'static'
+			});
+			supersized = false;
+		}
+		else{
+			shell.setStyles({
+				'position': 'absolute',
+				'left': '1%',
+				'right': '1%'
+			});
+			supersized = true;
+		}
+		e.stop();
+	});
+}
+
+
 // Shell input elements
 var turbineinput = $('cssp');
 var cssinput = $('css');
