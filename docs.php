@@ -210,7 +210,7 @@
     span                   // Next line is indented = this is a selector
         color:blue</pre>
 <p>
-	This behaviour allows nested selectors, which can be quite powerful (see <a class="smoothscroll" href="#usage-nested">nested selectors</a>).
+	This behavior allows nested selectors, which can be quite powerful (see <a class="smoothscroll" href="#usage-nested">nested selectors</a>).
 	You can use any number or combination of spaces and tabs for indention, but be careful to keep your indention constistent in the whole
 	file.
 </p>
@@ -946,7 +946,7 @@ div.blackRound
 </p>
 <p>
 	Webkit and Mozilla browsers require vendor-specific prefixes for the CSS3 property <code>box-sizing</code>. This plugin automatically
-	inserts them wherever a <code>box-sizing</code> property is found and also adds a proprietary behaviour for Internet Explorer.
+	inserts them wherever a <code>box-sizing</code> property is found and also adds a proprietary behavior for Internet Explorer.
 </p>
 <h4>Usage</h4>
 <p>
@@ -970,7 +970,7 @@ div.blackRound
 <pre class="css">#foo {
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
-	behaviour: url(plugins/boxsizing/boxsizing.htc);
+	behavior: url(plugins/boxsizing/boxsizing.htc);
 	box-sizing: border-box;
 }</pre>
 </div>
