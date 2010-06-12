@@ -58,11 +58,11 @@ h2
 	font-family:"Trebuchet MS", Verdana, Arial, sans-serif
 	border-bottom:1px solid $border
 	color:$dark
-	font-size:2.25em
+	font-size:2.2em
 	margin:0
 	padding:1em 0 0.5em 0
 h3
-	font-size:1.75em
+	font-size:1.7em
 	margin:1.5em 0 -0.5em 0
 	padding:0.5em 0
 	span
@@ -187,7 +187,7 @@ h1 a
 	list-style:none
 #navi
 	float:right
-	padding:32px 0 0 0
+	padding:34px 0 0 0
 	li
 		float:left
 		border-left:1px solid $border
@@ -197,7 +197,7 @@ h1 a
 		border:none
 	a
 		font-family:"Trebuchet MS", Verdana, Arial, sans-serif
-		font-size:1.7em
+		font-size:1.6em
 		border:none
 
 

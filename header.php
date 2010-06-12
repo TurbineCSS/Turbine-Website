@@ -18,6 +18,7 @@
 		<nav>
 			<ul id="navi">
 				<li class="first"><a href="index.php"><span>Home</span></a></li>
+				<li><a href="http://github.com/SirPepe/Turbine/downloads"><span>Download</span></a></li>
 				<li><a href="docs.php"><span>Docs</span></a></li>
 				<li><a href="shell.php"><span>Shell</span></a></li>
 				<li><a href="converter.php"><span>Converter</span></a></li>
