@@ -527,7 +527,7 @@ $mainNavigation
 	they apply to the whole file.
 </p>
 <p>
-	<img src="scope.png">
+	<img src="img/scope.png">
 </p>
 <p>
 	Example:
@@ -1866,49 +1866,80 @@ span.test
 	only once and is served from the cache afterwards.
 </p>
 <h4>Useful classes and methods for plugin development</h4>
-<h5>The <code>$cssp</code> instance</h5>
-<p>
-	Turbine's main class, extends the parser and contains the follwing useful methods:
-</p>
-<table>
-	<thead>
-		<tr>
-			<th>Method</th>
-			<th>Return</th>
-			<th>Use</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<th><code>TODO</code></th>
-			<td><code>TODO</code></td>
-			<td>TODO</td>
-		</tr>
-	</tbody>
-</table>
-<p>
-	The following variables might be of interest too:
-</p>
-<table>
-	<thead>
-		<tr>
-			<th>Variable</th>
-			<th>Contains</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<th><code>TODO</code></th>
-			<td>TODO</td>
-		</tr>
-	</tbody>
-</table>
 
+<h5><code>$cssp->report_error(string $message)</code></h5>
+<p>
+	Reports a big ugly error message when in debug mode.
+</p>
+<pre>$cssp->report_error('Something went wrong!');</pre>
+<p>
+	<img src="img/error.png">
+</p>
+<h5><code>static CSSP::comment(array $element, string $property, string $comment)</code></h5>
+<p>
+	Adds a css comment to an element when not compressing. If <code>$property</code> is <code>null</code>, the comment is added to the selector, otherwise to
+	the property <code>$property</code>.
+</p>
+<pre>CSSP::comment($parsed['global']['#foo'], 'color', 'Changed by my plugin!');</pre>
+<p>
+	Result:
+</p>
+<pre>#foo {
+    color: red; /* Changed by my plugin! */
+}</pre>
+<h5><code>$cssp->get_final_value(array $values [, string $property [, bool $compressed]])</code></h5>
+<p>
+	From an array of css values this method returns the value with the highest rank, i.e. the last value or the last value with <code>!important</code>.
+</p>
+<pre>// Returns "green"
+$cssp->get_final_value(array(
+    'red',
+    'blue',
+    'green'
+));
+
+// Returns "blue !important"
+$cssp->get_final_value(array(
+    'red',
+    'blue !important',
+    'green'
+));</pre>
+<p>
+	The property parameter can be used to handle special cases like <code>-ms-filter</code> where values must be combined:
+</p>
+<pre>// Returns "foo bar"
+$cssp->get_final_value(array(
+    'foo',
+    'bar'
+), '-ms-filter');</pre>
+<p>
+	If <code>$compressed</code> is true, the method will return a minified output.
+</p>
+<h5><code>$cssp->insert(array $elements, string $block [, string $before[, string $after]])</code></h5>
+<p>
+	Inserts <code>$elements</code> in the block <code>$block</code> before the element with the selector <code>$before</code> or after the element with the
+	selector <code>$after</code>.
+</p>
+<pre>$example_element = array(
+	'#foo' = array(
+		'color' => array('red')
+	)
+);
+
+// Insert before "#bar" in the global block
+$cssp->insert($example_elements, 'global', 'bar');
+
+// Insert after "#bar" in the "@media print" block
+$cssp->insert($example_elements, '@media print', null, 'bar');</pre>
+<p>
+	This only works directly with <code>$cssp->parsed</code> and not with the reference passed to the plugin function!
+</p>
 
 
 <h5>The <code>$browser</code> instance</h5>
 <p>
-	Turbine's browser sniffer. By the time any plugin executes, it will already have parsed the visitor's user agent string. The following variables might be useful:
+	Turbine's browser sniffer is developed as <a href="http://github.com/SirPepe/Turbine-Browser">a subproject</a>. By the time any plugin in Turbine gets
+	executed, the browser sniffer will already have parsed the visitor's user agent string. The following variables might be useful:
 </p>
 <table>
 	<thead>
