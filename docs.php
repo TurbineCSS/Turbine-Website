@@ -583,7 +583,7 @@ $mainNavigation
     color:#F00
 
 #bar
-    color:copy(#bar color)</pre>
+    color:copy(#foo color)</pre>
 <p>
 	Result:
 </p>
@@ -601,7 +601,7 @@ $mainNavigation
     background:#F00
 
 #bar
-    color:copy(#bar background)</pre>
+    color:copy(#foo background)</pre>
 <p>
 	Result:
 </p>
