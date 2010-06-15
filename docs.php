@@ -59,6 +59,7 @@
 				<li><a href="#faq-tradeoffs">What are the tradeoffs?</a></li>
 				<li><a href="#faq-performance">What about performance?</a></li>
 				<li><a href="#faq-tradeoffs">Ready for real projects?</a></li>
+				<li><a href="#faq-cssp">What's CSSP?</a></li>
 				<li><a href="#faq-advice">Any general advice?</a></li>
 			</ul>
 		</li>
@@ -2083,6 +2084,13 @@ $cssp->insert($example_elements, '@media print', null, 'bar');</pre>
 	<li><a href="http://beware-energy.com/">BeWare Energy GmbH</a></li>
 	<li><a href="http://www.lhg-garten.de/">LHG Gartengestaltung</a></li>
 </ul>
+</div>
+
+
+<h3 id="faq-cssp">What does "CSSP" stand for?</h3><div>
+<p>
+	CSSP stands for "CSS Plus", Turbine's rather unimaginative working title.
+</p>
 </div>
 
 
