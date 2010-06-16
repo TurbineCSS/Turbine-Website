@@ -2081,7 +2081,7 @@ $cssp->insert($example_elements, '@media print', null, 'bar');</pre>
 <p>
 	<a href="http://turbine.peterkroener.de/converter.php">The CSS to Turbine Converter</a> transforms normal CSS code into ready-to-use Turbine code.
 	<strong>Note that the converter is a rather simple script and only changes the syntax of the input code!</strong> It doesn't use any of the more
-	sophisticated Turbine features. It can help you to migrate a project to Turbine but should not be used for more as a starting point.
+	sophisticated Turbine features. It can help you migrate a project to Turbine but should not be used for more as a starting point.
 </p>
 <h4>Usage</h4>
 <p>
