@@ -71,7 +71,7 @@
 <h2 id="intro">Introduction</h2><div>
 <p>
 	Turbine is a PHP-powered tool that introduces a new way for writing CSS. It's syntax and features are designed to
-	decrease css devolopment time and web developer headache. Turbine takes something like this&nbsp;&hellip;
+	decrease css development time and web developer headache. Turbine takes this&nbsp;&hellip;
 </p>
 <pre class="cssp">
 // Welcome to Turbine!
@@ -83,7 +83,7 @@
     div.alpha, div.beta
         font-weight:bold
         border-radius:4px</pre>
-&hellip; and turns it into this&nbsp;&hellip;
+&hellip; and turns it into&nbsp;&hellip;
 <pre class="css">@media screen {
     #foo, #bar {
         color: #FF0000;
@@ -100,7 +100,7 @@
 </p>
 <pre class="css">@media screen{#foo,#bar{color:#F00;margin-left:4px;margin-right:4px}#foo div.alpha,#foo div.beta,#bar div.alpha,#bar div.beta{font-weight:bold;-moz-border-radius:4px;-webkit-border-radius:4px;-khtml-border-radius:4px;border-radius:4px}}</pre>
 <p>
-	Turbine can save you a lot of typing and time <em>and</em> allow you to concentrate on a website's design and functionality instead of
+	Turbine can save you a lot of typing and time <em>and</em> allow you to focus on a website's design and functionality instead of
 	css's limitations, page performance or your least favourite browser's latest bugs. Think jQuery for CSS. Being fully extensible, you
 	can customize Turbine to your liking.
 </p>
@@ -109,7 +109,7 @@
 	Turbine's basic features include:
 </p>
 <ul>
-	<li>Minmal syntax&nbsp;&ndash; the less you have have to type, the more you get done</li>
+	<li>Minmal syntax&nbsp;&ndash; the less you have to type, the more you get done</li>
 	<li>Packing, gzipping and automatic minification of multiple css files</li>
 	<li>Constants (also known as "css variables") and selector aliases</li>
 	<li>Oop-like inheritance, extension and templating features</li>
@@ -154,7 +154,7 @@
 		</tr>
 		<tr>
 			<td><code>css_base_dir</code></td>
-			<td>Sets the base directory for the style files</td>
+			<td>Sets the base directory for the css and cssp files</td>
 			<td></td>
 		</tr>
 		<tr>
@@ -170,7 +170,7 @@
 <p>
 	Turbine files are simple text files with the extension <abbr title="CSS Preprocessor"><code>.cssp</code></abbr>.
 	To use Turbine, embed <code>css.php</code> in your HTML like a normal css file and add the <code>files</code> argument containing
-	a list of Turbine files sepperated by semicolons.
+	a list of Turbine files separated by semicolons.
 </p>
 <pre>&lt;link
 	rel="stylesheet"
@@ -178,11 +178,11 @@
 /&gt;</pre>
 <p>
 	The base path for the files can be changed in the file <code>config.php</code> (<code>css_base_dir</code>).
-	You can also include regular css files, which will be added to the output unchanged (or minified, if the <code>minify_css</code>
+	You can also include regular css files, which will be output unchanged (or minified, if the <code>minify_css</code>
 	configuration option is set to <code>true</code>).
 </p>
 <p>
-	The files as processed in sequence and do <strong>not</strong> influence each other in any way. For example,
+	The files as processed in sequence and <strong>don't</strong> influence each other in any way. For example,
 	<a href="#usage-constantsaliases">constants</a> defined in <code>file1</code> won't apply to code in <code>file2</code>. If
 	you want share code between files, use the <a href="#plugins-load">loader plugin</a>.
 </p>
@@ -224,7 +224,7 @@
         color:blue; font-style:italic</pre>
 <h4>Comments</h4>
 <p>
-	There a two kinds of comments available: singe line comments that start with <code>//</code>&nbsp;&hellip;
+	There a two kinds of comments available: single line comments that start with <code>//</code>&nbsp;&hellip;
 </p>
 <pre class="cssp">// Hello world</pre>
 <p>
@@ -254,7 +254,7 @@ This is a block comment
 #bar
     font.weight:bold</pre>
 <p>
-	<code>@media</code> block of the same type are merged, so the resulting css looks like the following:
+	<code>@media</code> block of the same type will be merged, so the resulting css looks like the following:
 </p>
 <pre class="css">@media screen {
     #foo {
@@ -281,7 +281,7 @@ This is a block comment
 </p>
 <h4 id="usage-syntax-prefixes">Prefixes</h4>
 <p>
-	There a a few reserved profixes for properties, values and selectors:
+	There a a few reserved prefixes for properties, values and selectors:
 </p>
 <table>
 	<thead>
@@ -361,7 +361,7 @@ This is a block comment
 <h4>Expanding properties</h4>
 <p>
 	if you want to use multiple properties with the same value inside a selector, you can take advantage of expanding properties. This
-	allows you to use properties as a comma-sepperated list&nbsp;&hellip;
+	allows you to use properties as a comma-separated list&nbsp;&hellip;
 </p>
 <pre class="cssp">#foo
     position:absolute

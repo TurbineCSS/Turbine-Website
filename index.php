@@ -4,9 +4,9 @@
 <div id="index">
 
 
-<h2>Turbine decreases css devolopment time and web developer headache</h2>
+<h2>Turbine decreases css development time and web developer headache</h2>
 <p>
-	Turbine is a collection of PHP-powered tools that are designed to decrease css devolopment time and web developer headache. This includes:
+	Turbine is a collection of PHP-powered tools that are designed to decrease css development time and web developer headache. This includes:
 </p>
 <ul>
 	<li>A new, minmal syntax – the less you have have to type, the more you get done</li>
