@@ -45,6 +45,7 @@
 			<ul>
 				<li><a href="#dev-contribute">Contribute</a></li>
 				<li><a href="#dev-plugins">Plugin development</a></li>
+				<li><a href="#dev-styleguide">Style guide</a></li>
 			</ul>
 		</li>
 		<li>&darr; <a href="#tools">Tools</a>
@@ -2098,8 +2099,58 @@ $cssp->insert($example_elements, '@media print', null, 'bar');</pre>
 <p>
 	When the browser sniffer failes to detect one of the above properties, the lowercase string "unknown" is used.
 </p>
+</div>
 
 
+
+<h3 id="dev-styleguide">Style guide</h3><div>
+<h4>Requirements</h4>
+<ol>
+	<li><strong>Comment your Code!</strong> Seriously. Do it!</li>
+	<li><a href="http://manual.phpdoc.org/">PHPDoc</a> is required for all functions and class methods/variables. Describe what your code does, provide
+	a usage example, tells us if it is stable or alpha/beta, which version it is, which parameters it takes and what it returns.</li>
+	<li><strong>Indention</strong> ist tabs only. See code example for brace positioning.</li>
+	<li>No omitting of <strong>braces around blocks</strong>. The ternary operator is allowed for simple cases only.</li>
+	<li>Most important: <strong>Use Common Sense!</strong> Don't write spaghetti code. Don't let lines run too long. Break up complex stuff into subroutines </li>
+</ol>
+
+
+<h4>Example code</h4>
+<pre>&lt?php
+
+/**
+ * example
+ * A great example. Does something cool.
+ * @param array $param1 The first param
+ * @param int $param2 The second param
+ * @return bool
+*/
+function example($param1, $param2){
+    global $g1, $g2;
+    $length = count($param1);
+    for(i = 0; i < $length; $i++){
+        // A helpful comment explaining why the sub function is called
+        example_subfunction($param1[$i]);
+    }
+    return false;
+}
+
+/**
+ * example_subfunction
+ * A secondary example. Related to example somehow
+ * @param string $param Some explanation
+ * @return void
+*/
+function example_subfunction($param){
+    if($param == 1){
+        foo();
+    }
+    else{
+        bar();
+    }
+}
+
+?&gt;</pre>
 </div>
 
 
