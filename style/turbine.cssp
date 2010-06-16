@@ -58,7 +58,7 @@ h2
 	font-family:"Trebuchet MS", Verdana, Arial, sans-serif
 	border-bottom:1px solid $border
 	color:$dark
-	font-size:2.2em
+	font-size:2.1em
 	margin:0
 	padding:1em 0 0.5em 0
 h3
@@ -191,13 +191,13 @@ h1 a
 	li
 		float:left
 		border-left:1px solid $border
-		padding:0 0 0 20px
-		margin:0 20px 0 0
+		padding:0 0 0 16px
+		margin:0 16px 0 0
 	li.first
 		border:none
 	a
 		font-family:"Trebuchet MS", Verdana, Arial, sans-serif
-		font-size:1.6em
+		font-size:1.4em
 		border:none
 
 

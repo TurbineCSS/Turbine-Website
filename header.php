@@ -20,6 +20,7 @@
 				<li class="first"><a href="index.php"><span>Home</span></a></li>
 				<li><a href="http://github.com/SirPepe/Turbine/downloads"><span>Download</span></a></li>
 				<li><a href="docs.php"><span>Docs</span></a></li>
+				<li><a href="http://turbine.qhub.com/"><span>Support</span></a></li>
 				<li><a href="shell.php"><span>Shell</span></a></li>
 				<li><a href="converter.php"><span>Converter</span></a></li>
 				<li><a href="http://github.com/SirPepe/Turbine"><span>Development</span></a></li>
