@@ -1542,11 +1542,82 @@ table {
 
 <h3 id="plugins-transforms">Transforms</h3><div>
 <p class="abstract">
-	TODO
+	Automatically adds vendor-specific versions of <code>transform</code>.
 </p>
 <p>
-	TODO
+	Webkit, Opera and Mozilla browsers require vendor-specific prefixes for the CSS3 property <code>transform</code>. This plugin automatically
+	inserts them wherever a <code>transform</code> property is found and also adds a proprietary filter in conjunction with a behavior for Internet Explorer.
 </p>
+<p>
+	For it to work in Internet Explorer the transformed object needs to have <code>width</code> and <code>height</code> set. Also, if you queue up transforms, 
+	limit yourself to a maximum of one of each sort (translate, rotate, scale), e.g. <code>transform: rotate(25deg) translate(100px,0) scale(0.5)</code>.
+</p>
+<h4>Usage</h4>
+<p>
+	Add <code>transform</code> to your <code>@turbine</code> plugins rule and start using <code>transform</code> to declare a single one, or a sequence of
+	transforms. The following values are available:
+</p>
+<ul>
+	<li><code>rotate(angle)</code>: Rotates the element clockwise around its center by the specified angle, e.g. <code>rotate(30deg)</code>. Accepted values: positive and negative integers and floats. Accepted units: <code>deg</code>, <code>rad</code> or <code>grad</code>.</li>
+	<li><code>scale(sx[, sy])</code>: Specifies a 2D scaling operation on X and Y axes as described by <code>[sx, sy]</code>, e.g. <code>scale(2.1,4)</code>. If <code>sy</code> isn't specified, it is assumed to be equal to <code>sx</code>, e.g. <code>scale(2.1)</code>. Accepted values: positive integers and floats. Accepted units: no unit needed.</li>
+	<li><code>scaleX(sx)</code>: Specifies a 2D scaling solely on the X axis, e.g. <code>scaleX(2.7)</code>. Accepted values: positive integers and floats. Accepted units: no unit needed.</li>
+	<li><code>scaleY(sy)</code>: Specifies a 2D scaling solely on the Y axis, e.g. <code>scaleY(0.3)</code>. Accepted values: positive integers and floats. Accepted units: no unit needed.</li>
+	<li><code>translate(tx[, ty])</code>: Specifies a 2D translation as described by <code>[tx, ty]</code>, e.g. <code>translate(100px,20px)</code>. Accepted values: positive and negative integers and floats. Accepted units: <code>px</code>, <code>em</code>, <code>%</code>, <code>pt</code> or <code>ex</code>.</li>
+	<li><code>translateX(tx)</code>: Translates the element by the given amount along the X axis, e.g. <code>translate(100px)</code>. Accepted values: positive and negative integers and floats. Accepted units: <code>px</code>, <code>em</code>, <code>%</code>, <code>pt</code> or <code>ex</code>.</li>
+	<li><code>translateY(ty)</code>: Translates the element by the given amount along the Y axis, e.g. <code>translate(20px)</code>. Accepted values: positive and negative integers and floats. Accepted units: <code>px</code>, <code>em</code>, <code>%</code>, <code>pt</code> or <code>ex</code>.</li>
+	<li><code>skew(ax[, ay])</code>: Skews the element around the X and Y axes by the specified angles, e.g. <code>skew(30deg,-10deg)</code>. If <code>ay</code> isn't provided, no skew is performed on the Y axis., e.g. <code>skew(30deg)</code>. Accepted values: positive and negative integers and floats. Accepted units: <code>deg</code>, <code>rad</code> or <code>grad</code>.</li>
+	<li><code>skewX(angle)</code>: Skews the element around the X axis by the given angle., e.g. <code>skewX(30deg)</code>. Accepted values: positive and negative integers and floats. Accepted units: <code>deg</code>, <code>rad</code> or <code>grad</code>.</li>
+	<li><code>skewY(angle)</code>: Skews the element around the Y axis by the given angle., e.g. <code>skewY(-10deg)</code>. Accepted values: positive and negative integers and floats. Accepted units: <code>deg</code>, <code>rad</code> or <code>grad</code>.</li>
+	<li><code>matrix(a, c, b, d, tx, ty)</code>: Specifies a 2D transformation matrix comprised of the specified six values</li>
+	<li>Multiple transforms may be queued together, separated by a whitespace, e.g. <code>transform: rotate(25deg) translate(100px,0) scale(0.5)</code>. Note that the parts will get processed one by one from left to right. So in the mentioned example the translation won't happen along the X axis but on a virtual axis that is rotated 25 degrees clockwise.</li>
+</ul>
+<h4>Example</h4>
+<pre class="cssp">@turbine
+    plugins:transform
+
+#foo
+    width: 200px;
+    height: 100px;
+    transform: rotate(25deg) translate(100px,0) scale(0.5)</pre>
+<p>
+	Result for non-IE-browsers:
+</p>
+<pre class="css">#foo {
+	width: 200px;
+	height: 100px;
+	-moz-transform: rotate(25deg) translate(100px,0) scale(0.5);
+	-o-transform: rotate(25deg) translate(100px,0) scale(0.5);
+	-webkit-transform: rotate(25deg) translate(100px,0) scale(0.5);
+	transform: rotate(25deg) translate(100px,0) scale(0.5);
+}</pre>
+<p>
+	Result for IE8-browsers:
+</p>
+<pre class="css">#foo {
+	width: 200px;
+	height: 100px;
+	position: relative;
+	transform: rotate(25deg) translate(100px,0) scale(0.5);
+	left: 91px;
+	top: 38px;
+	behavior: url(/Turbine/plugins/transform/transform.htc);
+	-ms-filter: "progid:DXImageTransform.Microsoft.Matrix(Dx=1.0,Dy=1.0,M11=0.453153895,M12=-0.21130913,M21=0.21130913,M22=0.453153895,sizingMethod='auto expand')";
+	zoom: 1;
+}</pre>
+<p>
+	Result for IE6/7-browsers:
+</p>
+<pre class="css">#foo {
+	width: 200px;
+	height: 100px;
+	position: relative;
+	transform: rotate(25deg) translate(100px,0) scale(0.5);
+	left: 91px;
+	top: 38px;
+	behavior: url(/Turbine/plugins/transform/transform.htc);
+	filter: progid:DXImageTransform.Microsoft.Matrix(Dx=1.0,Dy=1.0,M11=0.453153895,M12=-0.21130913,M21=0.21130913,M22=0.453153895,sizingMethod='auto expand');
+	zoom: 1;
+}</pre>
 </div>
 
 
@@ -2010,7 +2081,7 @@ $cssp->insert($example_elements, '@media print', null, 'bar');</pre>
 <p>
 	<a href="http://turbine.peterkroener.de/converter.php">The CSS to Turbine Converter</a> transforms normal CSS code into ready-to-use Turbine code.
 	<strong>Note that the converter is a rather simple script and only changes the syntax of the input code!</strong> It doesn't use any of the more
-	sophisticated Turbine features. It can help you to migrate a project to Turbine but should not be used for more as a starting point.
+	sophisticated Turbine features. It can help you migrate a project to Turbine but should not be used for more as a starting point.
 </p>
 <h4>Usage</h4>
 <p>
@@ -2097,12 +2168,12 @@ $cssp->insert($example_elements, '@media print', null, 'bar');</pre>
 <h3 id="faq-advice">Any general advice?</h3><div>
 <ol>
 	<li>
-		This more a disclaimer then a real problem but: Turbine is beta software. Expect stuff to break everywhere, all the time. If you
+		This is more a disclaimer then a real problem but: Turbine is beta software. Expect stuff to break everywhere, all the time. If you
 		encounter bugs, <a href="http://github.com/SirPepe/Turbine/issues">report them</a>!
 	</li>
 	<li>
-		Try not to mess up your indention! Turbine is not <em>that</em> goot at catching incorrectly indented lines and they
-		<em>will</em> destroy your css in places you'll never expect. So just pay attention to your whitespace.
+		Try not to mess up your indention! Turbine is not <em>that</em> good at catching incorrectly indented lines and they
+		<em>will</em> destroy your css in places you'll never expect. So just pay attention to your whitespaces.
 	</li>
 </ol>
 </div>
