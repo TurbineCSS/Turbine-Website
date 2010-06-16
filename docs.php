@@ -2168,12 +2168,12 @@ $cssp->insert($example_elements, '@media print', null, 'bar');</pre>
 <h3 id="faq-advice">Any general advice?</h3><div>
 <ol>
 	<li>
-		This more a disclaimer then a real problem but: Turbine is beta software. Expect stuff to break everywhere, all the time. If you
+		This is more a disclaimer then a real problem but: Turbine is beta software. Expect stuff to break everywhere, all the time. If you
 		encounter bugs, <a href="http://github.com/SirPepe/Turbine/issues">report them</a>!
 	</li>
 	<li>
-		Try not to mess up your indention! Turbine is not <em>that</em> goot at catching incorrectly indented lines and they
-		<em>will</em> destroy your css in places you'll never expect. So just pay attention to your whitespace.
+		Try not to mess up your indention! Turbine is not <em>that</em> good at catching incorrectly indented lines and they
+		<em>will</em> destroy your css in places you'll never expect. So just pay attention to your whitespaces.
 	</li>
 </ol>
 </div>
