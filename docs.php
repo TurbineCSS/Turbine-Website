@@ -189,6 +189,19 @@
 </p>
 
 
+<h4>Setting up your editor</h4>
+<p>
+	There's basic Turbine syntax highlighting support for GtkSourceView (used by Gedit and Anjuta).
+</p>
+
+<h5>GtkSourceView</h5>
+<p>
+	Simply copy the file <code>turbine.lang</code> from <code>resources/editors/gtksourceview-2.0/language-specs</code> to either
+	<code>~/.local/share/editors/gtksourceview-2.0/language-specs</code> or
+	<code>/usr/local/share/editors/gtksourceview-2.0/language-specs</code>. Done!
+</p>
+
+
 <h3 id="usage-syntax">Basic syntax</h3><div>
 <p>
 	The one important thing about Turbine's syntax is that it is all about <strong>lines</strong>. The context of any statements
