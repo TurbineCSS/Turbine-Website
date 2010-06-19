@@ -5,7 +5,7 @@ Turbine
 
 **→ [Online documentation][2]**
 
-Turbine is a collection of PHP-powered tools that are designed to decrease css devolopment time and web developer headache. This includes:
+Turbine is a collection of PHP-powered tools that are designed to decrease css development time and web developer headache. This includes:
 
  - A new, minmal syntax – the less you have have to type, the more you get done
  - Packing, gzipping and automatic minification of multiple style files
@@ -19,7 +19,7 @@ Turbine is a collection of PHP-powered tools that are designed to decrease css d
 Example
 -------
 
-Turbine takes something like this...
+Turbine takes this...
 
 
     #foo
@@ -50,7 +50,7 @@ We need your help!
 
 Turbine is still in active development. Help us to make it better!
 
- - Download Turbine, test it and [report any bugs you might find][5]
+ - Download Turbine, test it and [report any bugs you find][5]
  - [Fork it][6] and tackle some bugs
  - Help improving the [browser sniffer][7]
 

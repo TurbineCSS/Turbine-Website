@@ -1,32 +1,17 @@
 <?php
 
-
 /**
- * Turbine
- * http://turbine.peterkroener.de/
+ * This file is part of Turbine
+ * http://github.com/SirPepe/Turbine
  * 
- * Copyright (C) 2009 Peter Kröner, Christian Schaefer
- * 
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Library General Public
- * License as published by the Free Software Foundation; either
- * version 3 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Library General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * Copyright Peter Kröner
+ * Licensed under GNU LGPL 3, see license.txt or http://www.gnu.org/licenses/
  */
 
 
 /**
  * Parser2
  * Turbine syntax parser
- * @todo document the comment() method
- * @todo fix the following plugins: Browser, OS, Transform
  */
 class Parser2 extends Base{
 
@@ -50,9 +35,21 @@ class Parser2 extends Base{
 
 
 	/**
-	 * @var array $combined_properties The list properties where multiple valiues are to be combined on output
+	 * @var array $tokenized_properties The list properties where multiple values are to be combined on output using a space character
 	 */
-	public $combined_properties = array('plugins', 'behavior', 'filter', '-ms-filter');
+	public $tokenized_properties = array('filter', '-ms-filter');
+
+
+	/**
+	 * @var array $listed_properties The list properties where multiple values are to be combined on output using a comma
+	 */
+	public $listed_properties = array('plugins', 'behavior');
+
+
+	/**
+	 * @var array $quoted_properties The list properties where the value needs to be quoted as a whole before output
+	 */
+	public $quoted_properties = array('-ms-filter');
 
 
 	/**
@@ -642,12 +639,48 @@ class Parser2 extends Base{
 
 
 	/**
+	 * check_sanity
+	 * Check sanity before output. Complain if somthing stupid comes along, but don't stop it - that's the web developer's job
+	 * @return void
+	 */
+	private function check_sanity(){
+		// Loop through the blocks
+		foreach($this->parsed as $block => $content){
+			// Loop through elements
+			foreach($content as $selector => $rules){
+				$this->check_sanity_filters($selector, $rules);
+			}
+		}
+	}
+
+
+
+	/**
+	 * check_sanity_filters
+	 * Check if something could potentially prevent IE's filters from working
+	 * @param string $selector The selector that is being checked
+	 * @param array $rules The rules to check
+	 * @return void
+	 */
+	private function check_sanity_filters($selector, $rules){
+		if(isset($rules['overflow']) && (isset($rules['filter']) || isset($rules['-ms-filter']))){
+			if($this->get_final_value($rules['overflow'], 'overflow') == 'visible'){
+				$this->report_error('Potential problem: Filters and overflow:visible are present at selector '
+					. $selector . '. Filter may enforce unwanted overflow:hidden in Internet Explorer.');
+			}
+		}
+	}
+
+
+
+	/**
 	 * glue
 	 * Turn the current parsed array back into CSS code
 	 * @param bool $compressed Compress CSS? (removes whitespace)
 	 * @return string $output The final CSS code
 	 */
 	public function glue($compressed = false){
+		$this->check_sanity();
 		$output = '';
 		// Whitspace characters
 		$s = ' ';
@@ -844,7 +877,7 @@ class Parser2 extends Base{
 	/**
 	 * get_final_value
 	 * Returns the last and/or most !important value from a list of values
-	 * @param string $values A list of values
+	 * @param array $values A list of values
 	 * @param string $property The property the values belong to
 	 * @param bool $compressed Compress CSS? (removes whitespace)
 	 * @return string $final The final value
@@ -866,8 +899,15 @@ class Parser2 extends Base{
 			$final = '';
 			$num_values = count($values);
 			for($i = 0; $i < $num_values; $i++){
-				// Combined properties
-				if(in_array($property, $this->combined_properties)){
+				// Tokenized properties
+				if(in_array($property, $this->tokenized_properties)){
+					if($final != ''){
+						$final .= ' ';
+					}
+					$final .= $values[$i];
+				}
+				// Listed properties
+				elseif(in_array($property, $this->listed_properties)){
 					if($final != ''){
 						$final .= ','.$s;
 					}
@@ -880,6 +920,10 @@ class Parser2 extends Base{
 					}
 				}
 			}
+		}
+		// Add quotes to quoted properties
+		if(in_array($property, $this->quoted_properties)){
+			$final = '"' . $final . '"';
 		}
 		return $final;
 	}
