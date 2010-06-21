@@ -2125,6 +2125,8 @@ $cssp->insert($example_elements, '@media print', null, 'bar');</pre>
 	<li><strong>Indention</strong> ist tabs only. See code example for brace positioning.</li>
 	<li>No omitting of <strong>braces around blocks</strong>. The ternary operator is allowed for simple cases only.</li>
 	<li>Most important: <strong>Use Common Sense!</strong> Don't write spaghetti code. Don't let lines run too long. Break up complex stuff into subroutines </li>
+	<li><strong>Class names:</strong> CamelCase, initial majuscule</li>
+	<li><strong>Method, function and variable names:</strong> Lowercase, initial minuscule</li>
 </ol>
 
 
