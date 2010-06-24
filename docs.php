@@ -189,12 +189,32 @@
 </p>
 
 
+
 <h4>Setting up your editor</h4>
 <p>
-	There's basic Turbine syntax highlighting support for GtkSourceView (used by Gedit and Anjuta).
+	There's basic Turbine support for Dreamweaver and GtkSourceView.
 </p>
-
+<h5>Dreamweaver</h5>
+<p>
+	You can find an extension for <strong>Dreamweaver</strong> in <code>resources/editors/dreamweaver</code>. This extension adds
+	.cssp-files to Dreamweaver's list of supported filetypes, puts in place some code highlighting, but more importantly adds code
+	autocompletion (code hinting) for Turbine-files to Dreamweaver.
+</p>
+<p>
+	<img src="img/dreamweaver.png" alt="Dreamweaver code view" width="650" height="559">
+</p>
+<p>	
+	To install that extension, just doubleclick <code>turbine.mxp</code>, or open the Extension Manager and select
+	&quot;File&quot;&nbsp;&rarr;&nbsp;&quot;Install&nbsp;Extension...&quot;, browse for <code>turbine.mxp</code> and
+	select it. Done!
+</p>
 <h5>GtkSourceView</h5>
+<p>
+	The language file for GtkSourceView adds syntax highlighting to editors like Gedit and Anjuta.
+</p>
+<p>
+	<img src="img/gtksourceview.png" alt="GtkSourceView highlighting in action" width="650" height="550">
+</p>
 <p>
 	Simply copy the file <code>turbine.lang</code> from <code>resources/editors/gtksourceview-2.0/language-specs</code> to either
 	<code>~/.local/share/editors/gtksourceview-2.0/language-specs</code> or
