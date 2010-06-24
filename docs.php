@@ -188,6 +188,16 @@
 </p>
 
 
+<h4>Setting up your Web Editor</h4>
+<p>
+	Currently we can offer you an extension for Dreamweaver, which you can find inside <code>resources/editors/dreamweaver</code>.
+	This extension adds .cssp-files to Dreamweaver's list of supported filetypes, puts in place some code highlighting, but more
+	importantly adds code autocompletion (code hinting) for Turbine-files to Dreamweaver.
+	To install that extension, just doubleclick <code>turbine.mxp</code>, or open the Extension Manager and select &quot;File&quot; -&gt; &quot;Install Extension...&quot;,
+	browse for <code>turbine.mxp</code> and select it.
+</p>
+
+
 <h3 id="usage-syntax">Basic syntax</h3><div>
 <p>
 	The one important thing about Turbine's syntax is that it is all about <strong>lines</strong>. The context of any statements
