@@ -190,9 +190,14 @@
 
 <h4>Setting up your Web Editor</h4>
 <p>
-	Currently we can offer you an extension for Dreamweaver, which you can find inside <code>resources/editors/dreamweaver</code>.
+	Currently we can offer you an extension for <strong>Dreamweaver</strong>, which you can find inside <code>resources/editors/dreamweaver</code>.
 	This extension adds .cssp-files to Dreamweaver's list of supported filetypes, puts in place some code highlighting, but more
 	importantly adds code autocompletion (code hinting) for Turbine-files to Dreamweaver.
+</p>
+<p>
+	<img src="img/dreamweaver.png" alt="Dreamweaver code view" width="650" height="559" />
+</p>
+<p>	
 	To install that extension, just doubleclick <code>turbine.mxp</code>, or open the Extension Manager and select &quot;File&quot; -&gt; &quot;Install Extension...&quot;,
 	browse for <code>turbine.mxp</code> and select it.
 </p>
