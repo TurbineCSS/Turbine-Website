@@ -14,6 +14,7 @@
 		<li>&darr; <a href="#usage">Usage</a>
 			<ul>
 				<li><a href="#usage-setup">Installation and setup</a></li>
+				<li><a href="#usage-editor">Editor setup</a></li>
 				<li><a href="#usage-syntax">Basic syntax</a></li>
 				<li><a href="#usage-configuration">Configuration</a></li>
 				<li><a href="#usage-advanced">Advanced syntax</a></li>
@@ -190,35 +191,38 @@
 
 
 
-<h4>Setting up your editor</h4>
+<h3 id="usage-editor">Setting up your editor</h3>
 <p>
-	There's basic Turbine support for Dreamweaver and GtkSourceView.
+	There's basic Turbine support for Dreamweaver, UltraEdit and GtkSourceView.
 </p>
-<h5>Dreamweaver</h5>
+<h4>Dreamweaver</h4>
 <p>
 	You can find an extension for <strong>Dreamweaver</strong> in <code>resources/editors/dreamweaver</code>. This extension adds
-	.cssp-files to Dreamweaver's list of supported filetypes, puts in place some code highlighting, but more importantly adds code
-	autocompletion (code hinting) for Turbine-files to Dreamweaver.
+	.cssp-files to Dreamweaver's list of supported filetypes, puts in place some code highlighting and autocompletion (code hinting)
+	for Turbine files. To install the extension, just double click <code>turbine.mxp</code>, or open the Extension Manager and select
+	File&nbsp;&rarr;&nbsp;Install&nbsp;Extension&hellip;, browse for <code>turbine.mxp</code> and select it.
 </p>
 <p>
 	<img src="img/dreamweaver.png" alt="Dreamweaver code view" width="650" height="559">
 </p>
-<p>	
-	To install that extension, just doubleclick <code>turbine.mxp</code>, or open the Extension Manager and select
-	&quot;File&quot;&nbsp;&rarr;&nbsp;&quot;Install&nbsp;Extension...&quot;, browse for <code>turbine.mxp</code> and
-	select it. Done!
-</p>
-<h5>GtkSourceView</h5>
+<h4>UltraEdit</h4>
 <p>
-	The language file for GtkSourceView adds syntax highlighting to editors like Gedit and Anjuta.
+	Follow <a href="http://www.ultraedit.com/support/tutorials_power_tips/ultraedit/add_a_wordfile.html">this guide</a> on how to add
+	the Turbine wordfile <code>resources/editors/ultraedit/turbine.uew</code> to <strong>UltraEdit</strong>. Use the tags listed in
+	<code>resources/editors/ultraedit/turbine.txt</code> to complete your tag list.
 </p>
 <p>
-	<img src="img/gtksourceview.png" alt="GtkSourceView highlighting in action" width="650" height="550">
+	<img src="img/ultraedit.png" alt="UntraEdit source view" width="550" height="456">
 </p>
+<h4>GtkSourceView</h4>
 <p>
-	Simply copy the file <code>turbine.lang</code> from <code>resources/editors/gtksourceview-2.0/language-specs</code> to either
+	The language file for <strong>GtkSourceView</strong> adds syntax highlighting to editors like Gedit and Anjuta. Simply copy the
+	file <code>turbine.lang</code> from <code>resources/editors/gtksourceview-2.0/language-specs</code> to either
 	<code>~/.local/share/editors/gtksourceview-2.0/language-specs</code> or
-	<code>/usr/local/share/editors/gtksourceview-2.0/language-specs</code>. Done!
+	<code>/usr/local/share/editors/gtksourceview-2.0/language-specs</code>.
+</p>
+<p>
+	<img src="img/gtksourceview.png" alt="GtkSourceView highlighting in action" width="498" height="500">
 </p>
 
 
