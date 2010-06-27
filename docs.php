@@ -34,6 +34,7 @@
 				<li><a href="#plugins-datauri">Data-URIs</a></li>
 				<li><a href="#plugins-html5">HTML5</a></li>
 				<li><a href="#plugins-iee">IE enhancements</a></li>
+				<li><a href="#plugins-inlineblock">Inline Block</a></li>
 				<li><a href="#plugins-minifier">Minifier</a></li>
 				<li><a href="#plugins-load">Load</a></li>
 				<li><a href="#plugins-quote">Quote style</a></li>
@@ -1319,7 +1320,7 @@ p.foobar
     plugins:datauri
 
 #foo
-    background:#FFF url(test.png) top left;</pre>
+    background:#FFF url(test.png) top left</pre>
 <p>
 	Result:
 </p>
@@ -1363,6 +1364,43 @@ p.foobar
 	Just add <code>ieenhancements</code> to your <code>@turbine</code> plugins rule. Done!
 </p>
 </div>
+
+
+
+
+<h3 id="plugins-inlineblock">Legacy inline block support</h3><div>
+<p class="abstract">
+	Enables <code>display:inline-block</code> in older Browsers
+</p>
+<p>
+	This plugin enables <code>display:inline-block</code> in older IE and Gecko Browsers by automatically setting <code>display</code> to
+	<code>-moz-inline-stack</code> rule for Gecko or setting <code>display</code> to <code>inline</code> and adding <code>zoom:1</code> for IE &lt; 8.
+</p>
+<h4>Usage</h4>
+<p>
+	Just add <code>inlineblock</code> to your <code>@turbine</code> plugins rule. Done!
+</p>
+<h4>Example</h4>
+<pre class="cssp">@turbine
+    plugins:inlineblock
+
+#foo
+    display:inline-block</pre>
+<p>
+	Result in browsers using Gecko &lt; 1.9:
+</p>
+<pre>#foo {
+	display: -moz-inline-stack;
+}</pre>
+<p>
+	Result in IE &lt; 8:
+</p>
+<pre>#foo {
+	display: inline;
+	zoom: 1;
+}</pre>
+</div>
+
 
 
 
