@@ -234,14 +234,14 @@
 </p>
 <h4>Selectors and rules</h4>
 <p>
-	Turbine's syntax works a bit like <a href="#">Python</a>&nbsp;&ndash; <strong>the level of indention </strong>instead of curly braces
+	Turbine's syntax works a bit like <a href="#">Python</a>&nbsp;&ndash; <strong>the level of indentation</strong> instead of curly braces
 	decides the context of a given line. A simple rule looks like this:
 </p>
 <pre class="cssp">#foo div > p               // Selector
     color:red              // Property and value
     font-weight:bold       // Property and value</pre>
 <p>
-	The way Turbine determines if a given line is a selector or a property-value-pair is the indention level of the <em>following</em>
+	The way Turbine determines if a given line is a selector or a property-value-pair is the indentation level of the <em>following</em>
 	line:
 </p>
 <pre class="cssp">#foo div > p               // Next line is indented = this is a selector
@@ -251,7 +251,7 @@
         color:blue</pre>
 <p>
 	This behavior allows nested selectors, which can be quite powerful (see <a class="smoothscroll" href="#usage-nested">nested selectors</a>).
-	You can use any number or combination of spaces and tabs for indention, but be careful to keep your indention constistent in the whole
+	You can use any number or combination of spaces and tabs for indentation, but be careful to keep your indentation constistent in the whole
 	file.
 </p>
 <p>
@@ -1452,7 +1452,7 @@ p.foobar
 	the file it is inserted into.
 </p>
 <p>
-	The plugin will automatically take care of any differences in indention style between the loaded code and the code it is
+	The plugin will automatically take care of any differences in indentation style between the loaded code and the code it is
 	loaded into.
 </p>
 <h4>Usage</h4>
@@ -2184,11 +2184,11 @@ $cssp->insert($example_elements, '@media print', null, 'bar');</pre>
 	<li><strong>Comment your Code!</strong> Seriously. Do it!</li>
 	<li><a href="http://manual.phpdoc.org/">PHPDoc</a> is required for all functions and class methods/variables. Describe what your code does, provide
 	a usage example, tells us if it is stable or alpha/beta, which version it is, which parameters it takes and what it returns.</li>
-	<li><strong>Indention</strong> ist tabs only. See code example for brace positioning.</li>
+	<li><strong>Indentation</strong> is tabs only. See code example for brace positioning.</li>
 	<li>No omitting of <strong>braces around blocks</strong>. The ternary operator is allowed for simple cases only.</li>
 	<li>Most important: <strong>Use Common Sense!</strong> Don't write spaghetti code. Don't let lines run too long. Break up complex stuff into subroutines </li>
 	<li><strong>Class names:</strong> CamelCase, initial majuscule</li>
-	<li><strong>Method, function and variable names:</strong> Lowercase, initial minuscule</li>
+	<li><strong>Method, function, variable and plugin names:</strong> Lowercase, initial minuscule</li>
 </ol>
 
 
@@ -2247,7 +2247,7 @@ function example_subfunction($param){
 </p>
 <h4>Usage</h4>
 <p>
-	Paste code, change indention settings, click "Convert!". Done!
+	Paste code, change indentation settings, click "Convert!". Done!
 </p>
 </div>
 
@@ -2334,7 +2334,7 @@ function example_subfunction($param){
 		encounter bugs, <a href="http://github.com/SirPepe/Turbine/issues">report them</a>!
 	</li>
 	<li>
-		Try not to mess up your indention! Turbine is not <em>that</em> good at catching incorrectly indented lines and they
+		Try not to mess up your indentation! Turbine is not <em>that</em> good at catching incorrectly indented lines and they
 		<em>will</em> destroy your css in places you'll never expect. So just pay attention to your whitespaces.
 	</li>
 </ol>
