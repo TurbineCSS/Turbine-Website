@@ -2298,16 +2298,20 @@ function example_subfunction($param){
 
 <h3 id="faq-performance">What about performance?</h3><div>
 <p>
-	Except for when you are a complete performance nerd and you know every trick, Turbine does more good to your website's performance than it does have an impact on it.
-	Sure, you have some preprocessing going on, also with regexes, that aren't necessary when serving static stylesheet-files. But this preprocessing just happens once per
-	cssp-file and user-agent. The result is then cached and in the following Turbine just reads from that static cache file as long as you don't change the source file, 
-	and if it already served that particular user agent. So no more server side overhead then.
-	Additionally we put in place a mechanism that checks whether a user agent already downloaded our current styles and, if that's true, tells it to use its cached version.
-	This way we reduce transfer times and safe traffic on the server side.
-	In order to reduce transfer times when the user agent cannot make use of its cache, we minify CSS with our <a class="smoothscroll" href="#plugins-minifier">Minifier</a> plugin, 
-	and we ZIP-compress all of our output (using Zlib output compression in 2KB chunks if available, or alternatively GZIP).
-	And on top we reduce the amount of HTTP-requests by combining multiple source-files into one and by replacing all image-references with embedded data URIs for all modern
-	browsers through the means of our <a class="smoothscroll" href="#plugins-datauri">DataURI</a> plugin.
+	For most cases, Turbine does more good to your website's performance than it does have a negative impact on it. Not only can Turbine output
+	<a class="smoothscroll" href="#usage-configuration">compressed CSS code</a>, but all the calculations in Turbine only happen once per file
+	and user agent. This result is then cached and used for as long as you don't change the source file, and if it already served that particular
+	user agent. The resulting files are served compressed using Zlib output compression in 2KB chunks if available, or alternatively GZIP. Additionally
+	Turbine checks whether a user agent already downloaded our current styles and, if that's true, tells it to use its cached version. This way Turbine
+	uses as litte processing time on the server as possible, reduces transfer times and safes traffic.
+</p>
+<p>
+	In order to improve performance even more, you can minify CSS with the <a class="smoothscroll" href="#plugins-minifier">Minifier plugin</a>,
+	and replace all images referenced in your CSS code with embedded data URIs using the <a class="smoothscroll" href="#plugins-datauri">DataURI plugin</a>.
+</p>
+<p>
+	So unless you are a complete performance nerd that knows every trick by heart and has to much time on his hands, Turbine will <em>improve</em>
+	your website's performance.
 </p>
 </div>
 
@@ -2340,7 +2344,7 @@ function example_subfunction($param){
 	</li>
 	<li>
 		Try not to mess up your indentation! Turbine is not <em>that</em> good at catching incorrectly indented lines and they
-		<em>will</em> destroy your css in places you'll never expect. So just pay attention to your whitespaces.
+		<em>will</em> destroy your css in places you'll never expect. So just pay attention to your whitespace.
 	</li>
 </ol>
 </div>
