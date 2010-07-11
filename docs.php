@@ -2303,14 +2303,14 @@ function example_subfunction($param){
 	and user agent. This result is then cached and used for as long as you don't change the source file, and if it already served that particular
 	user agent. The resulting files are served compressed using Zlib output compression in 2KB chunks if available, or alternatively GZIP. Additionally
 	Turbine checks whether a user agent already downloaded our current styles and, if that's true, tells it to use its cached version. This way Turbine
-	uses as litte processing time on the server as possible, reduces transfer times and safes traffic.
+	uses as little processing time on the server as possible, reduces transfer times and saves traffic.
 </p>
 <p>
 	In order to improve performance even more, you can minify CSS with the <a class="smoothscroll" href="#plugins-minifier">Minifier plugin</a>,
 	and replace all images referenced in your CSS code with embedded data URIs using the <a class="smoothscroll" href="#plugins-datauri">DataURI plugin</a>.
 </p>
 <p>
-	So unless you are a complete performance nerd that knows every trick by heart and has to much time on his hands, Turbine will <em>improve</em>
+	So unless you are a complete performance nerd that knows every trick by heart and has too much time at hands, Turbine will <em>improve</em>
 	your website's performance.
 </p>
 </div>
