@@ -2298,11 +2298,16 @@ function example_subfunction($param){
 
 <h3 id="faq-performance">What about performance?</h3><div>
 <p>
-	Turbine is generally good for performance. It compresses and combines files and plugins like <a class="smoothscroll" href="#plugins-minifier">Minifier</a>
-	and <a class="smoothscroll" href="#plugins-datauri">DataURI</a> optimize the CSS code before output.
-</p>
-<p>
-	TODO caching etc
+	Except for when you are a complete performance nerd and you know every trick, Turbine does more good to your website's performance than it does have an impact on it.
+	Sure, you have some preprocessing going on, also with regexes, that aren't necessary when serving static stylesheet-files. But this preprocessing just happens once per
+	cssp-file and user-agent. The result is then cached and in the following Turbine just reads from that static cache file as long as you don't change the source file, 
+	and if it already served that particular user agent. So no more server side overhead then.
+	Additionally we put in place a mechanism that checks whether a user agent already downloaded our current styles and, if that's true, tells it to use its cached version.
+	This way we reduce transfer times and safe traffic on the server side.
+	In order to reduce transfer times when the user agent cannot make use of its cache, we minify CSS with our <a class="smoothscroll" href="#plugins-minifier">Minifier</a> plugin, 
+	and we ZIP-compress all of our output (using Zlib output compression in 2KB chunks if available, or alternatively GZIP).
+	And on top we reduce the amount of HTTP-requests by combining multiple source-files into one and by replacing all image-references with embedded data URIs for all modern
+	browsers through the means of our <a class="smoothscroll" href="#plugins-datauri">DataURI</a> plugin.
 </p>
 </div>
 
