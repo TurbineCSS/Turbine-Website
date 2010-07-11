@@ -187,7 +187,7 @@ h1 a
 	list-style:none
 #navi
 	float:right
-	padding:34px 0 0 0
+	padding:32px 0 0 0
 	li
 		float:left
 		border-left:1px solid $border
@@ -207,7 +207,7 @@ h1 a
 #toc
 	position:fixed
 	width:240px
-	margin:96px 0 0 688px
+	margin:90px 0 0 688px
 	padding:0 0 0 32px
 	border-left:1px solid $border
 	h1
@@ -226,12 +226,13 @@ h1 a
 			width:0
 			overflow:hidden
 	ul, li
-		line-height:1.7
+		line-height:1.4
 		margin:0
 		padding:0
 		list-style:none
 		ul
 			padding-left:2em
+			padding-bottom:0.1em
 	h2
 		color:$dark
 		font-weight:normal
