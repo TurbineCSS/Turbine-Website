@@ -227,6 +227,15 @@
 <p>
 	<img src="img/gtksourceview.png" alt="GtkSourceView highlighting in action" width="498" height="500">
 </p>
+<h4>TextMate</h4>
+<p>
+	The <code>Turbine.tmbundle</code> adds syntax highlighting with a small property and plugin documentation for <strong>TextMate</strong>. Simply copy the
+	file <code>Turbine.tmbundle</code> from <code>resources/editors/textmate</code> to
+	<code>~/Library/Application Support/TextMate/Bundles</code>. Now select Bundles&nbsp;&rarr;&nbsp;Bundle Editor&nbsp;&rarr;&nbsp;Reload Bundles from within TextMate.
+</p>
+<p>
+	<img src="img/textmate.png" alt="Turbine code in TextMate" width="649" height="491">
+</p>
 
 
 <h3 id="usage-syntax">Basic syntax</h3><div>
