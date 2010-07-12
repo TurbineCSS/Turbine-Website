@@ -25,6 +25,7 @@
 		<li>&darr; <a href="#plugins">Core Plugins</a>
 			<ul>
 				<li><a href="#plugins-fontface">@font-face</a></li>
+				<li><a href="#plugins-backgroundgradient">Background Gradient</a></li>
 				<li><a href="#plugins-borderradius">Border radius</a></li>
 				<li><a href="#plugins-boxshadow">Box shadow</a></li>
 				<li><a href="#plugins-boxsizing">Box sizing</a></li>
@@ -35,8 +36,9 @@
 				<li><a href="#plugins-html5">HTML5</a></li>
 				<li><a href="#plugins-iee">IE enhancements</a></li>
 				<li><a href="#plugins-inlineblock">Inline Block</a></li>
-				<li><a href="#plugins-minifier">Minifier</a></li>
 				<li><a href="#plugins-load">Load</a></li>
+				<li><a href="#plugins-minifier">Minifier</a></li>
+				<li><a href="#plugins-opacity">Opacity</a></li>
 				<li><a href="#plugins-quote">Quote style</a></li>
 				<li><a href="#plugins-reset">Reset stylesheet</a></li>
 				<li><a href="#plugins-transforms">Transforms</a></li>
@@ -893,6 +895,93 @@ div.blackRound
 
 
 
+<h3 id="plugins-backgroundgradient">Background gradient</h3><div>
+<p class="abstract">
+	Converts proprietary gradient code into vendor-specific gradient code.
+</p>
+<p>
+	This plugin creates a cross-browser linear vertical or horizontal background gradient 
+	(angles or radial gradient not supported). As this CSS3 property is still very alpha 
+	we pick up W3C's current draft's syntax for a simple two-colored linear gradients.<br />
+	For Mozilla, WebKit and Konquror we use their very differing vendor-specific gradient 
+	implementation syntax, for Opera we assign a dynamically created SVG-file as background-image, 
+	and for IE we make use of a gradient-filter.
+</p>
+<h4>Usage</h4>
+<p>
+	Add <code>backgroundgradient</code> to your <code>@turbine</code> plugins rule and start using 
+	<code>linear-gradient</code> following W3C's current draft's syntax for a simple two-colored 
+	linear gradient within a <code>background-image</code> or <code>background</code> property:
+</p>
+<pre>
+    background: linear-gradient(&lt;direction&gt;,&lt;startcolor&gt;,&lt;endcolor&gt;);
+</pre>
+<h5>Possible values for the direction</h5>
+<ul>
+	<li><code>top</code>: Gradient starting at the top, going to the bottom</li>
+	<li><code>left</code>: Gradient starting at the left, going to the right</li>
+</ul>
+<h5>Possible values for the colors</h5>
+<ul>
+	<li>HEX, e.g. <code>#FFF</code></li>
+	<li>RGB, e.g. <code>rgb(255,255,255)</code></li>
+	<li>RGBA, e.g. <code>rgba(255,255,255,0.3)</code></li>
+</ul>
+<h4>Examples</h4>
+<h5>Vertical gradient, from top to bottom, from white to black</h5>
+<pre class="cssp">@turbine
+    plugins:backgroundgradient
+
+#foo
+    background-image: linear-gradient(top,#FFF,#000)</pre>
+<p>
+	Result for Mozilla:
+</p>
+<pre>#foo {
+    background-image: -moz-linear-gradient(top,#FFF,#000);
+}
+</pre>
+<p>
+	Result for WebKit:
+</p>
+<pre>#foo {
+    background-image: -webkit-gradient(linear,left top,left bottom,from(#FFF),to(#000));
+}
+</pre>
+<p>
+	Result for Konqueror:
+</p>
+<pre>#foo {
+    background-image: -khtml-gradient(linear,left top,left bottom,from(#FFF),to(#000));
+}
+</pre>
+<p>
+	Result for Opera:
+</p>
+<pre>#foo {
+    background-image: url(/turbine/plugins/backgroundgradient/svg.php?direction=top&startcolor=#fff&endcolor=#000) 0 0 repeat;
+}
+</pre>
+<p>
+	Result for IE 6 &amp; 7:
+</p>
+<pre>#foo {
+    background-image: linear-gradient(top,#FFF,#000);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#FFFFFFFF,endColorstr=#FF000000,gradientType=0);
+}
+</pre>
+<p>
+	Result for IE 8:
+</p>
+<pre>#foo {
+    background-image: linear-gradient(top,#FFF,#000);
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#FFFFFFFF,endColorstr=#FF000000,gradientType=0)";
+}
+</pre>
+</div>
+
+
+
 <h3 id="plugins-borderradius">Border radius</h3><div>
 <p class="abstract">
 	Automatically adds vendor-specific versions of <code>border-radius</code> and implements some shortcuts.
@@ -1357,7 +1446,6 @@ p.foobar
 <ul>
 	<li>IE6: transparent PNG files (<a href="http://www.twinhelix.com/css/iepngfix/">Source</a>)</li>
 	<li>IE6: <code>:hover</code> on all elements (<a href="http://www.xs4all.nl/~peterned/csshover.html">Source</a>)</li>
-	<li>IE6 and 7: <code>opacity</code> property (Through a proprietary filter)</li>
 </ul>
 <h4>Usage</h4>
 <p>
@@ -1401,44 +1489,6 @@ p.foobar
 }</pre>
 </div>
 
-
-
-
-<h3 id="plugins-minifier">Minifier</h3><div>
-<p class="abstract">
-	Performs a number of micro-optimizations.
-</p>
-<p>
-	The minifier plugins shortens hex color declarations, replaces hex colors with shorter named colors when possible, removes units from zero values, removes
-	leading zeros from floats, shortens long margin and padding notation (<code>8px 4px 8x 4px</code> is turned into <code>8px 4px</code>) and removes whitespace
-	from comma-sepparated strings, saving a bit of space and loading time.
-</p>
-<h4>Usage</h4>
-<p>
-	Just add <code>minifier</code> to your <code>@turbine</code> plugins rule. Done!
-</p>
-<h3>Example</h3>
-<pre class="cssp">#foo
-    font-family: Georgia, "Times New Roman", serif
-    color: #FF0000
-    background: #F0FFFF
-    margin: 0.5em 0em
-    padding: 8px 4px 8px 4px</pre>
-<p>
-	Result (pretty-printed):
-</p>
-<pre>#foo {
-	font-family: Georgia,"Times New Roman",serif;
-	color: #F00;
-	background: azure
-	margin: .5em 0;
-	padding: 8px 4px;
-}</pre>
-<p>
-	Compressed result:
-</p>
-<pre>#foo{font-family:Georgia,"Times New Roman",serif;color:#F00;background:azure;margin:.5em 0;padding:8px 4px}</pre>
-</div>
 
 
 
@@ -1490,6 +1540,89 @@ p.foobar
 	color: #C00000;
 	background: #EEE;
 }</pre>
+</div>
+
+
+
+<h3 id="plugins-minifier">Minifier</h3><div>
+<p class="abstract">
+	Performs a number of micro-optimizations.
+</p>
+<p>
+	The minifier plugins shortens hex color declarations, replaces hex colors with shorter named colors when possible, removes units from zero values, removes
+	leading zeros from floats, shortens long margin and padding notation (<code>8px 4px 8x 4px</code> is turned into <code>8px 4px</code>) and removes whitespace
+	from comma-sepparated strings, saving a bit of space and loading time.
+</p>
+<h4>Usage</h4>
+<p>
+	Just add <code>minifier</code> to your <code>@turbine</code> plugins rule. Done!
+</p>
+<h3>Example</h3>
+<pre class="cssp">#foo
+    font-family: Georgia, "Times New Roman", serif
+    color: #FF0000
+    background: #F0FFFF
+    margin: 0.5em 0em
+    padding: 8px 4px 8px 4px</pre>
+<p>
+	Result (pretty-printed):
+</p>
+<pre>#foo {
+	font-family: Georgia,"Times New Roman",serif;
+	color: #F00;
+	background: azure
+	margin: .5em 0;
+	padding: 8px 4px;
+}</pre>
+<p>
+	Compressed result:
+</p>
+<pre>#foo{font-family:Georgia,"Times New Roman",serif;color:#F00;background:azure;margin:.5em 0;padding:8px 4px}</pre>
+</div>
+
+
+
+<h3 id="plugins-opacity">Opacity</h3><div>
+<p class="abstract">
+	Automatically adds vendor-specific versions of <code>opacity</code>.
+</p>
+<p>
+	This plugin automatically inserts all existing vendor prefixed opacity-properties, as well as the corresponding alpha-filter for IE.
+</p>
+<h4>Usage</h4>
+<p>
+	Add <code>opacity</code> to your <code>@turbine</code> plugins rule and start using <code>opacity</code> like the
+	standard <code>opacity</code> CSS3 property.
+</p>
+<h4>Examples</h4>
+<h5>Automatic vendor-specific versions</h5>
+<pre class="cssp">@turbine
+    plugins:opacity
+
+#foo
+    opacity:0.3</pre>
+<p>
+	Result:
+</p>
+<pre>#foo {
+    -moz-opacity: 0.3;
+    -khtml-opacity: 0.3;
+    -webkit-opacity: 0.3;
+    opacity: 0.3;
+}
+</pre>
+<p>
+	plus, for IE 8:
+</p>
+<pre>
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(opacity=30)";
+</pre>
+<p>
+	or for IE 6 &amp; 7:
+</p>
+<pre>
+	filter: progid:DXImageTransform.Microsoft.Alpha(opacity=30);
+</pre>
 </div>
 
 
@@ -1746,9 +1879,11 @@ table {
 	Activates all other plugins that enable advanced CSS properties:
 </p>
 <ul>
+	<li>Background gradient</li>
 	<li>Border radius</li>
 	<li>Box shadow</li>
 	<li>Colormodels</li>
+	<li>Opacity</li>
 	<li>Transform</li>
 </ul>
 <h4>Performance</h4>
