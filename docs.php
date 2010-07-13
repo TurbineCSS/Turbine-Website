@@ -34,7 +34,6 @@
 				<li><a href="#plugins-colormodels">Colormodels</a></li>
 				<li><a href="#plugins-datauri">Data-URIs</a></li>
 				<li><a href="#plugins-html5">HTML5</a></li>
-				<li><a href="#plugins-iee">IE enhancements</a></li>
 				<li><a href="#plugins-inlineblock">Inline Block</a></li>
 				<li><a href="#plugins-load">Load</a></li>
 				<li><a href="#plugins-minifier">Minifier</a></li>
@@ -1302,16 +1301,18 @@ div.blackRound
 
 
 
-<h3 id="plugins-bugfix">Automatic browser bugfixes</h3><div>
+<h3 id="plugins-bugfix">Automatic browser bugfixes and enhancements</h3><div>
 <p class="abstract">
-	Tries to fix some common browser rendering bugs automatically.
+	Tries to fix some common browser rendering and behavior bugs automatically.
 </p>
-<h4>Bugs fixed by this plugin</h4>
+<h4>Bugs fixed and enhancements by this plugin</h4>
 <ul>
 	<li>IE6: Image margin bottom bug</li>
 	<li>IE6: Background image flickers on hover</li>
 	<li>IE6: Float double margin bug</li>
-	<li>IE6: <code>min-height</code> bug</li>
+	<li>IE6: Adding support for <code>min-height</code></li>
+	<li>IE6: Adding support for transparent PNG files (<a href="http://www.twinhelix.com/css/iepngfix/">Source</a>)</li>
+	<li>IE6: Adding support for <code>:hover</code> on all elements (<a href="http://www.xs4all.nl/~peterned/csshover.html">Source</a>)</li>
 	<li>IE6 and 7: <code>&lt;button&gt;</code> styleability (<a href="http://www.sitepoint.com/forums/showthread.php?t=547059">Source</a>)</li>
 	<li>Firefox: Ghost margin around buttons (<a href="http://www.sitepoint.com/forums/showthread.php?t=547059">Source</a>)</li>
 </ul>
@@ -1444,24 +1445,6 @@ p.foobar
 	Just add <code>html5</code> to your <code>@turbine</code> plugins rule. Done!
 </p>
 </div>
-
-
-
-<h3 id="plugins-iee">IE enhancements</h3><div>
-<p class="abstract">
-	Enables a bunch of usually absent features in IE 6 and 7
-</p>
-<h4>Features enabled by this plugin</h4>
-<ul>
-	<li>IE6: transparent PNG files (<a href="http://www.twinhelix.com/css/iepngfix/">Source</a>)</li>
-	<li>IE6: <code>:hover</code> on all elements (<a href="http://www.xs4all.nl/~peterned/csshover.html">Source</a>)</li>
-</ul>
-<h4>Usage</h4>
-<p>
-	Just add <code>ieenhancements</code> to your <code>@turbine</code> plugins rule. Done!
-</p>
-</div>
-
 
 
 
