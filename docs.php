@@ -25,7 +25,7 @@
 		<li>&darr; <a href="#plugins">Core Plugins</a>
 			<ul>
 				<li><a href="#plugins-fontface">@font-face</a></li>
-				<li><a href="#plugins-backgroundgradient">Background Gradient</a></li>
+				<li><a href="#plugins-backgroundgradient">Background gradient</a></li>
 				<li><a href="#plugins-borderradius">Border radius</a></li>
 				<li><a href="#plugins-boxshadow">Box shadow</a></li>
 				<li><a href="#plugins-boxsizing">Box sizing</a></li>
@@ -34,7 +34,7 @@
 				<li><a href="#plugins-colormodels">Colormodels</a></li>
 				<li><a href="#plugins-datauri">Data-URIs</a></li>
 				<li><a href="#plugins-html5">HTML5</a></li>
-				<li><a href="#plugins-inlineblock">Inline Block</a></li>
+				<li><a href="#plugins-inlineblock">Inline block</a></li>
 				<li><a href="#plugins-load">Load</a></li>
 				<li><a href="#plugins-minifier">Minifier</a></li>
 				<li><a href="#plugins-opacity">Opacity</a></li>
