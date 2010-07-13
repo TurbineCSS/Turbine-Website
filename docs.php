@@ -62,7 +62,7 @@
 				<li><a href="#faq-why">Why use Turbine?</a></li>
 				<li><a href="#faq-tradeoffs">What are the tradeoffs?</a></li>
 				<li><a href="#faq-performance">What about performance?</a></li>
-				<li><a href="#faq-tradeoffs">Ready for real projects?</a></li>
+				<li><a href="#faq-projects">Ready for real projects?</a></li>
 				<li><a href="#faq-cssp">What's CSSP?</a></li>
 				<li><a href="#faq-advice">Any general advice?</a></li>
 			</ul>
