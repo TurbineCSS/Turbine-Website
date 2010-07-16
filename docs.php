@@ -1872,6 +1872,7 @@ table {
 </p>
 <ul>
 	<li>Background gradient</li>
+	<li>Box sizing</li>
 	<li>Border radius</li>
 	<li>Box shadow</li>
 	<li>Colormodels</li>
@@ -1891,7 +1892,6 @@ table {
 	Activates all other plugins that help you to support older browsers:
 </p>
 <ul>
-	<li>IE enhancements</li>
 	<li>Bugfixes</li>
 	<li>Inline block</li>
 </ul>
