@@ -403,6 +403,16 @@ This is a block comment
 	Turbine has a set of <a class="smoothscroll" href="#plugins">core plugins</a> that greatly enhance the functionality of Turbine. If
 	you know a bit of PHP you can <a class="smoothscroll" href="#dev-plugins">easily build your own plugins</a>.
 </p>
+<h5>Plugin configuration</h5>
+<p>
+	Some plugins have configuration options. To use them, simply add the plugin's name as a property to the <code>@turbine</code> block
+	and list the options you want to use as values. If for example the filters that simulate <code>box-shadow</code> in Internet Explorer
+	are too ugly for your liking, you can pass a <code>noie</code> option to the <a href="#plugins-boxshadow" class="smoothscroll">box
+	shadow plugin</a>:
+</p>
+<pre class="cssp">@turbine
+    plugins:boxshadow
+    boxshadow:noie    // Don't display box shadows in IE</pre>
 </div>
 
 
@@ -1055,6 +1065,10 @@ div.blackRound
 	Add <code>boxshadow</code> to your <code>@turbine</code> plugins rule and start using <code>box-shadow</code> like the
 	standard <code>box-shadow</code> CSS3 property.
 </p>
+<h4>Options</h4>
+<ul>
+	<li><code>noie</code>: Don't display shadows in Internet Explorer</li>
+</ul>
 <h4>Example</h4>
 <pre class="cssp">@turbine
     plugins:boxshadow
@@ -1684,6 +1698,10 @@ p.foobar
 <p>
 	Just add <code>resetstyle</code> to your <code>@turbine</code> plugins rule. Done!
 </p>
+<h4>Options</h4>
+<ul>
+	<li><code>force-scrollbar</code>: Always display a vertical scrollbar to prevent a horizontally jumping page when navigating</li>
+</ul>
 <h4>Custom reset stylesheets</h4>
 <p>
 	To use a custom reset stylesheet, rename <code>_custom.css</code> in the directory <code>plugins/resetstyle</code> to
