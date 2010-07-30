@@ -168,6 +168,9 @@
 		</tr>
 	</tbody>
 </table>
+<p class="warning">
+	<em>Security notice</em>: As of version 1.0.5 Turbine can only access files in the <code>css_base_dir</code> to prevent directory traversal.
+</p>
 
 
 <h4>Adding Turbine files to HTML documents</h4>
