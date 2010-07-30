@@ -30,7 +30,7 @@
 function backgroundgradient(&$parsed){
 	global $cssp, $browser;
 	// Searches for W3C-style two-stepped linear gradient
-	$urlregex = '/linear-gradient\((top|left),(#[0-9A-F]+|rgba*\([0-9,]+\)),(#[0-9A-F]+|rgba*\([0-9,]+\))\)/i';
+	$urlregex = '/linear-gradient\s*\(\s*(top|left)\s*,\s*(#[0-9A-F]+|rgba*\([0-9,]+\))\s*,\s*(#[0-9A-F]+|rgba*\([0-9,]+\))\s*\)/i';
 	// In which properties to searcg
 	$urlproperties = array('background', 'background-image');
 	// Loop through the array
@@ -88,11 +88,11 @@ function backgroundgradient(&$parsed){
 								case 'opera':
 								$svg_path = rtrim(dirname($_SERVER['SCRIPT_NAME']),'/').'/plugins/backgroundgradient/svg.php';
 								$svg_params = 'direction='.strtolower($matches[1]);
-								$svg_params .= '&startcolor='.strtolower($matches[2]);
-								$svg_params .= '&endcolor='.strtolower($matches[3]);
+								$svg_params .= '&startcolor='.str_replace('#','%23',strtolower($matches[2]));
+								$svg_params .= '&endcolor='.str_replace('#','%23',strtolower($matches[3]));
 								$parsed[$block][$selector][$property][$i] = preg_replace(
 									$urlregex,
-									'url('.$svg_path.'?'.$svg_params.') 0 0 repeat',
+									'url('.$svg_path.'?'.$svg_params.')',
 									$parsed[$block][$selector][$property][$i]
 								);
 								CSSP::comment($parsed[$block][$selector], $property, 'Modified by background-gradient plugin');
