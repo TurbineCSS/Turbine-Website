@@ -546,7 +546,7 @@ This is a block comment
 	that apply globally and that are always made availiable by Turbine:
 </p>
 <ol>
-	<li><code>$_SCRIPTATH</code>: The path to <code>css.php</code></li>
+	<li><code>$_SCRIPTPATH</code>: The path to <code>css.php</code></li>
 	<li><code>$_FILEPATH</code>: The path to the current .cssp file</li>
 </ol>
 <h4>Aliases</h4>
