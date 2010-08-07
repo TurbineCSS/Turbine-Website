@@ -330,7 +330,29 @@ This is a block comment
 }
 
 </pre>
+<p>
+	If you need to end an @media block without opening a new one, you can do so using <code>@media none</code>.
 </p>
+<pre class="cssp">@media screen
+
+#foo
+    color:red
+
+@media none
+
+#bar
+    color:green</pre>
+<p>
+	Result:
+</p>
+<pre class="css">#bar {
+	color: green;
+}
+@media screen {
+	#foo {
+		color: red;
+	}
+}</pre>
 <h4 id="usage-syntax-prefixes">Prefixes</h4>
 <p>
 	There a a few reserved prefixes for properties, values and selectors:
