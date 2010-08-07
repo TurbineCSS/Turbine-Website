@@ -134,8 +134,8 @@
 <h3 id="usage-setup">Installation and setup</h3><div>
 <h4>Installation</h4>
 <p>
-	Simply download the latest release from <a href="http://github.com/SirPepe/Turbine">Github</a> and unpack it to a directory on your
-	web server. PHP 5.2 is required.
+	Simply download the latest public release from <a href="http://github.com/SirPepe/Turbine">Github</a> and unpack it to a directory on your
+	web server. There are no requirements beside PHP 5.2.
 </p>
 <h4>Global configuration</h4>
 <p>
