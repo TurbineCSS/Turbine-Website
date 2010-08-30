@@ -18,6 +18,7 @@
 				<li><a href="#usage-syntax">Basic syntax</a></li>
 				<li><a href="#usage-configuration">Configuration</a></li>
 				<li><a href="#usage-advanced">Advanced syntax</a></li>
+				<li><a href="#usage-paths">Paths</a></li>
 				<li><a href="#usage-constantsaliases">Constants and aliases</a></li>
 				<li><a href="#usage-inheritancetemplating">Inheritance and prototyping</a></li>
 			</ul>
@@ -545,6 +546,14 @@ This is a block comment
 </p>
 </div>
 
+
+
+<h3 id="usage-paths">Paths</h3><div>
+<p>
+	If you want to use images or embed fonts, please note that <strong>all paths are relative to css.php</strong>! You can define constants or use the
+	special constants <code>$_SCRIPTPATH</code> and <code>$_FILEPATH</code> to work with this. See below for a detailed explaination of constants.
+</p>
+</div>
 
 
 <h3 id="usage-constantsaliases">Constants and aliases</h3><div>
@@ -2482,10 +2491,11 @@ function example_subfunction($param){
 	Of course! The following websites all use Turbine:
 </p>
 <ul>
-	<li><a href="http://www.initiative-fuer-ausbildung.de/">Initiative für Ausbildung</a></li>
-	<li><a href="http://html5-buch.de/">HTML5 - Webseiten innovativ und zukunftssicher</a></li>
-	<li><a href="http://beware-energy.com/">BeWare Energy GmbH</a></li>
+	<li><a href="http://www.geocaching-wales.co.uk/">Geocaching Wales</a></li>
+	<li><a href="http://www.initiative-fue
+<h3 id="usage-constantsaliases">Constants and aliases</h3><div>r-ausbildung.de/">Initiative für Ausbildung</a></li>
 	<li><a href="http://www.lhg-garten.de/">LHG Gartengestaltung</a></li>
+	<li><a href="http://html5-buch.de/">HTML5 - Webseiten innovativ und zukunftssicher</a></li>
 </ul>
 </div>
 
