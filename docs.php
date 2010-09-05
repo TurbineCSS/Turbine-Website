@@ -65,6 +65,7 @@
 				<li><a href="#faq-static">Non-server environments?</a></li>
 				<li><a href="#faq-performance">What about performance?</a></li>
 				<li><a href="#faq-projects">Ready for real projects?</a></li>
+				<li><a href="#faq-cache">Disable the Cache?</a></li>
 				<li><a href="#faq-cssp">What's CSSP?</a></li>
 				<li><a href="#faq-advice">Any general advice?</a></li>
 			</ul>
@@ -155,7 +156,8 @@
 	<tbody>
 		<tr>
 			<td><code>debug_level</code></td>
-			<td>Disable all error messages (<code>0</code>), enable web developer debugging messages (<code>1</code>) or enable all error messages (<code>2</code>)</td>
+			<td>Disable all error messages (<code>0</code>), enable web developer debugging messages (<code>1</code>) or enable all error messages
+			(<code>2</code>). Setting this to anything but 0 also disables Turbine's server-side cache.</td>
 			<td><code>1</code></td>
 		</tr>
 		<tr>
@@ -2438,8 +2440,8 @@ function example_subfunction($param){
 
 <h3 id="faq-why">Why should I use Turbine?</h3><div>
 <p>
-	Turbine speeds up your CSS development. It allows you to build more websites in less time, charge more for less work or just concentrate on things
-	that are more important than tweaking CSS code, like design or content. That's pretty much it.
+	Turbine speeds up your CSS development and increases your productivity. It allows you to build more websites in less time, charge more for less work
+	or just concentrate on things that are more important than tweaking CSS code, like design or content. And that's pretty much it.
 </p>
 </div>
 
@@ -2471,7 +2473,7 @@ function example_subfunction($param){
 	For most cases, Turbine does more good to your website's performance than it does have a negative impact on it. Not only can Turbine output
 	<a class="smoothscroll" href="#usage-configuration">compressed CSS code</a>, but all the calculations in Turbine only happen once per file
 	and user agent. This result is then cached and used for as long as you don't change the source file, and if it already served that particular
-	user agent. The resulting files are served compressed using Zlib output compression in 2KB chunks if available, or alternatively GZIP. Additionally
+	user agent. The resulting files are served compressed using Zlib output compression in 2KB chunks if available, or alternatively Gzip. Additionally
 	Turbine checks whether a user agent already downloaded our current styles and, if that's true, tells it to use its cached version. This way Turbine
 	uses as little processing time on the server as possible, reduces transfer times and saves traffic.
 </p>
@@ -2480,7 +2482,7 @@ function example_subfunction($param){
 	and replace all images referenced in your CSS code with embedded data URIs using the <a class="smoothscroll" href="#plugins-datauri">DataURI plugin</a>.
 </p>
 <p>
-	So unless you are a complete performance nerd that knows every trick by heart and has too much time at hands, Turbine will <em>improve</em>
+	In short: unless you are a complete performance nerd that knows every trick by heart and has too much time at hands, Turbine will <em>improve</em>
 	your website's performance.
 </p>
 </div>
@@ -2492,11 +2494,17 @@ function example_subfunction($param){
 </p>
 <ul>
 	<li><a href="http://www.geocaching-wales.co.uk/">Geocaching Wales</a></li>
-	<li><a href="http://www.initiative-fue
-<h3 id="usage-constantsaliases">Constants and aliases</h3><div>r-ausbildung.de/">Initiative für Ausbildung</a></li>
+	<li><a href="http://www.initiative-fuer-ausbildung.de/">Initiative für Ausbildung</a></li>
 	<li><a href="http://www.lhg-garten.de/">LHG Gartengestaltung</a></li>
 	<li><a href="http://html5-buch.de/">HTML5 - Webseiten innovativ und zukunftssicher</a></li>
 </ul>
+</div>
+
+
+<h3 id="faq-cache">How can i disable Turbine's cache?</h3><div>
+<p>
+	Set <code>debug_level</code> in your config.php to anything but <code>0</code> to disable the cache.
+</p>
 </div>
 
 
@@ -2510,8 +2518,8 @@ function example_subfunction($param){
 <h3 id="faq-advice">Any general advice?</h3><div>
 <ol>
 	<li>
-		This is more a disclaimer then a real problem but: Turbine is beta software. Expect stuff to break everywhere, all the time. If you
-		encounter bugs, <a href="http://github.com/SirPepe/Turbine/issues">report them</a>!
+		This is more a disclaimer then a real problem but: Turbine is somewhat experimental software. Expect stuff to break everywhere, all
+		the time. If you encounter bugs, <a href="http://github.com/SirPepe/Turbine/issues">report them</a>!
 	</li>
 	<li>
 		Try not to mess up your indentation! Turbine is not <em>that</em> good at catching incorrectly indented lines and they
