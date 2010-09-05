@@ -209,6 +209,7 @@ if($_GET['files']){
 						else{
 							preg_match('~^\s+plugins:(.*?)(?://|$)~', $line, $matches);
 							if(count($matches) == 2){
+								$matches[1] = rtrim($matches[1], ';'); // Strip semicolons
 								$plugin_list = $cssp->tokenize($matches[1], ',');
 								break;
 							}
@@ -289,6 +290,7 @@ if($_GET['files']){
 	else{
 		header('Cache-Control: no-cache, must-revalidate');
 		header('Expires: '.gmdate('D, d M Y H:i:s').' GMT');
+		header("Vary: Accept-Encoding"); 
 		header('Content-type: text/css'); 
 		header('ETag: '.$etag);
 	}

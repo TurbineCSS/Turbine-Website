@@ -15,7 +15,7 @@
  * Usage: Nobrainer, just switch it on
  * Example: -
  * Status:  Stable
- * Version: 1.0
+ * Version: 1.2
  * 
  * @param mixed &$parsed
  * @return void
@@ -24,36 +24,32 @@ function bugfixes(&$parsed){
 	global $cssp, $browser;
 	$changed = array();
 
-	// IE 6 global bugfixes
-	if($browser->browser == 'ie' && floatval($browser->browser_version) < 7){
-		// Image margin bottom bug
-		$changed['img']['vertical-align'][] = 'bottom';
-		// Background image flickers on hover
-		$changed['html']['filter'][] = 'expression(document.execCommand("BackgroundImageCache",false,true))';
-		// Fix transparent PNGs, see http://www.twinhelix.com/css/iepngfix/
-		$htc_path = rtrim(dirname($_SERVER['SCRIPT_NAME']),'/').'/plugins/bugfixes/iepngfix.htc';
-		$changed['img']['behavior'][] = 'url("'.$htc_path.'")';
-	}
+	// IE6: Image margin bottom bug
+	$changed['img']['vertical-align'][] = 'bottom';
 
-	// IE 6 + 7 global bugfixes
-	if($browser->browser == 'ie' && floatval($browser->browser_version) < 8){
-		// Have IE7 resample images bicubic instead of using nearest neighbor method
-		$changed['img']['-ms-interpolation-mode'][] = 'bicubic';
-		// Enable full styleability for IE-buttons, see http://www.sitepoint.com/forums/showthread.php?t=547059
-		$changed['button']['overflow'][] = 'visible';
-		$changed['button']['width'][] = 'auto';
-		$changed['button']['white-space'][] = 'nowrap';
-		// Missing :hover-property on every tag except link-tag, see http://www.xs4all.nl/~peterned/csshover.html
-		$htc_path = rtrim(dirname($_SERVER['SCRIPT_NAME']),'/').'/plugins/bugfixes/csshover3.htc';
-		$changed['body']['behavior'][] = 'url("'.$htc_path.'")';
-	}
+	// IE6: Background image flickers on hover
+	$changed['html']['filter'][] = 'expression(document.execCommand("BackgroundImageCache",false,true))';
 
-	// Firefox global bugfixes
-	if($browser->browser == 'firefox'){
-		// Ghost margin around buttons, see http://www.sitepoint.com/forums/showthread.php?t=547059
-		$changed['button::-moz-focus-inner']['padding'][] = '0';
-		$changed['button::-moz-focus-inner']['border'][] = 'none';
-	}
+	// IE6: Fix transparent PNGs, see http://www.twinhelix.com/css/iepngfix/
+	$htc_path = rtrim(dirname($_SERVER['SCRIPT_NAME']),'/').'/plugins/bugfixes/iepngfix.htc';
+	$changed['img']['behavior'][] = 'url("'.$htc_path.'")';
+
+	// IE6 and 7: resample images bicubic instead of using nearest neighbor method
+	$changed['img']['-ms-interpolation-mode'][] = 'bicubic';
+
+	// IE6 and 7: Enable full styleability for buttons, see http://www.sitepoint.com/forums/showthread.php?t=547059
+	$changed['button']['overflow'][] = 'visible';
+	$changed['button']['width'][] = 'auto';
+	$changed['button']['white-space'][] = 'nowrap';
+
+	// IE6 and 7: Missing :hover-property on every tag except a, see http://www.xs4all.nl/~peterned/csshover.html
+	// IE8: Reenable cleartype where filters are set
+	$htc_path = rtrim(dirname($_SERVER['SCRIPT_NAME']),'/').'/plugins/bugfixes/';
+	$changed['body']['behavior'][] = 'url("'.$htc_path.'csshover3.htc") url("'.$htc_path.'cleartypefix.htc")';
+
+	// Firefox: Ghost margin around buttons, see http://www.sitepoint.com/forums/showthread.php?t=547059
+	$changed['button::-moz-focus-inner']['padding'][] = '0';
+	$changed['button::-moz-focus-inner']['border'][] = 'none';
 
 	// Add comments for the global fixes
 	foreach($changed as $selector => $styles){
@@ -65,8 +61,17 @@ function bugfixes(&$parsed){
 	// Insert the global bugfixes
 	$cssp->insert($changed, 'global');
 
-	// Apply per-element-bugfixes
+	// Apply per-block-bugfixes
 	foreach($cssp->parsed as $block => $css){
+
+		// Firefox: overflow:hidden printing bug
+		if(!isset($cssp->parsed[$block]['body']) || !isset($cssp->parsed[$block]['body']['overflow']))
+		{
+			$cssp->parsed[$block]['body']['overflow'][] = 'visible !important';
+			CSSP::comment($cssp->parsed[$block]['body'], 'overflow', 'Added by bugfix plugin');
+		}
+
+		// Apply per-element-bugfixes
 		foreach($cssp->parsed[$block] as $selector => $styles){
 
 			// IE 6 per-element-bugfixes
@@ -92,7 +97,6 @@ function bugfixes(&$parsed){
 					CSSP::comment($cssp->parsed[$block][$selector], 'position', 'Added by bugfix plugin');
 				}
 			}
-
 		}
 	}
 
