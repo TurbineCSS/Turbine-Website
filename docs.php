@@ -1017,6 +1017,10 @@ div.blackRound
 	<li>RGB, e.g. <code>rgb(255,255,255)</code></li>
 	<li>RGBA, e.g. <code>rgba(255,255,255,0.3)</code></li>
 </ul>
+<h4>Options</h4>
+<ul>
+	<li><code>noie</code>: Don't display shadows in Internet Explorer</li>
+</ul>
 <h4>Examples</h4>
 <h5>Vertical gradient, from top to bottom, from white to black</h5>
 <pre class="cssp">@turbine
