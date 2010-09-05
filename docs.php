@@ -179,14 +179,49 @@
 
 <h4>Adding Turbine files to HTML documents</h4>
 <p>
-	Turbine files are simple text files with the extension <abbr title="CSS Preprocessor"><code>.cssp</code></abbr>.
-	To use Turbine, embed <code>css.php</code> in your HTML like a normal css file and add the <code>files</code> argument containing
+	Turbine files are simple text files with the extension <abbr title="CSS Preprocessor"><code>.cssp</code></abbr>. They are processed by the
+	Turbine compiler and the result is then output as CSS code. Thus, a <code>&lt;link&gt;</code> element must be added to your HTML.
+</p>
+<h5>Add the <code>&lt;link&gt;</code> element manually</h5>
+<p>
+	One way to use Turbine is to embed <code>css.php</code> in your HTML like a normal css file and add the <code>files</code> argument containing
 	a list of Turbine files separated by semicolons.
 </p>
 <pre>&lt;link
 	rel="stylesheet"
 	href="path/to/turbine/css.php?files=file1.cssp;file2.cssp"
 /&gt;</pre>
+<h5>Auto-generate the <code>&lt;link&gt;</code> element</h5>
+<p>
+	As of 1.1.0 Turbine can generate it's own embedding code. Simply include <code>/inc/turbine.php</code> and add the <code>turbine()</code>
+	function in your document's <code>&lt;head&gt;</code>. The function takes up to four arguments:
+</p>
+<ol>
+	<li>The path to css.php relative to the document. Defauls to 'css.php'.</li>
+	<li>An array of .cssp files relative to the base dir. Defauls to an empty array.</li>
+	<li>A string that is either <code>xhtml</code> or <code>html</code>, depending on whether you want XHTML or HTML output. Defaults to <code>xhtml</code>.</li>
+	<li>A value for the <code>&lt;link&gt;</code> element's <code>media</code> attribute. Defaults to an empty string (which results in no <code>media</code>
+	attribute being printed at all).</li>
+</ol>
+<p>
+	Example:
+</p>
+<pre>&lt;?php
+	include('inc/turbine.php');
+	turbine('css.php', array(
+		'style/layout.cssp',
+		'style/design.cssp'
+	), 'xhtml', 'projection');
+?&gt;</pre>
+<p>
+	Result:
+</p>
+<pre>&lt;link rel="stylesheet" href="css.php?files=style/layout.cssp;style/design.cssp" media="projection" /&gt;</pre>
+<p>
+	If you want the HTML returned rather than printed out directly, use the <code>get_turbine()</code> function with the same arguments as for
+	<code>turbine()</code>.
+</p>
+<h5>Things to keep in mind</h5>
 <p>
 	The base path for the files can be changed in the file <code>config.php</code> (<code>css_base_dir</code>).
 	You can also include regular css files, which will be output unchanged (or minified, if the <code>minify_css</code>
