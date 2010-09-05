@@ -53,6 +53,12 @@ class Parser2 extends Base{
 
 
 	/**
+	 * @var array $last_properties The list properties that must be output AFTER all other plugins, in order of output
+	 */
+	public $last_properties = array('filter', '-ms-filter');
+
+
+	/**
 	 * @var string $indention_char The Whitespace character(s) used for indention
 	 */
 	public $indention_char = false;
@@ -849,6 +855,14 @@ class Parser2 extends Base{
 		if($compressed){
 			$s = $t = $n = '';
 		}
+		// Reorder for output
+		foreach($this->last_properties as $property){
+			if(isset($rules[$property])){
+				$content = $rules[$property]; // Make a copy
+				unset($rules[$property]);     // Remove the original
+				$rules[$property] = $content; // Re-insert the property at the end
+			}
+		}
 		// Keep count of the properties
 		$num_properties = $this->count_properties($rules);
 		$count_properties = 0;
@@ -885,9 +899,15 @@ class Parser2 extends Base{
 	 * @return string $final The final value
 	 */
 	public function get_final_value($values, $property = NULL, $compressed = false){
+		// Remove duplicates
+		$values = array_unique($values);
 		// If there's only one value, there's only one thing to return
 		if(count($values) == 1){
 			$final = array_pop($values);
+			// Remove quotes in values on quoted properties (important for -ms-filter property)
+			if(in_array($property, $this->quoted_properties)){
+				$final = str_replace('"', "'", trim($final, '"'));
+			}
 		}
 		// Otherwise find the last and/or most !important value
 		else{
@@ -917,6 +937,10 @@ class Parser2 extends Base{
 					if($final != ''){
 						$final .= ','.$s;
 					}
+					// Remove quotes in values on quoted properties (important for -ms-filter property)
+					if(in_array($property, $this->quoted_properties)){
+						$values[$i] = str_replace('"',"'",trim($values[$i],'"'));
+					}
 					$final .= $values[$i];
 				}
 				// Normal properties
@@ -931,6 +955,7 @@ class Parser2 extends Base{
 		if(in_array($property, $this->quoted_properties)){
 			$final = '"' . $final . '"';
 		}
+		$final = trim($final);
 		return $final;
 	}
 
