@@ -1527,7 +1527,7 @@ p.foobar
 <p>
 	The HTML5 plugin adds most of the correct default styles for HTML5 elements according to <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/rendering.html#the-css-user-agent-style-sheet-and-presentational-hints">the specifications</a>.
 	Some parts of the specifications (like the font size for headlines in sectioning content) are ignored because they would require an
-	insane amount of css code to implement correctly. Note that for this plugin to work in Internet Explorer you still have to
+	huge amount of css code to implement correctly. Note that for this plugin to work in Internet Explorer you still have to
 	<a href="http://code.google.com/p/html5shiv/">enable HTML5 elements via javascript</a>.
 </p>
 <h4>Usage</h4>
@@ -1696,15 +1696,11 @@ p.foobar
 <p>
 	plus, for IE 8:
 </p>
-<pre>
-	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(opacity=30)";
-</pre>
+<pre>-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(opacity=30)";</pre>
 <p>
-	or for IE 6 &amp; 7:
+	or for IE 6 and 7:
 </p>
-<pre>
-	filter: progid:DXImageTransform.Microsoft.Alpha(opacity=30);
-</pre>
+<pre>filter: progid:DXImageTransform.Microsoft.Alpha(opacity=30);</pre>
 </div>
 
 
