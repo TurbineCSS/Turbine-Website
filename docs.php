@@ -2066,6 +2066,11 @@ table {
 			<td>Reference to an array containing the lines of the original .cssp files</td>
 		</tr>
 		<tr>
+			<td><code>while_parsing</code></td>
+			<td>Once every time Turbines parses a a line of code</td>
+			<td>An Array containing the line that is being parsed as well as it's type (eg. "media" or "selector")</td>
+		</tr>
+		<tr>
 			<td><code>before_compile</code></td>
 			<td>After compilation, before applying Turbine core features (inheritance and the like)</td>
 			<td>Reference to an array containing the parsed Turbine code</td>
