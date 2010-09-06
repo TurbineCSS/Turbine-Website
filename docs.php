@@ -1633,7 +1633,7 @@ p.foobar
 <p>
 	The minifier plugins shortens hex color declarations, replaces hex colors with shorter named colors when possible, removes units from zero values, removes
 	leading zeros from floats, shortens long margin and padding notation (<code>8px 4px 8x 4px</code> is turned into <code>8px 4px</code>) and removes whitespace
-	from comma-sepparated strings, saving a bit of space and loading time.
+	from comma-sepparated strings as well as other values, saving a bit of space and loading time.
 </p>
 <h4>Usage</h4>
 <p>
@@ -1644,6 +1644,7 @@ p.foobar
     font-family: Georgia, "Times New Roman", serif
     color: #FF0000
     background: #F0FFFF
+    font-weight:bold
     margin: 0.5em 0em
     padding: 8px 4px 8px 4px</pre>
 <p>
@@ -1653,13 +1654,14 @@ p.foobar
 	font-family: Georgia,"Times New Roman",serif;
 	color: #F00;
 	background: azure
+	font-weight:700
 	margin: .5em 0;
 	padding: 8px 4px;
 }</pre>
 <p>
 	Compressed result:
 </p>
-<pre>#foo{font-family:Georgia,"Times New Roman",serif;color:#F00;background:azure;margin:.5em 0;padding:8px 4px}</pre>
+<pre>#foo{font-family:Georgia,"Times New Roman",serif;color:#F00;background:azure;font-weight:700;margin:.5em 0;padding:8px 4px}</pre>
 </div>
 
 
