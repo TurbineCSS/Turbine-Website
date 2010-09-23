@@ -170,11 +170,25 @@
 			<td>Leave css files unchanged by Turbine (<code>false</code>) or minify them (<code>true</code>)</td>
 			<td><code>true</code></td>
 		</tr>
+		<tr>
+			<td><code>expire_in_future</code></td>
+			<td>Set expire header in seconds</td>
+			<td><code>0</code></td>
+		</tr>
 	</tbody>
 </table>
 <p class="warning">
 	<em>Security notice</em>: As of version 1.0.5 Turbine can only access files in the <code>css_base_dir</code> to prevent directory traversal.
 </p>
+
+
+
+<h4>Multiple websites</h4>
+<p>
+	If you want to use the same Turbine installation on multiple websites you can modify the configuration for each site by simply hacking
+	<code>config.php</code> to suit your needs. See the file for details and an example.
+</p>
+
 
 
 <h4>Adding Turbine files to HTML documents</h4>
