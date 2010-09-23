@@ -32,7 +32,7 @@
 				<li><a href="#plugins-boxsizing">Box sizing</a></li>
 				<li><a href="#plugins-sniffer">Browser and platform sniffer</a></li>
 				<li><a href="#plugins-bugfix">Browser bugfixes</a></li>
-				<li><a href="#plugins-colormodels">Colormodels</a></li>
+				<li><a href="#plugins-color">Color</a></li>
 				<li><a href="#plugins-datauri">Data-URIs</a></li>
 				<li><a href="#plugins-html5">HTML5</a></li>
 				<li><a href="#plugins-inlineblock">Inline block</a></li>
@@ -1450,12 +1450,12 @@ div.blackRound
 
 
 
-<h3 id="plugins-colormodels">Colormodels</h3><div>
+<h3 id="plugins-color">Color</h3><div>
 <p class="abstract">
-	Smart color models for older browsers
+	Failsafe HSL(A) and RGBA support for older browsers
 </p>
 <p>
-	The colormodels plugin enables the CSS color declarations <code>rgba()</code>, </code>hsl()</code> and <code>hsla()</code> for browsers
+	The color plugin enables the CSS color declarations <code>rgba()</code>, </code>hsl()</code> and <code>hsla()</code> for browsers
 	that usually don't support them. It works by transforming the original declarations to somthing the browser that is currently used
 	can understand.
 </p>
@@ -1463,33 +1463,6 @@ div.blackRound
 <p>
 	Just add <code>colormodels</code> to your <code>@turbine</code> plugins rule. Done!
 </p>
-<h4>Examples</h4>
-<p>
-	The following turbine code&nbsp;&hellip;
-</p>
-<pre class="cssp">p
-    background:hsla(200, 20%, 20%, 0.5)</pre>
-<p>
-	&hellip; is recalculated to RGBA for Opera 9, which doesn't support <code>hsla()</code>:
-</p>
-<pre class="css">p {
-    background: rgba(40, 54, 61, 0.5);
-}</pre>
-<p>
-	For IE, the HSLA declaration is transformed into a proprietary filter:
-</p>
-<pre class="css">p {
-    background: none;
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#8028363D,endColorstr=#8028363D);
-    zoom: 1;
-}</pre>
-<p>
-	If neither filters nor anything else would work (e.g. in really prehistoric browsers or in IE for non-background properties), a solid
-	color is used:
-</p>
-<pre class="css">p {
-    background: rgb(40, 54, 61);
-}</pre>
 <h4>Troubleshooting</h4>
 <p>
 	Background transparency in IE works with Microsoft's proprietary <code>filter</code> property which may cause unwanted effects
