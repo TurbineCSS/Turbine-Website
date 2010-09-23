@@ -2074,34 +2074,38 @@ table {
 		<tr>
 			<th>Hook</th>
 			<th>Time of execution</th>
-			<th>Argument</th>
+			<th>Argument(s)</th>
 		</tr>
 	</thead>
 	<tbody>
 		<tr>
 			<td><code>before_parse</code></td>
 			<td>Before the .cssp files are parsed</td>
-			<td>Reference to an array containing the lines of the original .cssp files</td>
+			<td>Reference to an array containing the lines of the original .cssp files (Example plugin: <code>load.php</code>)</td>
 		</tr>
 		<tr>
 			<td><code>while_parsing</code></td>
 			<td>Once every time Turbines parses a a line of code</td>
-			<td>An Array containing the line that is being parsed as well as it's type (eg. "media" or "selector")</td>
+			<td>Two arguments containing information about the line that is currently being parsed:
+				<ol><li>A string indicating the type of the second parameter (eg. <code>selector</code> or <code>property</code>)</li>
+				<li>A reference to the line or a line fragment(eg. <code>#foo div.bar</code> or <code>font-weight</code>)</li></ol>
+			(Example plugin: none)
+			</td>
 		</tr>
 		<tr>
 			<td><code>before_compile</code></td>
 			<td>After compilation, before applying Turbine core features (inheritance and the like)</td>
-			<td>Reference to an array containing the parsed Turbine code</td>
+			<td>Reference to an array containing the parsed Turbine code (Example plugin: <code>bugfixes.php</code>)</td>
 		</tr>
 		<tr>
 			<td><code>before_glue</code></td>
 			<td>After compilation and cssp magic, just before the output ist generated</td>
-			<td>Reference to an array containing the parsed Turbine code</td>
+			<td>Reference to an array containing the parsed Turbine code (Example plugin: <code>fontface.php</code>)</td>
 		</tr>
 		<tr>
 			<td><code>before_output</code></td>
 			<td>After generating the output of one .cssp file, before combining the output with other files</td>
-			<td>Reference to a string containing the final css output from the current .cssp file</td>
+			<td>Reference to a string containing the final css output from the current .cssp file (Example plugin: <code>resetstyle.php</code>)</td>
 		</tr>
 	</tbody>
 </table>
