@@ -178,7 +178,7 @@
 	</tbody>
 </table>
 <p class="warning">
-	<em>Security notice</em>: As of version 1.0.5 Turbine can only access files in the <code>css_base_dir</code> to prevent directory traversal.
+	<em>Security notice:</em> As of version 1.0.5 Turbine can only access files in the <code>css_base_dir</code> to prevent directory traversal.
 </p>
 
 
@@ -1168,6 +1168,9 @@ div.blackRound
 	Webkit and Mozilla browsers require vendor-specific prefixes for the CSS3 property <code>box-shadow</code>. This plugin automatically
 	inserts them wherever a <code>box-shadow</code> property is found and also adds proprietary filters for Internet Explorer.
 </p>
+<p class="warning">
+	<em>Important:</em> The values for offset and radius are always interpreted as pixels in IE 6-8!
+</p>
 <h4>Usage</h4>
 <p>
 	Add <code>boxshadow</code> to your <code>@turbine</code> plugins rule and start using <code>box-shadow</code> like the
@@ -1246,7 +1249,7 @@ div.blackRound
 	rules based on the viewer's browser, operating system or platform, precisely targeting browser, engine or os versions (windows only).
 </p>
 <p class="warning">
-	<strong>Warning</strong>: Browser sniffing is <em>always</em> a complicated, messy and unreliable business. Don't use this plugin unless you
+	<strong>Warning:</strong> Browser sniffing is <em>always</em> a complicated, messy and unreliable business. Don't use this plugin unless you
 	think you <em>really</em> know what you're doing!
 </p>
 <h4>Usage</h4>
