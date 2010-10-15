@@ -22,27 +22,32 @@
 
 <h3>Example</h3>
 <p>
-	Turbine takes something like this&nbsp;&hellip;
+	Turbine takes code like this&nbsp;&hellip;
 </p>
-<pre class="cssp">#foo
-    color:red
-    div.foo, div.bar
-        margin, padding:4px
-        border-radius:4px
-</pre>
+<pre class="cssp">// Welcome to Turbine!
+@media screen
+#foo, #bar
+    color:#FF0000
+    margin-left, margin-right: 4px
+    div.alpha, div.beta
+        font-weight:bold
+        border-radius:4px</pre>
 <p>
 	&hellip;and turns it into:
 </p>
-<pre>#foo {
-    color: red;
-}
-#foo div.foo, #foo div.bar {
-    margin: 4px;
-    padding: 4px;
-    -moz-border-radius: 4px;
-    -khtml-border-radius: 4px;
-    -webkit-border-radius: 4px;
-    border-radius: 4px;
+<pre class="css">@media screen {
+    #foo, #bar {
+        color: #FF0000;
+        margin-left: 4px;
+        margin-right: 4px;
+    }
+    #foo div.alpha, #foo div.beta, #bar div.alpha, #bar div.beta {
+        font-weight: bold;
+        -moz-border-radius: 4px;
+        -webkit-border-radius: 4px;
+        -khtml-border-radius: 4px;
+        border-radius: 4px;
+    }
 }</pre>
 <p>
 	It is somewhat compareable to <a href="http://sass-lang.com/">Sass</a> and <a href="http://github.com/anthonyshort/csscaffold">Scaffold</a>, but more radically geared towards getting as much done as possible in as few keystrokes as possible.

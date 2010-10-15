@@ -80,10 +80,8 @@
 	Turbine is a PHP-powered tool that introduces a new way for writing CSS. It's syntax and features are designed to
 	decrease css development time and web developer headache. Turbine takes this&nbsp;&hellip;
 </p>
-<pre class="cssp">
-// Welcome to Turbine!
+<pre class="cssp">// Welcome to Turbine!
 @media screen
-
 #foo, #bar
     color:#FF0000
     margin-left, margin-right: 4px
@@ -99,11 +97,14 @@
     }
     #foo div.alpha, #foo div.beta, #bar div.alpha, #bar div.beta {
         font-weight: bold;
+        -moz-border-radius: 4px;
+        -webkit-border-radius: 4px;
+        -khtml-border-radius: 4px;
         border-radius: 4px;
     }
 }</pre>
 <p>
-	&hellip;or, if you like fast-loading websites, directly into this (which is automatically cached, gezipped and served with the correct expires headers):
+	&hellip;or, if you like fast-loading websites, directly into this (which is automatically cached on the server, gezipped and served with the correct expires headers):
 </p>
 <pre class="css">@media screen{#foo,#bar{color:#F00;margin-left:4px;margin-right:4px}#foo div.alpha,#foo div.beta,#bar div.alpha,#bar div.beta{font-weight:bold;-moz-border-radius:4px;-webkit-border-radius:4px;-khtml-border-radius:4px;border-radius:4px}}</pre>
 <p>
