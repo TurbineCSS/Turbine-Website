@@ -29,7 +29,7 @@
 		<nav>
 			<ul id="navi">
 				<li class="first"><a href="index.php"><span>Home</span></a></li>
-				<li><a href="http://github.com/SirPepe/Turbine/downloads"><span>Download</span></a></li>
+				<li><a href="http://github.com/SirPepe/Turbine/archives/master"><span>Download</span></a></li>
 				<li><a href="docs.php"><span>Docs</span></a></li>
 				<li><a href="support.php"><span>Support</span></a></li>
 				<li><a href="shell.php"><span>Sandbox</span></a></li>
