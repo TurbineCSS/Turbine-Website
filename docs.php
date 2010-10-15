@@ -769,7 +769,6 @@ $mainNavigation
 #bar {
     color: #F00
 }</pre>
-<h4>Copying from other properties</h4>
 <p>
 	The copied and copying properties don't have to be the same:
 </p>
@@ -787,7 +786,6 @@ $mainNavigation
 #bar {
     background: #F00
 }</pre>
-<h4>Copying with aliases</h4>
 <p>
 	Copying works with aliases too. If you want to copy the <code>color</code> value from $foo to #bar, you can simple use
 	<code>copy($foo color)</code>:
