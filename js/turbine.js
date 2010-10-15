@@ -28,6 +28,7 @@ $$('pre.css').each(function(area){
 			line = '<span class="se">' + line + '</span>';
 		}
 		// Special chars
+		line = line.replace(/,/g, '<span class="ch">,</span>');
 		line = line.replace(/:/g, '<span class="ch">:</span>');
 		line = line.replace(/;/g, '<span class="ch">;</span>');
 		line = line.replace(/\{/g, '<span class="ch2">{</span>');
