@@ -16,6 +16,7 @@
 	comment:$dark
 	tab:#666
 	char:#666
+	char2:#AAA
 	at:#90dfeb
 	str:#94c2d1
 	important:#CC5042
@@ -135,11 +136,15 @@ pre
 	.st
 		color:$string; font-weight:normal; font-style:normal
 	.ch
-		color:$char; font-weight:normal; font-style:normal
+		color:$char !important; font-weight:normal !important; font-style:normal !important
+	.ch2
+		color:$char2 !important; font-weight:bold !important; font-style:normal !important
 	.im
 		color:$import; font-weight:normal; font-style:normal
 	.tab
 		color:$tab; font-weight:normal; font-style:normal
+pre.comment
+	color:$comment; font-weight:normal; font-style:italic
 .embed
 	width:576px
 	height:324px

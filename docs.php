@@ -80,7 +80,7 @@
 	Turbine is a PHP-powered tool that introduces a new way for writing CSS. It's syntax and features are designed to
 	decrease css development time and web developer headache. Turbine takes this&nbsp;&hellip;
 </p>
-<pre class="cssp">// Welcome to Turbine!
+<pre class="turbine">// Welcome to Turbine!
 @media screen
 #foo, #bar
     color:#FF0000
@@ -106,7 +106,7 @@
 <p>
 	&hellip;or, if you like fast-loading websites, directly into this (which is automatically cached on the server, gezipped and served with the correct expires headers):
 </p>
-<pre class="css">@media screen{#foo,#bar{color:#F00;margin-left:4px;margin-right:4px}#foo div.alpha,#foo div.beta,#bar div.alpha,#bar div.beta{font-weight:bold;-moz-border-radius:4px;-webkit-border-radius:4px;-khtml-border-radius:4px;border-radius:4px}}</pre>
+<pre>@media screen{#foo,#bar{color:#F00;margin-left:4px;margin-right:4px}#foo div.alpha,#foo div.beta,#bar div.alpha,#bar div.beta{font-weight:bold;-moz-border-radius:4px;-webkit-border-radius:4px;-khtml-border-radius:4px;border-radius:4px}}</pre>
 <p>
 	Turbine can save you a lot of typing and time <em>and</em> allow you to focus on a website's design and functionality instead of
 	css's limitations, page performance or your least favourite browser's latest bugs. Think jQuery for CSS. Being fully extensible, you
@@ -304,14 +304,14 @@
 	Turbine's syntax works a bit like <a href="#">Python</a>&nbsp;&ndash; <strong>the level of indentation</strong> instead of curly braces
 	decides the context of a given line. A simple rule looks like this:
 </p>
-<pre class="cssp">#foo div > p               // Selector
+<pre class="turbine">#foo div > p               // Selector
     color:red              // Property and value
     font-weight:bold       // Property and value</pre>
 <p>
 	The way Turbine determines if a given line is a selector or a property-value-pair is the indentation level of the <em>following</em>
 	line:
 </p>
-<pre class="cssp">#foo div > p               // Next line is indented = this is a selector
+<pre class="turbine">#foo div > p               // Next line is indented = this is a selector
     color:red
     font-weight:bold
     span                   // Next line is indented = this is a selector
@@ -324,7 +324,7 @@
 <p>
 	Semicolons at the end of values are not required, but you can use them to put multiple declarations in one line:
 </p>
-<pre class="cssp">#foo div > p
+<pre class="turbine">#foo div > p
     color:red; font-weight:bold
     span
         color:blue; font-style:italic</pre>
@@ -332,11 +332,11 @@
 <p>
 	There a two kinds of comments available: single line comments that start with <code>//</code>&nbsp;&hellip;
 </p>
-<pre class="cssp">// Hello world</pre>
+<pre class="turbine">// Hello world</pre>
 <p>
 	&hellip; and block comments that start with a line containing nothing but <code>--</code> and end with the same:
 </p>
-<pre class="cssp">--
+<pre class="turbine">--
 Hello world
 This is a block comment
 --</pre>
@@ -344,7 +344,7 @@ This is a block comment
 <p>
 	<code>@media</code>-rules in Turbine a simple switches. Each <code>@media</code> line ends the previous <code>@media</code> block
 	and opens a new one.
-<pre class="cssp">@media screen // Open screen block
+<pre class="turbine">@media screen // Open screen block
 #foo
     background:red
 
@@ -358,7 +358,7 @@ This is a block comment
 
 @media screen // Close projection block, open screen block
 #bar
-    font.weight:bold</pre>
+    font-weight:bold</pre>
 <p>
 	<code>@media</code> block of the same type will be merged, so the resulting css looks like the following:
 </p>
@@ -367,7 +367,7 @@ This is a block comment
         background: red;
     }
     #bar {
-        font.weight: bold;
+        font-weight: bold;
     }
 }
 
@@ -387,7 +387,7 @@ This is a block comment
 <p>
 	If you need to end an @media block without opening a new one, you can do so using <code>@media none</code>.
 </p>
-<pre class="cssp">@media screen
+<pre class="turbine">@media screen
 
 #foo
     color:red
@@ -459,7 +459,7 @@ This is a block comment
 <p>
 	Turbine can output CSS code in a minified form:
 </p>
-<pre class="cssp">@turbine
+<pre class="turbine">@turbine
     compress:1
 #foo
     color:red
@@ -467,7 +467,7 @@ This is a block comment
 <p>
 	Becomes
 </p>
-<pre class="css">#foo{color:red;background:blue}</pre>
+<pre>#foo{color:red;background:blue}</pre>
 <p>
 	That's a good thing to have since everybody likes smaller downloads and the CSS code generates tends to be more verbose than
 	handwritten CSS anyway. To enable compression simply add <code>compress:1;</code> to your configuration block.
@@ -476,7 +476,7 @@ This is a block comment
 <p>
 	To active a plugin, simply add it's name to the <code>plugins</code> property (the order doesn't matter):
 </p>
-<pre class="cssp">@turbine
+<pre class="turbine">@turbine
     plugins:resetstyle, datauri, borderradius</pre>
 <p>
 	Turbine has a set of <a class="smoothscroll" href="#plugins">core plugins</a> that greatly enhance the functionality of Turbine. If
@@ -489,7 +489,7 @@ This is a block comment
 	are too ugly for your liking, you can pass a <code>noie</code> option to the <a href="#plugins-boxshadow" class="smoothscroll">box
 	shadow plugin</a>:
 </p>
-<pre class="cssp">@turbine
+<pre class="turbine">@turbine
     plugins:boxshadow
     boxshadow:noie    // Don't display box shadows in IE</pre>
 <h4>Title</h4>
@@ -497,14 +497,14 @@ This is a block comment
 	A stylesheet's title may be set via the <code>title</code> property of the <code>@turbine</code> element. The title is displayed as a
 	css comment in the header of the final output. To add more lines to the title, just add multiple <code>title</code> properties:
 </p>
-<pre class="cssp">@turbine
+<pre class="turbine">@turbine
     title: Design for Project XYZ
     title: © 2010 Company Inc.
     title: All rights reserved</pre>
 <p>
 	Result:
 </p>
-<pre class="css">/*
+<pre class="comment">/*
 Design for Project XYZ
 © 2010 Company Inc.
 All rights reserved
@@ -519,7 +519,7 @@ Stylesheet generated by Turbine - http://turbine.peterkroener.de/
 	if you want to use multiple properties with the same value inside a selector, you can take advantage of expanding properties. This
 	allows you to use properties as a comma-separated list&nbsp;&hellip;
 </p>
-<pre class="cssp">#foo
+<pre class="turbine">#foo
     position:absolute
     top, left:4px</pre>
 <p>
@@ -536,7 +536,7 @@ Stylesheet generated by Turbine - http://turbine.peterkroener.de/
 	Turbine implements nested css selectors using a simple principle: whenever the <em>next</em> line is indented, to current line
 	is used as a selector and combined with it's parent selectors.
 </p>
-<pre class="cssp">#foo div > p
+<pre class="turbine">#foo div > p
     color:red
     font-weight:bold
     a:link, a:visited
@@ -565,7 +565,7 @@ Stylesheet generated by Turbine - http://turbine.peterkroener.de/
 	Without nested selectors you would have to have typed a lot more <code>#foo div > p</code>. Nested selectors <em>can</em> become a
 	bit confusing if you overuse them, but with a bit of moderation they can save quite a bit of typing. Consider this example:
 </p>
-<pre class="cssp">#header, #footer
+<pre class="turbine">#header, #footer
     ul, ol, p
         a:link, a:visited
             text-decoration:underline
@@ -598,7 +598,7 @@ Stylesheet generated by Turbine - http://turbine.peterkroener.de/
 <p>
 	A selector can span multiple lines if each line except the last one ends with a comma:
 </p>
-<pre class="cssp">#header,
+<pre class="turbine">#header,
 #footer,
 #foobar
     color:red</pre>
@@ -615,7 +615,7 @@ Stylesheet generated by Turbine - http://turbine.peterkroener.de/
 	In case you need to insert css without Turbine messing with it, you can use the <code>@css</code> prefix. Any lines that begin with
 	<code>@css</code> will appear in the output completely unchanged (except for the <code>@css</code> prefix which is removed).
 </p>
-<pre class="cssp">@css @-moz-document url-prefix(http://), url-prefix(https://), url-prefix(ftp://){
+<pre class="turbine">@css @-moz-document url-prefix(http://), url-prefix(https://), url-prefix(ftp://){
 
 #foo
     color:red
@@ -652,7 +652,7 @@ Stylesheet generated by Turbine - http://turbine.peterkroener.de/
 	Constants (also known as "css variables") allow you to define your own easy-to-remember shortcuts for complicated hex colors
 	or long font stacks. They can be used for any css property and are <strong>case-sensitive</strong>.
 </p>
-<pre class="cssp">@constants
+<pre class="turbine">@constants
     myRed:#C02222
     imagePath:/assets/images
 
@@ -680,7 +680,7 @@ Stylesheet generated by Turbine - http://turbine.peterkroener.de/
 	Aliases are constants applied to selectors insted of values. Don't want to remember the complicated <code>#wrapper #header > div ul</code>?
 	You don't have to:
 </p>
-<pre class="cssp">@aliases
+<pre class="turbine">@aliases
     mainNavigation: #wrapper #header > div ul
 
 $mainNavigation
@@ -708,7 +708,7 @@ $mainNavigation
 <p>
 	Example:
 </p>
-<pre class="cssp">@constants
+<pre class="turbine">@constants
     mycolor:#F00 // Defined outside of any @media block = applies _globally_
 
 @media screen
@@ -755,7 +755,7 @@ $mainNavigation
 <p>
 	To simply copy a value from a property in another selector, you can use the <code>copy(selector property)</code> syntax:
 </p>
-<pre class="cssp">#foo
+<pre class="turbine">#foo
     color:#F00
 
 #bar
@@ -772,7 +772,7 @@ $mainNavigation
 <p>
 	The copied and copying properties don't have to be the same:
 </p>
-<pre class="cssp">#foo
+<pre class="turbine">#foo
     background:#F00
 
 #bar
@@ -790,7 +790,7 @@ $mainNavigation
 	Copying works with aliases too. If you want to copy the <code>color</code> value from $foo to #bar, you can simple use
 	<code>copy($foo color)</code>:
 </p>
-<pre class="cssp">@aliases
+<pre class="turbine">@aliases
     foo: #header > div.foobar
 
 $foo
@@ -813,7 +813,7 @@ $foo
 	Turbine's <code>extends</code> let elements inherit complete sets of properties from other elements, which are merged with the
 	element's own properties:
 </p>
-<pre class="cssp">#parent
+<pre class="turbine">#parent
     color:red
     font-weight:bold
 
@@ -835,7 +835,7 @@ div.child {
 <p>
 	If a property is already defined in an element <code>extends</code> will <strong>not</strong> overwrite it:
 </p>
-<pre class="cssp">#parent
+<pre class="turbine">#parent
     color:red
     font-weight:bold
 
@@ -857,7 +857,7 @@ div.child {
 	For inheritance from multiple sources, the parent elements <strong>must</strong> be quoted because of the comma character (which
 	otherwise might be part of a selector as well as a list sepperator):
 </p>
-<pre class="cssp">#parent1
+<pre class="turbine">#parent1
     color:red
 
 #parent2
@@ -883,20 +883,20 @@ div.child {
 	To inherit properties from an element with a generated selector the whole generated selector must be used for the <code>extends</code> property, which
 	can be problematic. Consider the following:
 </p>
-<pre class="cssp">#foo, #bar
+<pre class="turbine">#foo, #bar
     h(1-6)
         color:red</pre>
 <p>
 	To inherit from the resulting element, one would have to figure out the selector that gets generated and use it for the <code>extends</code> property:
 </p>
-<pre class="cssp">// This is ridiculous
+<pre class="turbine">// This is ridiculous
 #extending
     extends: #foo h1, #foo h2, #foo h3, #foo h4, #foo h5, #foo h6, #bar h1, #bar h2, #bar h3, #bar h4, #bar h5, #bar h6</pre>
 <p>
 	This can become a bit unwieldy and ultimatly defeat the propose of generated selectors. Turbine 1.1 intoduces a new <code>label</code> property that
 	can be used for any element to serve as something like an inmutable selector for extending:
 </p>
-<pre class="cssp">#foo, #bar
+<pre class="turbine">#foo, #bar
     h(1-6)
         color:red
         label:myelement // Declare a label
@@ -907,7 +907,7 @@ div.child {
 	This works just as well as using the selector. The <code>label</code> property is invisible in the final output and is never copied or inherited itself.
 	It is possible to declare a label more than once:
 </p>
-<pre class="cssp">#foo, #bar
+<pre class="turbine">#foo, #bar
     h(1-6)
         color:red
         label:myelement
@@ -921,7 +921,7 @@ div.child {
 <p>
 	Like when extending via selectors, multi-inheritance is possible and both selectors and labels can be mixed:
 </p>
-<pre class="cssp">#foo, #bar
+<pre class="turbine">#foo, #bar
     h(1-6)
         color:red
         label:myelement
@@ -940,7 +940,7 @@ div.child {
 	or copied from (see <a class="smoothscroll" href="#usage-syntax-prefixes">prefixes</a>). These elements can be used to declare complete
 	building blocks for your real css elements:
 </p>
-<pre class="cssp">// Prototypes
+<pre class="turbine">// Prototypes
 
 ?box
     margin, padding:4px
@@ -983,7 +983,7 @@ div.blackRound {
 	store them in an external file and include them when you need them. The code for the black and white boxes above could then be shortend
 	to the following:
 </p>
-<pre class="cssp">@load url(myBoxTemplates.cssp) // Contains all the prototypes
+<pre class="turbine">@load url(myBoxTemplates.cssp) // Contains all the prototypes
 
 div.whiteSqare
     extends:"?box", "?whiteBox"
@@ -1049,7 +1049,7 @@ div.blackRound
 	</ul>
 </ol>
 <h4>Example</h4>
-<pre class="cssp">@turbine
+<pre class="turbine">@turbine
 	plugins:fontface
 
 @font-face
@@ -1113,7 +1113,7 @@ linear-gradient(&lt;direction&gt;,&lt;startcolor&gt;,&lt;endcolor&gt;);
 </ul>
 <h4>Examples</h4>
 <h5>Vertical gradient, from top to bottom, from white to black</h5>
-<pre class="cssp">@turbine
+<pre class="turbine">@turbine
     plugins:backgroundgradient
 
 #foo
@@ -1159,7 +1159,7 @@ linear-gradient(&lt;direction&gt;,&lt;startcolor&gt;,&lt;endcolor&gt;);
 </p>
 <h4>Examples</h4>
 <h5>Automatic vendor-specific versions</h5>
-<pre class="cssp">@turbine
+<pre class="turbine">@turbine
     plugins:borderradius
 
 #foo
@@ -1175,7 +1175,7 @@ linear-gradient(&lt;direction&gt;,&lt;startcolor&gt;,&lt;endcolor&gt;);
 }
 </pre>
 <h5>Left side only shortcut</h5>
-<pre class="cssp">#foo
+<pre class="turbine">#foo
     border-left-radius:4px;</pre>
 <p>
 	Result:
@@ -1215,7 +1215,7 @@ linear-gradient(&lt;direction&gt;,&lt;startcolor&gt;,&lt;endcolor&gt;);
 	<li><code>noie</code>: Don't display shadows in Internet Explorer</li>
 </ul>
 <h4>Example</h4>
-<pre class="cssp">@turbine
+<pre class="turbine">@turbine
     plugins:boxshadow
 
 #foo
@@ -1255,7 +1255,7 @@ linear-gradient(&lt;direction&gt;,&lt;startcolor&gt;,&lt;endcolor&gt;);
 	<li><code>inherit</code>: Same as the parant element (default)</li>
 </ul>
 <h4>Example</h4>
-<pre class="cssp">@turbine
+<pre class="turbine">@turbine
     plugins:boxsizing
 
 #foo
@@ -1302,7 +1302,7 @@ linear-gradient(&lt;direction&gt;,&lt;startcolor&gt;,&lt;endcolor&gt;);
 <p>
 	The <code>device</code> property allows you to target mobile devices or desktop computers:
 </p>
-<pre class="cssp">// Show red text only for dektop computers
+<pre class="turbine">// Show red text only for dektop computers
 #foo
     device:desktop
     color:red
@@ -1314,7 +1314,7 @@ linear-gradient(&lt;direction&gt;,&lt;startcolor&gt;,&lt;endcolor&gt;);
 <p>
 	To exclude devices, use the <code>^</code> operator at the beginning of the value of a <code>device</code> property:
 </p>
-<pre class="cssp">// No red text for mobile devices
+<pre class="turbine">// No red text for mobile devices
 #foo
     device:^mobile
     color:red</pre>
@@ -1329,7 +1329,7 @@ linear-gradient(&lt;direction&gt;,&lt;startcolor&gt;,&lt;endcolor&gt;);
 <p>
 	The <code>os</code> property allows you to target operating systems:
 </p>
-<pre class="cssp">// Show red text only for windows
+<pre class="turbine">// Show red text only for windows
 #foo
     os:windows
     color:red
@@ -1341,7 +1341,7 @@ linear-gradient(&lt;direction&gt;,&lt;startcolor&gt;,&lt;endcolor&gt;);
 <p>
 	You can target the different versions of windows (and <em>only</em> windows) too:
 </p>
-<pre class="cssp">// Show red text only for windows versions equal or newer than vista
+<pre class="turbine">// Show red text only for windows versions equal or newer than vista
 #foo
     os:windows&gt;=vista
     color:red
@@ -1353,7 +1353,7 @@ linear-gradient(&lt;direction&gt;,&lt;startcolor&gt;,&lt;endcolor&gt;);
 <p>
 	To exclude operating systems, use the <code>^</code> operator as usual:
 </p>
-<pre class="cssp">// No red text for linux
+<pre class="turbine">// No red text for linux
 #foo
     os:^linux
     color:red</pre>
@@ -1386,14 +1386,14 @@ linear-gradient(&lt;direction&gt;,&lt;startcolor&gt;,&lt;endcolor&gt;);
 	The browser property doesn't target individual browsers but rather browser families. For example Flock, Songbird, Minefield and Firefor are all members
 	of the firefox family. To target one or multiple families, simply add their names to the <code>browser</code> property of an element:
 </p>
-<pre class="cssp">// Show red text only for firefox and opera
+<pre class="turbine">// Show red text only for firefox and opera
 #foo
     browser:firefox opera
     color:red</pre>
 <p>
 	You can target browser versions too:
 </p>
-<pre class="cssp">// Show red text only for firefox versions newer than 3.5
+<pre class="turbine">// Show red text only for firefox versions newer than 3.5
 #foo
     browser:firefox&gt;3.5
     color:red
@@ -1409,7 +1409,7 @@ linear-gradient(&lt;direction&gt;,&lt;startcolor&gt;,&lt;endcolor&gt;);
 <p>
 	To exclude browsers, use the <code>^</code> operator as usual:
 </p>
-<pre class="cssp">// No red text for chrome
+<pre class="turbine">// No red text for chrome
 #foo
     browser:^chrome
     color:red</pre>
@@ -1417,7 +1417,7 @@ linear-gradient(&lt;direction&gt;,&lt;startcolor&gt;,&lt;endcolor&gt;);
 	The device <code>browser</code> property can, like all properties of this plugin, also be used inside the <code>@turbine</code> element. This will affect the
 	stylesheet as a whole:
 </p>
-<pre class="cssp">// We don't want to bother with IE6, so we simply hide ALL STYLES from it.
+<pre class="turbine">// We don't want to bother with IE6, so we simply hide ALL STYLES from it.
 // That makes the page somewhat useable without much work
 @turbine
     browser:^ie&lt;7</pre>
@@ -1426,7 +1426,7 @@ linear-gradient(&lt;direction&gt;,&lt;startcolor&gt;,&lt;endcolor&gt;);
 	Engine detection is a messy business because not all browsers anounce their engine and engine versions in the user agent string. To make the <code>engine</code>
 	property work, <strong>in some cases it has to be passed the browser name and version number instead of the actual engine!</strong> 
 </p>
-<pre class="cssp">// Webkit browsers usually tell us their engine, so we can target them easily
+<pre class="turbine">// Webkit browsers usually tell us their engine, so we can target them easily
 #foo
     engine:webkit&lt;525
     color:red
@@ -1441,7 +1441,7 @@ linear-gradient(&lt;direction&gt;,&lt;startcolor&gt;,&lt;endcolor&gt;);
 <p>
 	To exclude engines, use the <code>^</code> operator as usual:
 </p>
-<pre class="cssp">// No red text for webkit
+<pre class="turbine">// No red text for webkit
 #foo
     engine:^webkit
     color:red</pre>
@@ -1506,7 +1506,7 @@ linear-gradient(&lt;direction&gt;,&lt;startcolor&gt;,&lt;endcolor&gt;);
 	Background transparency in IE works with Microsoft's proprietary <code>filter</code> property which may cause unwanted effects
 	in some scenarios. Consider the following:
 </p>
-<pre class="cssp">p
+<pre class="turbine">p
     background:rgba(200, 0, 0, 0.5)
 
 p.foo
@@ -1525,7 +1525,7 @@ p.foo {
 	The problem is that in the browser <strong>the filter will also affect <code>p.foo</code></strong> because the <code>p</code>
 	selector of course also matches <code>p.foo</code>. The solution is to explicitly remove any filters from <code>p.foobar</code>:
 </p>
-<pre class="cssp">p
+<pre class="turbine">p
     background:rgba(200, 0, 0, 0.5)
 
 p.foobar
@@ -1548,7 +1548,7 @@ p.foobar
 	Just add <code>datauri</code> to your <code>@turbine</code> plugins rule. Done!
 </p>
 <h4>Example</h4>
-<pre class="cssp">@turbine
+<pre class="turbine">@turbine
     plugins:datauri
 
 #foo
@@ -1594,7 +1594,7 @@ p.foobar
 	Just add <code>inlineblock</code> to your <code>@turbine</code> plugins rule. Done!
 </p>
 <h4>Example</h4>
-<pre class="cssp">@turbine
+<pre class="turbine">@turbine
     plugins:inlineblock
 
 #foo
@@ -1647,7 +1647,7 @@ p.foobar
 <p>
 	File <code>style.cssp</code>:
 </p>
-<pre class="cssp">@load url(/modules/colors.cssp)
+<pre class="turbine">@load url(/modules/colors.cssp)
 
 #foo
     color:$textcolor
@@ -1655,7 +1655,7 @@ p.foobar
 <p>
 	File <code>/modules/colors.cssp</code>:
 </p>
-<pre class="cssp">@constants
+<pre class="turbine">@constants
     textcolor:#C00000
     bgcolor:#EEE</pre>
 <p>
@@ -1683,7 +1683,7 @@ p.foobar
 	Just add <code>minifier</code> to your <code>@turbine</code> plugins rule. Done!
 </p>
 <h3>Example</h3>
-<pre class="cssp">#foo
+<pre class="turbine">#foo
     font-family: Georgia, "Times New Roman", serif
     color: #FF0000
     background: #F0FFFF
@@ -1723,7 +1723,7 @@ p.foobar
 </p>
 <h4>Examples</h4>
 <h5>Automatic vendor-specific versions</h5>
-<pre class="cssp">@turbine
+<pre class="turbine">@turbine
     plugins:opacity
 
 #foo
@@ -1942,7 +1942,7 @@ table {
 	Multiple transforms may be queued together, separated by a whitespace, e.g. <code>transform: rotate(25deg) translate(100px,0) scale(0.5)</code>. Note that the parts will get processed one by one from left to right. So in the mentioned example the translation won't happen along the X axis but on a virtual axis that is rotated 25 degrees clockwise.
 </p>
 <h4>Example</h4>
-<pre class="cssp">@turbine
+<pre class="turbine">@turbine
     plugins:transform
 
 #foo
@@ -2204,7 +2204,7 @@ table {
 <p>
 	Given the following Turbine input code&nbsp;&hellip;
 </p>
-<pre class="cssp">@import url(foobar.css);
+<pre class="turbine">@import url(foobar.css);
 
 span.test
     color:blue

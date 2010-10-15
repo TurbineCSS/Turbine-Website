@@ -23,7 +23,7 @@
 		<option value="space"<?php if(isset($_POST['ichar']) && $_POST['ichar'] == 'space'){ echo ' selected'; } ?>>Spaces</option>
 	</select>
 
-	<label for="icount">Idention level</label>
+	<label for="icount">Indentation level</label>
 	<input type="text" name="icount" id="icount" value="<?php if(isset($_POST['icount'])){ echo $_POST['icount']; } else { echo '1'; } ?>">
 
 	<label>

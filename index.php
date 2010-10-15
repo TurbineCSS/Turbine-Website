@@ -24,7 +24,7 @@
 <p>
 	Turbine takes code like this&nbsp;&hellip;
 </p>
-<pre class="cssp">// Welcome to Turbine!
+<pre class="turbine">// Welcome to Turbine!
 @media screen
 #foo, #bar
     color:#FF0000
