@@ -21,10 +21,8 @@
 <div id="top"></div>
 
 
-<div id="wrapper">
-
-
-	<header>	
+<header>
+	<div class="wrapper">
 		<h1>
 			<a href="index.php"><span>Turbine</span></a>
 		</h1>
@@ -34,12 +32,16 @@
 				<li><a href="http://github.com/SirPepe/Turbine/downloads"><span>Download</span></a></li>
 				<li><a href="docs.php"><span>Docs</span></a></li>
 				<li><a href="support.php"><span>Support</span></a></li>
-				<li><a href="shell.php"><span>Shell</span></a></li>
+				<li><a href="shell.php"><span>Sandbox</span></a></li>
 				<li><a href="converter.php"><span>Converter</span></a></li>
 				<li><a href="http://github.com/SirPepe/Turbine"><span>Development</span></a></li>
 			</ul>
 		</nav>
-	</header>
+	</div>
+</header>
+
+
+<div id="wrapper">
 
 
 	<div class="clear"></div>
