@@ -2012,7 +2012,7 @@ table {
 		</tr>
 		<tr>
 			<td><code>before_compile</code></td>
-			<td>After compilation, before applying Turbine core features (inheritance and the like)</td>
+			<td>After parsing, before applying Turbine core features (inheritance and the like)</td>
 			<td>Reference to an array containing the parsed Turbine code</td>
 		</tr>
 		<tr>
