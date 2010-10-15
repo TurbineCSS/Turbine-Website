@@ -2112,9 +2112,9 @@ table {
 			<td><code>while_parsing</code></td>
 			<td>Once every time Turbines parses a a line of code</td>
 			<td>Two arguments containing information about the line that is currently being parsed:
-				<ol><li>A string indicating the type of the second parameter (eg. <code>selector</code> or <code>property</code>)</li>
-				<li>A reference to the line or a line fragment(eg. <code>#foo div.bar</code> or <code>font-weight</code>)</li></ol>
-			(Example plugin: none)
+				<ol><li>A string indicating the type of the second parameter (eg. <code>selector</code> or <code>property</code>, <code>EOF</code> when the file is fully parsed)</li>
+				<li>A reference to the line or a line fragment (eg. <code>#foo div.bar</code> or <code>font-weight</code>, <code>EOF</code> when the file is fully parsed)</li></ol>
+			(Example plugin: <code>sniffer.php</code>)
 			</td>
 		</tr>
 		<tr>
