@@ -409,7 +409,7 @@ This is a block comment
 }</pre>
 <h4 id="usage-syntax-prefixes">Prefixes</h4>
 <p>
-	There a a few reserved prefixes for properties, values and selectors:
+	There are a few reserved prefixes for properties, values and selectors:
 </p>
 <table>
 	<thead>
@@ -2110,7 +2110,7 @@ table {
 		</tr>
 		<tr>
 			<td><code>while_parsing</code></td>
-			<td>Once every time Turbines parses a a line of code</td>
+			<td>Once every time Turbines parses a line of code</td>
 			<td>Two arguments containing information about the line that is currently being parsed:
 				<ol><li>A string indicating the type of the second parameter (eg. <code>selector</code> or <code>property</code>, <code>EOF</code> when the file is fully parsed)</li>
 				<li>A reference to the line or a line fragment (eg. <code>#foo div.bar</code> or <code>font-weight</code>, <code>EOF</code> when the file is fully parsed)</li></ol>
