@@ -133,6 +133,7 @@ if(shell){
 			shell.setStyles({
 				'position': 'static'
 			});
+			$('footer').setStyle('display', 'block');
 			supersized = false;
 		}
 		else{
@@ -141,6 +142,7 @@ if(shell){
 				'left': '1%',
 				'right': '1%'
 			});
+			$('footer').setStyle('display', 'none');
 			supersized = true;
 		}
 		e.stop();
