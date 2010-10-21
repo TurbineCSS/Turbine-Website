@@ -33,7 +33,7 @@
 				<li><a href="#plugins-sniffer">Browser and platform sniffer</a></li>
 				<li><a href="#plugins-bugfix">Browser bugfixes</a></li>
 				<li><a href="#plugins-color">Color</a></li>
-				<li><a href="#plugins-datauri">Data-URIs</a></li>
+				<li><a href="#plugins-datauri">Data URIs</a></li>
 				<li><a href="#plugins-html5">HTML5</a></li>
 				<li><a href="#plugins-inlineblock">Inline block</a></li>
 				<li><a href="#plugins-load">Load</a></li>
@@ -1540,8 +1540,10 @@ p.foobar
 	Inlines images into the css output.
 </p>
 <p>
-	The Data URI plugin inlines all images smaller than 24kb as base64 encoded as a data URI or, for Internet Explorer 6 and 7, as MHTML. This
-	significantly reduces the number of HTTP requests.
+	The Data URI plugin inlines images as base64 encoded as a data URI or, for Internet Explorer 6 and 7, as MHTML. This
+	significantly reduces the number of HTTP requests. The plugin only processes images smaller than 24kb. The original
+	CSS declarations for the images are preserved, meaning that if a browser can't use the inlined images, the original
+	URL can be used as a fallback.
 </p>
 <h4>Usage</h4>
 <p>
@@ -1556,9 +1558,13 @@ p.foobar
 <p>
 	Result:
 </p>
-<pre>#foo {
+<pre class="css">#foo {
+    background:#FFF url(test.png) top left;
     background: #FFF url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAGCAMAAADXEh96AAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAAGUExURf///8zjYPWWfS0AAAARSURBVHjaYmAAAUYiSIAAAwAAqAAH4ng45wAAAABJRU5ErkJggg==') top left;
 }</pre>
+<p class="warning">
+	<em>Important:</em> If you want to change an image, you <em>must</em> clear Turbine's cache before you can see the changes.
+</p>
 </div>
 
 
