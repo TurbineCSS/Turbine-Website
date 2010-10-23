@@ -1099,9 +1099,7 @@ div.blackRound
 	<code>linear-gradient</code> following W3C's current draft's syntax for a simple two-colored 
 	linear gradient within a <code>background-image</code> or <code>background</code> property:
 </p>
-<pre>
-linear-gradient(&lt;direction&gt;,&lt;startcolor&gt;,&lt;endcolor&gt;);
-</pre>
+<pre>linear-gradient(&lt;direction&gt;,&lt;startcolor&gt;,&lt;endcolor&gt;);</pre>
 <h5>Possible values for the direction</h5>
 <ul>
 	<li><code>top</code>: Gradient starting at the top, going to the bottom</li>
@@ -1167,7 +1165,7 @@ linear-gradient(&lt;direction&gt;,&lt;startcolor&gt;,&lt;endcolor&gt;);
 <p>
 	Result:
 </p>
-<pre>#foo {
+<pre class="css">#foo {
     -moz-border-radius: 4px;
     -khtml-border-radius: 4px;
     -webkit-border-radius: 4px;
@@ -1608,13 +1606,13 @@ p.foobar
 <p>
 	Result in browsers using Gecko &lt; 1.9:
 </p>
-<pre>#foo {
+<pre class="css">#foo {
 	display: -moz-inline-stack;
 }</pre>
 <p>
 	Result in IE &lt; 8:
 </p>
-<pre>#foo {
+<pre class="css">#foo {
 	display: inline;
 	zoom: 1;
 }</pre>
@@ -1667,7 +1665,7 @@ p.foobar
 <p>
 	Result:
 </p>
-<pre>#foo {
+<pre class="css">#foo {
 	color: #C00000;
 	background: #EEE;
 }</pre>
@@ -1699,7 +1697,7 @@ p.foobar
 <p>
 	Result (pretty-printed):
 </p>
-<pre>#foo {
+<pre class="css">#foo {
 	font-family: Georgia,"Times New Roman",serif;
 	color: #F00;
 	background: azure;
@@ -1737,13 +1735,12 @@ p.foobar
 <p>
 	Result:
 </p>
-<pre>#foo {
+<pre class="css">#foo {
     -moz-opacity: 0.3;
     -khtml-opacity: 0.3;
     -webkit-opacity: 0.3;
     opacity: 0.3;
-}
-</pre>
+}</pre>
 <p>
 	plus, for IE 8:
 </p>
