@@ -1293,7 +1293,7 @@ linear-gradient(&lt;direction&gt;,&lt;startcolor&gt;,&lt;endcolor&gt;);
 </p>
 <h5>Use cases</h5>
 <ul>
-	<li>Progressive enhancement</li>
+	<li>Serve unstyled content to legacy browsers</li>
 	<li>Hide <code>@font-face</code> from Windows XP to circumvent XP's rendering problems with non-windows fonts</li>
 	<li>Hide or display nagging <q>Update your browser!</q> messages to IE6 users</li>
 </ul>
@@ -1383,7 +1383,7 @@ linear-gradient(&lt;direction&gt;,&lt;startcolor&gt;,&lt;endcolor&gt;);
 </ul>
 <h5><code>browser</code> property</h5>
 <p>
-	The browser property doesn't target individual browsers but rather browser families. For example Flock, Songbird, Minefield and Firefor are all members
+	The browser property doesn't target individual browsers but rather browser families. For example Flock, Songbird, Minefield and Firefox are all members
 	of the firefox family. To target one or multiple families, simply add their names to the <code>browser</code> property of an element:
 </p>
 <pre class="turbine">// Show red text only for firefox and opera
