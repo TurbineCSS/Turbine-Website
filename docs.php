@@ -2139,11 +2139,11 @@ table {
 </table>
 <h4>Hooks</h4>
 <p>
-	To hook into Turbine you need to call the <code>register_plugin()</code> function using three arguments: the hook, an
-	execution priority and your plugin function's name:
+	To hook into Turbine you need to call the <code>register_plugin()</code> function using four arguments: the plugin name, your plugin function's name,
+	the hook to attach to function to and the execution priority:
 </p>
 <pre class="php">&lt;?php
-    register_plugin('before_compile', 0, 'mypluginfunction');
+    register_plugin('myplugin', 'mypluginfunction', 'before_compile', 0);
 ?&gt;</pre>
 <p>
 	It is recommended to leave the execution priority at 0 unless early oder late execution of the plugin is <strong>really</strong>
