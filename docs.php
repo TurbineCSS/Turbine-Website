@@ -243,8 +243,8 @@
 	configuration option is set to <code>true</code>).
 </p>
 <p>
-	The files as processed in sequence and <strong>don't</strong> influence each other in any way. For example,
-	<a href="#usage-constantsaliases">constants</a> defined in <code>file1</code> won't apply to code in <code>file2</code>. If
+	The files are processed in sequence and <strong>don't</strong> influence each other in any way. For example,
+	<a href="#usage-constantsaliases">constants</a> defined in <code>fileA</code> won't apply to code in <code>fileB</code>. If
 	you want share code between files, use the <a href="#plugins-load">loader plugin</a>.
 </p>
 
