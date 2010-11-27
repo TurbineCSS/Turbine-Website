@@ -212,8 +212,8 @@
 	function in your document's <code>&lt;head&gt;</code>. The function takes up to four arguments:
 </p>
 <ol>
-	<li>The path to css.php relative to the document. Defauls to 'css.php'.</li>
-	<li>An array of .cssp files relative to the base dir. Defauls to an empty array.</li>
+	<li>The path to css.php relative to the document. Defaults to 'css.php'.</li>
+	<li>An array of .cssp files relative to the base dir. Defaults to an empty array.</li>
 	<li>A string that is either <code>xhtml</code> or <code>html</code>, depending on whether you want XHTML or HTML output. Defaults to <code>xhtml</code>.</li>
 	<li>A value for the <code>&lt;link&gt;</code> element's <code>media</code> attribute. Defaults to an empty string (which results in no <code>media</code>
 	attribute being printed at all).</li>
@@ -440,7 +440,11 @@ This is a block comment
 			<td>Template - whole element will be removed before output but properties can be inherited from it (see <a class="smoothscroll" href="#usage-inheritancetemplating-templating">Templating</a>)</td>
 		</tr>
 		<tr>
-			<th>&amp;</th>
+			<th rowspan="2">&amp;</th>
+			<td>Selector</td>
+			<td>Placeholder for use in nested selectors</td>
+		</tr>
+		<tr>
 			<td>Value</td>
 			<td>Expression (currently not used by Turbine or any plugin)</td>
 		</tr>
@@ -871,7 +875,7 @@ $mainNavigation
     background: #F00
 }</pre>
 <p>
-	Copying works with aliases too. If you want to copy the <code>color</code> value from $foo to #bar, you can simple use
+	Copying works with aliases too. If you want to copy the <code>color</code> value from <code>$foo</code> to <code>#bar</code>, you can simply use
 	<code>copy($foo color)</code>:
 </p>
 <pre class="turbine">@aliases
@@ -1659,7 +1663,7 @@ p.foobar
 	The HTML5 plugin adds most of the correct default styles for HTML5 elements according to <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/rendering.html#the-css-user-agent-style-sheet-and-presentational-hints">the specifications</a>.
 	Some parts of the specifications (like the font size for headlines in sectioning content) are ignored because they would require a
 	huge amount of css code to implement correctly. Note that for this plugin to work in Internet Explorer you still have to
-	<a href="http://code.google.com/p/html5shiv/">enable HTML5 elements via javascript</a>.
+	<a href="http://code.google.com/p/html5shiv/">enable HTML5 elements via JavaScript</a>.
 </p>
 <h4>Usage</h4>
 <p>
@@ -2401,7 +2405,7 @@ span.test
     }
 
     // Hook into Turbine
-    $cssp->register_plugin('before_compile', 0, 'remove_background_image');
+    $cssp->register_plugin('remove_background_image', 'remove_background_image', 'before_compile', 0);
 ?&gt;</pre>
 <p>
 	Don't be afraid to do anything CPU- or memory consuming in your plugins - in production mode, everything is calculated
