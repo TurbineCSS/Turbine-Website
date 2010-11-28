@@ -318,8 +318,8 @@
         color:blue</pre>
 <p>
 	This behavior allows nested selectors, which can be quite powerful (see <a class="smoothscroll" href="#usage-nested">nested selectors</a>).
-	You can use any number or combination of spaces and tabs for indentation, but be careful to keep your indentation constistent in the whole
-	file.
+	You can use tabs or any number of spaces for indentation, but be careful to keep your indentation constistent in the whole
+	file. Turbine will report indentation errors and try to fix files where tabs and spaces are mixed, but it's better not to depend on this.
 </p>
 <p>
 	Semicolons at the end of values are not required, but you can use them to put multiple declarations in one line:
