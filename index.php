@@ -4,7 +4,7 @@
 <div id="index">
 
 
-<h2>Turbine decreases css development time and web developer headache</h2>
+<h2>Turbine</h2>
 <p>
 	Turbine is a collection of PHP-powered tools that are designed to decrease css development time and web developer headache. This includes:
 </p>
@@ -50,7 +50,7 @@
     }
 }</pre>
 <p>
-	It is somewhat compareable to <a href="http://sass-lang.com/">Sass</a> and <a href="http://github.com/anthonyshort/csscaffold">Scaffold</a>, but more radically geared towards getting as much done as possible in as few keystrokes as possible.
+	It is somewhat compareable to <a href="http://sass-lang.com/">Sass</a> and <a href="http://lesscss.org/">Less</a>, but more radically geared towards getting as much done as possible in as few keystrokes as possible.
 </p>
 
 
@@ -59,8 +59,8 @@
 	Turbine is still in active development. Help us to make it better!
 </p>
 <ul>
-	<li>Download Turbine, test it and <a href="http://github.com/SirPepe/Turbine/issues">report any bugs you might find</a></li>
-	<li><a href="http://github.com/SirPepe/Turbine">Fork it</a> and tackle some bugs</li>
+	<li>Download Turbine, test it and <a href="http://github.com/SirPepe/Turbine/issues">report any bugs you find</a></li>
+	<li><a href="http://github.com/SirPepe/Turbine">Fork it</a> and tackle some <a href="http://github.com/SirPepe/Turbine/issues">open issues</a></li>
 	<li>Add some more <a href="http://github.com/SirPepe/Turbine/blob/master/tests/browser.php">browser test cases</a>
 </ul>
 

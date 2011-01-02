@@ -5,15 +5,32 @@
 
 
 <h2>Download Turbine</h2>
+<h3>Stable</h3>
 <p>
-	The current Turbine version is <b>1.1.0</b>:
+	The current stable Turbine version is <b>1.0.11</b>:
 </p>
 <ul class="downloads">
 <?php
-if($handle = opendir('files')) {
-	while (false !== ($file = readdir($handle))) {
-		if($file != '.' && $file != '..') {
-			echo '<li><a href="/files/' . $file . '">' . $file . '</a> (' . round(filesize('files/' . $file) / 1024, 2) . ' kb)</li>';
+if($handle = opendir('files/stable')){
+	while (false !== ($file = readdir($handle))){
+		if($file != '.' && $file != '..'){
+			echo '<li><a href="/files/stable/' . $file . '">' . $file . '</a> (' . round(filesize('files/stable/' . $file) / 1024, 2) . ' kb)</li>';
+		}
+	}
+	closedir($handle);
+}
+?>
+</ul>
+<h3>Beta</h3>
+<p>
+	The current beta release is <b>1.1.0beta1</b>:
+</p>
+<ul class="downloads">
+<?php
+if($handle = opendir('files/beta')){
+	while (false !== ($file = readdir($handle))){
+		if($file != '.' && $file != '..'){
+			echo '<li><a href="/files/beta/' . $file . '">' . $file . '</a> (' . round(filesize('files/beta/' . $file) / 1024, 2) . ' kb)</li>';
 		}
 	}
 	closedir($handle);
