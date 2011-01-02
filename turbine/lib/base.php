@@ -63,7 +63,7 @@ public $global_constants = array(
  */
 public function __construct(){
 	// Try to load config
-	include('config.php');
+	@include('config.php');
 	if(isset($config)){
 		foreach($config as $key => $setting){
 			$this->config[$key] = $setting;

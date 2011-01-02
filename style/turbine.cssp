@@ -101,6 +101,10 @@ p.warning
 	font-weight:bold
 	background:$white
 	padding:2em
+	a
+		font-weight:bold
+		color, border-color:$important
+		border-width:2px
 table
 	margin:1em 0
 	td
