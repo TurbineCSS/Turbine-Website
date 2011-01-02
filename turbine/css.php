@@ -18,7 +18,7 @@
 
 // Benchmark start time
 $start = microtime(true);
-
+error_reporting(E_ALL);
 
 // Constants
 define('TURBINEVERSION', (file_exists('version.txt')) ? trim(file_get_contents('version.txt')) : 'unknown');
@@ -41,12 +41,25 @@ else{
 }
 
 
-// Load libraries
-include('lib/browser/browser.php');
+// A simple function for displaying error messages via css
+function turbine_css_error_message($error_message){
+	return 'html:before { content:"'.$error_message.'" !important; font-family:Verdana, Arial, sans-serif !important;
+		font-weight:bold !important; color:#000 !important; background:#F4EA9F !important; display:block !important;
+		border-bottom:1px solid #D5CA6E; padding:8px !important; white-space:pre; }';
+}
+
+
+// Load libraries. Special treatment for the browser class because it tends to be forgotten when cloning git repositories
+if(!@include('lib/browser/browser.php')){
+	echo turbine_css_error_message('Browser library not found! Please download the public version of Turbine or, if you
+		are using git, clone the browser sub project from http://github.com/SirPepe/Turbine-Browser into lib/browser.');
+	exit();
+}
 include('lib/cssmin/cssmin.php');
 include('lib/base.php');
 include('lib/parser.php');
 include('lib/cssp.php');
+include('lib/plugin.php');
 
 
 // Create the Turbine instance
@@ -68,6 +81,10 @@ $plugins_loaded = false;
 
 // List of available plugins
 $plugins_available = array();
+
+
+// CSSP file title(s)
+$css_title = array();
 
 
 // Process files
@@ -104,9 +121,8 @@ if($_GET['files']){
 
 
 	foreach($files as $file){
-		if(file_exists($file)){
+		if($file != '' && file_exists($file)){
 
-			// CSSP or CSS?
 			$fileinfo = pathinfo($file);
 
 			// For security reasons do not allow processing of files from above the base dir
@@ -115,6 +131,7 @@ if($_GET['files']){
 				continue;
 			}
 
+			// CSSP or CSS?
 			if($fileinfo['extension'] == 'css'){
 				// Simply include normal css files in the output. Minify if not debugging and configured to minify
 				if($cssp->config['debug_level'] == 0 && $cssp->config['minify_css'] == true){
@@ -134,12 +151,12 @@ if($_GET['files']){
 				// Server-side cache: Check if cache-directory has been created
 				if(!is_dir($cachedir)){
 					if(!@mkdir($cachedir, 0777)){
-						$cssp->report_error('The cache directory doesn\'t exist!');
+						$cssp->report_error('The cache directory doesn\'t exist! Please create a directory \"cache\" in '.dirname(realpath(__FILE__)).' and make it writeable.');
 					}
 				}
 				elseif(!is_writable($cachedir)){
 					if(!@chmod($cachedir, 0777)){
-						$cssp->report_error('The cache directory is not writeable!');
+						$cssp->report_error('The cache directory '.realpath($cachedir).' is not writeable!');
 					}
 				}
 
@@ -153,19 +170,48 @@ if($_GET['files']){
 					$browser->engine_version.
 					$browser->browser.
 					$browser->browser_version.
-					$file
+					realpath($file)
 				).'.txt';
 
 
-				// Server-side cache: Check if a cached version of the file already exists
-				if(file_exists($cachedir.'/'.$cachefile) && filemtime($cachedir.'/'.$cachefile) >= filemtime($file)){
-					$incache = true;
+				//Caching mechanism with file locking (don't rebuild cache multiple times)
+				$css_mtime = filemtime($file);
+				$cn = $cachedir.'/'.$cachefile;
+				$attempt = 1;
+				while(true){
+					// Server-side cache: Check if a cached version of the file already exists
+					if(($fc=file_exists($cn)) && filemtime($cn) >= $css_mtime){
+						$incache = true;
+						break;
+					}
+					elseif($cssp->config['debug_level'] == 0){
+						$cache_lock = fopen($cn, 'a+');
+						if(!$fc){
+							touch($cn, $css_mtime-1);
+						}
+						if(flock($cache_lock, LOCK_EX | LOCK_NB)){
+							//If we locked the file don't stop on user abort
+							ignore_user_abort(true);
+							break;
+						}
+						else{
+							fclose($cache_lock);
+							sleep(1);
+							//Clearing filemtime cache
+							clearstatcache();
+						}
+					}
+					else{
+						break;
+					}
 				}
 
 
 				// Server-side cache: Cached version of the file does not yet exist
 				if(!$incache){
 
+					// Init plugin list
+					$plugin_list = array();
 
 					// Load plugins (if not already loaded)
 					if(!$plugins_loaded){
@@ -181,6 +227,7 @@ if($_GET['files']){
 						}
 						$plugins_loaded = true;
 					}
+					$cssp->sort_plugins();
 
 
 					// Load the file into cssp
@@ -197,12 +244,11 @@ if($_GET['files']){
 					}
 
 
-					// Get plugin settings for the before parse hook
-					$plugin_list = array();
+					// Get plugin list for the before parse hook
 					$found = false;
 					foreach($cssp->code as $line){
 						if(!$found){
-							if(preg_match('/^[\s\t]*@turbine/i',$line) == 1){
+							if(preg_match('/^[\s\t]*@turbine/i', $line) == 1){
 								$found = true;
 							}
 						}
@@ -210,19 +256,43 @@ if($_GET['files']){
 							preg_match('~^\s+plugins:(.*?)(?://|$)~', $line, $matches);
 							if(count($matches) == 2){
 								$matches[1] = rtrim($matches[1], ';'); // Strip semicolons
-								$plugin_list = $cssp->tokenize($matches[1], ',');
+								$plugin_list = array_merge($plugin_list, $cssp->tokenize($matches[1], ','));
 								break;
 							}
 						}
 					}
 
 
+					// Get plugin options
+					$plugin_settings = array();
+					foreach($cssp->code as $line){
+						if(!$found){
+							if(preg_match('/^[\s\t]*@turbine/i', $line) == 1){
+								$found = true;
+							}
+						}
+						else{
+							if($line == ''){
+								break;
+							}
+							else{
+								preg_match('~^\s+([a-zA-Z0-9]+):(.*?)(?://|$)~', $line, $matches);
+								if(count($matches) == 3){
+									$plugin_settings_key = trim($matches[1]);
+									$plugin_settings_val = trim(rtrim($matches[2], ';')); // Dont forget to strip semicolons
+									if(in_array($plugin_settings_key, $plugin_list)){
+										$plugin_settings[$plugin_settings_key] = $plugin_settings_val;
+									}
+								}
+							}
+						}
+					}
+
 					// Check if there is any plugin in the list that doesn't actually exist
 					$plugin_diff = array_diff($plugin_list, $plugins_available);
 					if(!empty($plugin_diff)){
 						$cssp->report_error('The following plugins are not present in your Turbine installation: '.ucfirst(implode(', ', $plugin_diff)));
 					}
-
 
 					$cssp->set_indention_char();                                         // Set the character(s) used for code indention
 					$cssp->apply_plugins('before_parse', $plugin_list, $cssp->code);     // Apply plugins for before parse
@@ -239,6 +309,10 @@ if($_GET['files']){
 						$compress = false;
 					}
 
+					// Add title
+					if(isset($cssp->parsed['global']['@turbine']['title'])){
+						$css_title = array_merge($css_title, $cssp->parsed['global']['@turbine']['title']);
+					}
 
 					unset($cssp->parsed['global']['@turbine']);                   // Remove configuration @-rule
 					$output = $cssp->glue($compress);                             // Glue css output
@@ -251,17 +325,17 @@ if($_GET['files']){
 						file_put_contents($cachedir.'/'.$cachefile, $output);
 					}
 
-
 				}
 				else{
 					// Server-side cache: read the cached version of the file
 					$output = file_get_contents($cachedir.'/'.$cachefile);
 				}
 
+				// Add to final css
+				$css .= $output;
+
 			}
 
-			// Add to final css
-			$css .= $output;
 		}
 
 
@@ -271,14 +345,12 @@ if($_GET['files']){
 		}
 
 
-	}
+	} // End foreach($files as $file)
 
 	// Show errors
 	if($cssp->config['debug_level'] > 0 && !empty($cssp->errors)){
 		$error_message = implode('\\00000A', $cssp->errors);
-		$css = $css.'body:before { content:"'.$error_message.'" !important; font-family:Verdana, Arial, sans-serif !important;
-			font-weight:bold !important; color:#000 !important; background:#F4EA9F !important; display:block !important;
-			border-bottom:1px solid #D5CA6E; padding:8px !important; white-space:pre; }';
+		$css .= turbine_css_error_message($error_message);
 	}
 
 
@@ -288,9 +360,11 @@ if($_GET['files']){
 		header('Cache-Control: must-revalidate, pre-check=0, no-store, no-cache, max-age=0, post-check=0');
 	}
 	else{
-		header('Cache-Control: no-cache, must-revalidate');
-		header('Expires: '.gmdate('D, d M Y H:i:s').' GMT');
-		header("Vary: Accept-Encoding"); 
+		if(!$cssp->config['expire_in_future']){
+			header('Cache-Control: no-cache, must-revalidate');
+		}
+		header('Expires: '.gmdate('D, d M Y H:i:s', time() + intval($cssp->config['expire_in_future'])).' GMT');
+		header('Vary: Accept-Encoding'); 
 		header('Content-type: text/css'); 
 		header('ETag: '.$etag);
 	}
@@ -300,9 +374,17 @@ if($_GET['files']){
 	$end = microtime(true);
 
 
-	// Output header line
-	echo "/*\r\n\tStylesheet generated by Turbine - http://turbine.peterkroener.de/";
+	// Begin header
+	echo "/*\r\n";
 
+
+	// Output stylesheet title(s)
+	if(!empty($css_title)){
+		echo implode("\r\n", $css_title)."\r\n";
+	}
+
+	// You can remove this if you REALLY want to
+	echo 'Stylesheet generated by Turbine - http://turbine.peterkroener.de/';
 
 	// Output debugging info
 	if($cssp->config['debug_level'] > 0){
@@ -319,15 +401,15 @@ if($_GET['files']){
 			'Platform type' => $browser->platform_type
 		);
 		foreach($debugginginfo as $key => $value){
-			echo "\r\n\t$key: $value";
+			echo "\r\n$key: $value";
 		}
 	}
 
 
-	// Close comment, output CSS
+	// Close header, output CSS
 	echo "\r\n*/\r\n".$css;
 
-}
+}  // End if($_GET['files'])
 
 
 ?>

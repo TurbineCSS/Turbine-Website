@@ -37,11 +37,96 @@ class Cssp extends Parser2 {
 	 */
 	public function compile(){
 		$this->apply_aliases();
+		$this->apply_extenders();
 		$this->apply_property_expansion();
 		$this->apply_inheritance();
 		$this->apply_copying();
 		$this->apply_constants();
 		$this->cleanup();
+	}
+
+
+	/**
+	 * apply_extenders
+	 * Applies selector extender logic
+	 * @return void
+	 */
+	public function apply_extenders(){
+		$extenders = array('and', 'numbered', 'generated');
+		foreach($extenders as $extender){
+			foreach($this->parsed as $block => $css){
+				foreach($this->parsed[$block] as $selector => $styles){
+					$this->apply_extender($extender, $block, $selector, $styles);
+				}
+			}
+		}
+	}
+
+
+	/**
+	 * apply_extender
+	 * Applies the extenders to selectors
+	 * @param string $extender The extender to apply
+	 * @param string $block The current block
+	 * @param string $selector The selector to process
+	 * @param array $styles The selector's styles
+	 * @return void
+	 */
+	public function apply_extender($extender, $block, $selector, $styles){
+		$tokenized = $this->tokenize($selector, array('"' ,"'", ','));
+		$extended_selector = false;
+		$new_selector = $selector;
+		foreach($tokenized as $key => $token){
+			$temp_selector = '';
+			switch($extender){
+				// The &-extender: &.class, &#id or &:selector - ignore "&" if it is the first character in the selector
+				case 'and':
+					if(preg_match_all('@(\s+)(\&.|&#|&\:)@', $token, $matches)){
+						$new_selector = preg_replace('@( \&)@', '', $selector); // Remove the &
+						$extended_selector = true;
+					}
+				break;
+				// The #foo-(1-10) extender
+				case 'numbered':
+					if(preg_match_all('@(.*?)\((\d{1,})-(\d{1,})\)@', $token, $matches)){
+						// Check if starting value is smaller than ending value - "div.foo(3-1)" i.e. will be ignored
+						if($matches[2][0] <= $matches[3][0]){
+							for($i=$matches[2][0]; $i <= $matches[3][0]; $i++){
+								$temp_selector .= preg_replace('@\((\d{1,})-(\d{1,})\)@', $i, $token) . ", ";
+							}
+						}
+						else{
+							for($i=$matches[2][0]; $i >= $matches[3][0]; $i--){
+								$temp_selector .= preg_replace('@\((\d{1,})-(\d{1,})\)@', $i, $token) . ", ";
+							}
+						}
+						$temp_selector = preg_replace('@(, )$@', '', $temp_selector);
+						$new_selector = str_replace($token, $temp_selector, $new_selector);
+						$extended_selector = true;
+					}
+				break;
+				// The #foo(bar, baz) extender
+				case 'generated':
+					if(preg_match_all('@(.*?)\((.*?)\)($|.*?$)@', $token, $matches)){
+						$exploded_selectors = explode(',', $matches[2][0]);
+						foreach($exploded_selectors as $key => $value){
+							$temp_selector .= preg_replace('@\((.*?)\)@', trim($value), $token) . ", ";
+						}
+						$temp_selector = preg_replace('@(, )$@', '', $temp_selector);
+						$new_selector = str_replace($matches[0][0], $temp_selector, $new_selector);
+						$extended_selector = true;
+					}
+				break;
+			}
+		}
+		// Insert the result
+		if($extended_selector){
+			$changed = array();
+			$changed[$new_selector] = $styles;
+			$this->insert($changed, $block, $selector);
+			// Remove old selector
+			unset($this->parsed[$block][$selector]);
+		}
 	}
 
 
@@ -269,7 +354,7 @@ class Cssp extends Parser2 {
 				if(isset($this->parsed[$block][$selector]['extends'])){
 					$num_extends = count($this->parsed[$block][$selector]['extends']);
 					for($i = 0; $i < $num_extends; $i++){
-						$found = false;
+						$not_found = array();
 						// Parse ancestors
 						$ancestors = $this->tokenize($this->parsed[$block][$selector]['extends'][$i], array('"', "'", ','));
 						// List to keep track of all the ancestor's selectors for debugging comment
@@ -283,15 +368,19 @@ class Cssp extends Parser2 {
 							$ancestors_list = array_merge($ancestors_list, $ancestor_keys);
 							// Merge ancestor's rules with own rules
 							if(!empty($ancestor_keys)){
-								$found = true;
 								foreach($ancestor_keys as $ancestor_key){
 									$ancestors_rules = $this->merge_rules(
 										$ancestors_rules,
 										$this->parsed[$block][$ancestor_key],
 										array(),
-										true
+										true,
+										$this->array_get_previous($this->parsed[$block][$selector], 'extends', true)
 									);
 								}
+							}
+							// Otherwise collect the ancestor for error reporting
+							else{
+								$not_found[] = $ancestor;
 							}
 						}
 						// ... then merge the combined ancestor's rules into $parsed
@@ -299,14 +388,17 @@ class Cssp extends Parser2 {
 							$this->parsed[$block][$selector],
 							$ancestors_rules,
 							array(),
-							false
+							false,
+							$this->array_get_previous($this->parsed[$block][$selector], 'extends', true)
 						);
-						// Report error if no ancestor was found
-						if(!$found){
-							$this->report_error($selector.' could not find '.$this->parsed[$block][$selector]['extends'][$i].' to inherit properties from.');
+						// Report errors for every ancestor that was not found
+						if(!empty($not_found)){
+							foreach($not_found as $fail){
+								$this->report_error($selector.' could not find '.$fail.' to inherit properties from.');
+							}
 						}
-						// Add a comment explaining where the inherited properties come from
 						else{
+							// Add a comment explaining where the inherited properties came from
 							CSSP::comment($this->parsed[$block][$selector], null, 'Inherited properties from: "'.implode('", "', $ancestors_list).'"');
 						}
 					}
@@ -443,39 +535,56 @@ class Cssp extends Parser2 {
 
 	/***
 	 * merge_rules
-	 * Merges possible conflicting css rules
+	 * Merges sets of possibly conflicting css rules
 	 * @param mixed $old The OLD rules (overridden by the new rules)
 	 * @param mixed $new The NEW rules (override the old rules)
 	 * @param array $exclude A list of properties NOT to merge
 	 * @param array $allow_overwrite Allow new rules to overwrite old ones?
-	 * @return mixed $rule The new, merged rule
+	 * @param string $after The property in the old rules after which the new rules are to be inserted
+	 * @return mixed $rules The new, merged rules
 	 */
-	public function merge_rules($old, $new, $exclude = array(), $allow_overwrite = true){
-		$rule = $old;
+	public function merge_rules($old, $new, $exclude = array(), $allow_overwrite = true, $after = ''){
+		// Create a temporary, cleaned up version of $new
+		$clean = array();
 		foreach($new as $property => $values){
-			// If the property is not excluded...
-			if(!in_array($property, $exclude)){
+			// If the property is not excluded or a special property...
+			if(!in_array($property, $exclude) && !in_array($property, $this->special_properties)){
 				// ... apply the values one by one...
-				if(isset($rule[$property])){
+				if(isset($clean[$property])){
 					if($allow_overwrite){
 						foreach($values as $value){
-							$rule[$property][] = $value;
+							$clean[$property][] = $value;
 						}
 					}
 				}
 				// ... or copy the whole set of values
 				else{
-					$rule[$property] = $values;
+					$clean[$property] = $values;
 				}
 			}
 		}
-		return $rule;
+		// Combine $clean and $old - either do a simple merge or insert $clean after $after in $old
+		if($after && isset($old[$after])){
+			$rules = array();
+			foreach($old as $oldproperty => $oldvalues){
+				$rules[$oldproperty] = $oldvalues;
+				if($oldproperty == $after){
+					foreach($new as $newproperty => $newvalues){
+						$rules[$newproperty] = $newvalues;
+					}
+				}
+			}
+		}
+		else{
+			$rules = array_merge($old, $clean);
+		}
+		return $rules;
 	}
 
 
 	/**
 	 * find_ancestor_keys
-	 * Find selectors matching (partially) $selector
+	 * Find selectors matching or partially matching $selector (where $selector can also be a label)
 	 * @param string $selector The selector to search
 	 * @param string $block The block to search in
 	 * @return array $results The matching keys (if any)
@@ -484,7 +593,9 @@ class Cssp extends Parser2 {
 		$results = array();
 		foreach($this->parsed[$block] as $key => $value){
 			$tokens = $this->tokenize($key, ',');
-			if(in_array($selector, $tokens)){
+			if(in_array($selector, $tokens) ||
+				(array_key_exists('_label', $this->parsed[$block][$key]) && $this->get_final_value($this->parsed[$block][$key]['_label'], '_label') == $selector)
+			){
 				$results[] = $key;
 			}
 		}
@@ -508,7 +619,7 @@ class Cssp extends Parser2 {
 			}
 			// Remove empty elements, templates and alias ruins
 			foreach($this->parsed[$block] as $selector => $styles){
-				if(empty($styles) || $selector{0} == '?' || $selector{0} == '$'){
+				if(empty($styles) || $selector == '' || $selector{0} == '?' || $selector{0} == '$'){
 					unset($this->parsed[$block][$selector]);
 				}
 			}
@@ -587,26 +698,8 @@ class Cssp extends Parser2 {
 	 * @return void
 	 */
 	public function insert_properties($rules, $block, $element, $before = NULL, $after = NULL){
-		// If $before and $after are NULL, insert the new rules at the top
-		if($before == NULL && $after == NULL){
-			foreach($rules as $newproperty => $newvalues){
-				$this->parsed[$block][$element] = $this->insert_property($this->parsed[$block][$element], $newproperty, $newvalues);
-			}
-		}
-		// Else walk through the whole element
-		foreach($this->parsed[$block][$element] as $property => $values){
-			// Handle $after
-			if($after != NULL && $property == $after){
-				foreach($rules as $newproperty => $newvalues){
-					$this->parsed[$block][$element] = $this->insert_property($this->parsed[$block][$element], $newproperty, $newvalues);
-				}
-			}
-			// Handle $before
-			elseif($before != NULL && $property == $before){
-				foreach($rules as $newproperty => $newvalues){
-					$this->parsed[$block][$element] = $this->insert_property($this->parsed[$block][$element], $newproperty, $newvalues);
-				}
-			}
+		foreach($rules as $newproperty => $newvalues){
+			$this->parsed[$block][$element] = $this->insert_property($this->parsed[$block][$element], $newproperty, $newvalues, $before, $after);
 		}
 	}
 
@@ -617,10 +710,31 @@ class Cssp extends Parser2 {
 	 * @param array $set The array to insert into
 	 * @param string $property The property name
 	 * @param array $values The properties' values
+	 * @return array The set with the new property inserted
+	 */
+	private function insert_property($set, $property, $values, $before = NULL, $after = NULL){
+		if($before === NULL && $after === NULL){
+			return $this->append_property($set, $property, $values);
+		}
+		elseif($before != NULL){
+			return $this->insert_property_before($set, $property, $values, $before);
+		}
+		else{
+			return $this->insert_property_after($set, $property, $values, $after);
+		}
+	}
+
+
+	/**
+	 * append_property
+	 * Appends a new property to an array without overwriting any other properties
+	 * @param array $set The array to insert into
+	 * @param string $property The property name
+	 * @param array $values The properties' values
 	 * @return array $set The set with the new property inserted
 	 */
-	private function insert_property($set, $property, $values){
-		// take care of legacy plugins that might pass a single value as a string
+	private function append_property($set, $property, $values){
+		// Take care of legacy plugins that might pass a single value as a string
 		if(!is_array($values)){
 			$values = array($values);
 		}
@@ -632,6 +746,60 @@ class Cssp extends Parser2 {
 			$set[$property] = $values;
 		}
 		return $set;
+	}
+
+
+	/**
+	 * insert_property_before
+	 * Inserts a new property into an array at a specified position without overwriting any other properties
+	 * @param array $set The array to insert into
+	 * @param string $property The property name
+	 * @param array $values The properties' values
+	 * @param string $where The key before which the new property will be inserted
+	 * @return array $set The set with the new property inserted
+	 */
+	private function insert_property_before($set, $property, $values, $where){
+		$new = array();
+		foreach($set as $key => $vals){
+			if($key == $where){
+				// Preserve old values
+				if(isset($set[$property])){
+					$values = array_merge($set[$property], $values);
+					unset($set[$property]); // Remove the old property to prevent duplicats
+					unset($new[$property]); // Remove the old property to prevent duplicats
+				}
+				$new[$property] = $values;
+			}
+			$new[$key] = $vals;
+		}
+		return $new;
+	}
+
+
+	/**
+	 * insert_property_after
+	 * Inserts a new property into an array at a specified position without overwriting any other properties
+	 * @param array $set The array to insert into
+	 * @param string $property The property name
+	 * @param array $values The properties' values
+	 * @param string $where The key after which the new property will be inserted
+	 * @return array $set The set with the new property inserted
+	 */
+	private function insert_property_after($set, $property, $values, $where){
+		$new = array();
+		foreach($set as $key => $vals){
+			$new[$key] = $vals;
+			if($key == $where){
+				// Preserve old values
+				if(isset($set[$property])){
+					$values = array_merge($set[$property], $values);
+					unset($set[$property]); // Remove the old property to prevent duplicats
+					unset($new[$property]); // Remove the old property to prevent duplicats
+				}
+				$new[$property] = $values;
+			}
+		}
+		return $new;
 	}
 
 

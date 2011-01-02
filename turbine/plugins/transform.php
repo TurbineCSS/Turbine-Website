@@ -145,7 +145,7 @@ function transform(&$parsed){
 
 					//Include behavior to compensate for IEs auto expand feature
 					$htc_path = rtrim(dirname($_SERVER['SCRIPT_NAME']),'/').'/plugins/transform/transform.htc';
-					$parsed[$block][$selector]['behavior'] = array('url('.$htc_path.')');
+					$parsed[$block][$selector]['behavior'][] = 'url('.$htc_path.')';
 					CSSP::comment($parsed[$block][$selector], 'behavior', 'Added by transform plugin');
 					
 					//Legacy IE-compliance
@@ -162,7 +162,7 @@ function transform(&$parsed){
 						CSSP::comment($parsed[$block][$selector], 'filter', 'Added by transform plugin');
 					}
 					else {						
-						//IE8-compliance (note: value inside apostrophes!)
+						//IE8-compliance
 						//If -ms-filter-property not yet set
 						if(!isset($parsed[$block][$selector]['-ms-filter'])){
 							$parsed[$block][$selector]['-ms-filter'] = array($filter);
@@ -269,7 +269,7 @@ function transform(&$parsed){
 /**
  * Register the plugin, MUST BE THE LAST ONE!
  */
-$cssp->register_plugin('before_glue', -999999, 'transform');
+$cssp->register_plugin('transform', 'transform', 'before_glue', -999999);
 
 
 ?>

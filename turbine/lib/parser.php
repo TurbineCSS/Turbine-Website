@@ -23,6 +23,11 @@ class Parser2 extends Base{
 
 
 	/**
+	 * @var string $file The current file
+	 */
+	public $file = null;
+
+	/**
 	 * @var array $debuginfo Collects parser debugging information
 	 */
 	public $debuginfo = array();
@@ -35,27 +40,33 @@ class Parser2 extends Base{
 
 
 	/**
-	 * @var array $tokenized_properties The list properties where multiple values are to be combined on output using a space character
+	 * @var array $tokenized_properties The list of properties where multiple values are to be combined on output using a space character
 	 */
-	public $tokenized_properties = array('filter');
+	public $tokenized_properties = array('filter', 'behavior');
 
 
 	/**
-	 * @var array $listed_properties The list properties where multiple values are to be combined on output using a comma
+	 * @var array $listed_properties The list of properties where multiple values are to be combined on output using a comma
 	 */
-	public $listed_properties = array('plugins', 'behavior', '-ms-filter');
+	public $listed_properties = array('plugins', '-ms-filter');
 
 
 	/**
-	 * @var array $quoted_properties The list properties where the value needs to be quoted as a whole before output
+	 * @var array $quoted_properties The list of properties where the value needs to be quoted as a whole before output
 	 */
 	public $quoted_properties = array('-ms-filter');
 
 
 	/**
-	 * @var array $last_properties The list properties that must be output AFTER all other plugins, in order of output
+	 * @var array $last_properties The list of properties that must be output AFTER all other plugins, in order of output
 	 */
 	public $last_properties = array('filter', '-ms-filter');
+
+
+	/**
+	 * @var array $special_properties The list of properties that are invisible and can not be inherited or copied
+	 */
+	public $special_properties = array('label', '_label');
 
 
 	/**
@@ -88,6 +99,12 @@ class Parser2 extends Base{
 	* @var string $token The current token
 	*/
 	public $token = '';
+
+
+	/**
+	 * @var int $tabwidth The default number or spaces for a tab
+	 */
+	public $tabwidth = null;
 
 
 	/**
@@ -159,6 +176,7 @@ class Parser2 extends Base{
 		else{
 			$this->code = array_merge($this->code, $lines);
 		}
+		$this->file = null;
 		return $this;
 	}
 
@@ -172,6 +190,7 @@ class Parser2 extends Base{
 	 */
 	public function load_file($file, $overwrite = false){
 		$this->load_string(file_get_contents($file), $overwrite);
+		$this->file = $file;
 		return $this;
 	}
 
@@ -263,16 +282,36 @@ class Parser2 extends Base{
 				$this->selector_stack = array_slice($this->selector_stack, 0, $nextlevel);
 				$this->current['se'] = end($this->selector_stack);
 			}
+
 			// Debugging stuff
 			$debug['media'] = $this->current['me'];
 			$this->debuginfo[] = $debug;
 			unset($debug);
 		}
+		// EOF for while_parsing
+		call_user_func_array(
+			array($this, 'while_parsing_plugins'),
+			array('EOF', 'EOF')
+		);
 		// Dump $this->parsed when configured to do so
 		if($this->debug){
 			print_r($this->parsed);
 		}
 		return $this;
+	}
+
+
+
+	/**
+	 * while_parsing_plugins
+	 * Run the plugins for the while_parsing hook
+	 * @param string $type The type of the line that's being processed
+	 * @param string $line The line (or a part of a line) that's being processed
+	 * @return void
+	 */
+	private function while_parsing_plugins($type, &$line){
+		global $plugin_list;
+		$this->apply_plugins('while_parsing', $plugin_list, $type, $line);
 	}
 
 
@@ -296,18 +335,72 @@ class Parser2 extends Base{
 	 * @param array $lines The code in question
 	 * @return string $matches[1] The whitespace char(s) used for indention
 	 */
-	public static function get_indention_char($lines){
-		$linecount = count($lines);
+	public function get_indention_char($lines){
+		$linecount = count($this->code);
+		$tab_lines = array();
+		$space_lines = array();
+		$corrupt_lines = array();
 		for($i = 0; $i < $linecount; $i++){
-			$line = $lines[$i];
-			$nextline = (isset($lines[$i + 1])) ? $lines[$i + 1] : '';
-			// If the line and the following line are not empty and not @rules, find the whitespace used for indention
-			if($line != '' && trim($nextline) != '' && preg_match('/^([\s]+)(.*?)$/', $nextline, $matches)){
-				if(count($matches) == 3 && strlen($matches[1]) > 0 && $matches[2]{0} != '@'){
-					return $matches[1];
+			$line = $this->code[$i];
+			$line_number = $i;
+			// If the line is not empty
+			if(strlen(trim($line)) > 0){
+				// Search indentations
+				if(preg_match('/^(\s+)[a-z\-]+:.+?/i', $line, $matches)){
+					$indentation = $matches[1];
+					// Check for tabs
+					if(strpos($indentation, "\t") !== false){
+						// Check for spaces.
+						if(strpos($indentation, ' ') !== false){
+							$corrupt_lines[$line_number] = $line;
+						}
+						else{
+							array_push($tab_lines, $line_number);
+						}
+						continue;
+					}
+					// Check for spaces
+					else{
+						$length = strlen($indentation);
+						// Set the tab width if it is still unknown
+						if($this->tabwidth === null){
+							$this->tabwidth = $length;
+						}
+						// Valid indentation ?
+						if(($length % $this->tabwidth) == 0){
+							array_push($space_lines, $line_number);
+						}
+						else{
+							$corrupt_lines[$line_number] = $line;
+						}
+					}
 				}
 			}
 		}
+		// Fix lines. Replace tabs by spaces
+		if(count($space_lines) > count($tab_lines)){
+			$final_indentation = str_repeat(' ', $this->tabwidth);
+			foreach($tab_lines as $line_number){
+				$this->code[$line_number] = str_replace("\t", $final_indentation, $this->code[$line_number]);
+			}
+		}
+		// Fix lines. Replace spaces by tabs
+		else{
+			$final_indentation = "\t";
+			foreach($space_lines as $line_number){
+				$this->code[$line_number] = str_replace(str_repeat(' ', $this->tabwidth), $final_indentation, $this->code[$line_number]);
+			}
+		}
+		// Report corrupt lines
+		if(count($corrupt_lines) > 0 && $this->config['debug_level'] > 0){
+			$fixed_line = '';
+			foreach(array_keys($corrupt_lines) as $line_number){
+				$fixed_line .= $line_number + 1; // add 1, because arrays start at 0
+				$file = ($this->file) ? 'in file ' . $this->file . ',' : 'in';
+				$this->report_error('Possible broken indentation detected ' . $file . ' line ' . $fixed_line . ': ' . trim($corrupt_lines[$line_number]));
+			}
+		}
+		return $final_indentation;
 	}
 
 
@@ -319,6 +412,7 @@ class Parser2 extends Base{
 	protected function preprocess(){
 		$this->preprocess_clean();
 		$this->preprocess_concatenate_selectors();
+		$this->parse_tabwidth();
 	}
 
 
@@ -330,7 +424,7 @@ class Parser2 extends Base{
 	private function preprocess_clean(){
 		$processed = array();   // The remaining, cleaned up lines
 		$comment_state = false; // The block comment state
-		$previous_line = '';    // The line before the line being processed
+		$previous_line = '';	// The line before the line being processed
 		$loc = count($this->code);
 		for($i = 0; $i < $loc; $i++){
 			// Handle block comment lines
@@ -340,9 +434,9 @@ class Parser2 extends Base{
 			// Handle normal lines
 			elseif(!$comment_state){
 				// Ignore lines containing nothing but a comment
-				if(!preg_match('~^[\s]*//.*?$~', $this->code[$i])){
+				if(!preg_match('/^[\s]*\/\/.*?$/', $this->code[$i])){
 					// Lines containing non-whitespace
-					if(preg_match('[\S]', $this->code[$i])){
+					if(preg_match('/[\S]/', $this->code[$i])){
 						$processed[] = $this->code[$i];
 						$previous_line = $this->code[$i];
 					}
@@ -379,6 +473,19 @@ class Parser2 extends Base{
 			$processed[] = $line;
 		}
 		$this->code = $processed;
+	}
+
+
+	/**
+	 * parse_tabwidth
+	 * Looks for user defined tab with
+	 * @return void
+	 */
+
+	protected function parse_tabwidth(){
+		if(preg_match('/\s+tabwidth:\s+(\d){1,2}/i', implode($this->code), $match)){
+			$this->tabwidth = $match[1];
+		}
 	}
 
 
@@ -436,13 +543,18 @@ class Parser2 extends Base{
 		$len = strlen($line);
 		for($i = 0; $i < $len; $i++ ){
 			$this->switch_string_state($line{$i});
-			if($this->state != 'st' && $line{$i} == '/' && $line{$i+1} == '/'){     // Break on comment
+			if($this->state != 'st' && $line{$i} == '/' && $line{$i+1} == '/'){  // Break on comment
 				break;
 			}
 			$this->token .= $line{$i};
 		}
-		$media = trim(preg_replace('/[\s]+/', ' ', $this->token));                      // Trim whitespace from token
+		$media = trim(preg_replace('/[\s]+/', ' ', $this->token));					// Trim whitespace from token
 		$this->current['me'] = (trim(substr($media, 6)) != 'none') ? $media : 'global'; // Use token as current @media or reset to global
+		// Fire the "while_parsing" plugins
+		call_user_func_array(
+			array($this, 'while_parsing_plugins'),
+			array('@media', &$this->current['me'])
+		);
 	}
 
 
@@ -464,7 +576,7 @@ class Parser2 extends Base{
 			$this->token .= $line{$i};
 		}
 		// Trim whitespace
-		$selector = trim(preg_replace('/[\s]+/', ' ', $this->token));
+		$selector = trim(preg_replace('/\s+/', ' ', $this->token));
 		// Combine selector with the nesting stack
 		$selector = $this->merge_selectors($this->array_get_previous($this->selector_stack, $level), $selector);
 		// Increase font-face index if this is an @font-face element
@@ -475,6 +587,11 @@ class Parser2 extends Base{
 		$this->current['se'] = $selector;
 		// Add to the selector stack
 		$this->selector_stack[$level] = $selector;
+		// Fire the "while_parsing" plugins
+		call_user_func_array(
+			array($this, 'while_parsing_plugins'),
+			array('selector', &$this->current['se'])
+		);
 	}
 
 
@@ -544,7 +661,14 @@ class Parser2 extends Base{
 			}
 			$this->token .= $line{$i};
 		}
-		$this->parsed['global']['@import'][][0] = trim($this->token);
+		$this->token = trim($this->token);
+		// Fire the "while_parsing" plugins
+		call_user_func_array(
+			array($this, 'while_parsing_plugins'),
+			array('@import', &$this->token)
+		);
+		// Merge into tree
+		$this->parsed['global']['@import'][][0] = $this->token;
 	}
 
 
@@ -555,13 +679,19 @@ class Parser2 extends Base{
 	 */
 	protected function parse_css_line($line){
 		$line = trim($line);
-		$line = substr($line, 4);                   // Strip "@css"
+		$line = substr($line, 4);				  // Strip "@css"
 		$selector = '@css-'.$this->current['ci']++; // Build the selector using the @css-Index
+		$line = trim($line);
+		// Fire the while_parsing plugins
+		call_user_func_array(
+			array($this, 'while_parsing_plugins'),
+			array('@css', &$line)
+		);
+		// Merge into tree
 		$this->parsed[$this->current['me']][$selector] = array(
-			'_value' => array(trim($line))
+			'_value' => array($line)
 		);
 	}
-
 
 	/**
 	 * parse_property_line
@@ -579,6 +709,16 @@ class Parser2 extends Base{
 				if(trim($this->token) != ''){
 					$this->current['va'] = trim($this->token);
 					$this->token = '';
+					// Fire the "while_parsing" plugins
+					call_user_func_array(
+						array($this, 'while_parsing_plugins'),
+						array('property', &$this->current['pr'])
+					);
+					call_user_func_array(
+						array($this, 'while_parsing_plugins'),
+						array('value', &$this->current['va'])
+					);
+					// Merge into the tree
 					$this->merge();
 				}
 				break;
@@ -595,6 +735,16 @@ class Parser2 extends Base{
 				$this->current['va'] = trim($this->token);
 				$this->state = 'pr';
 				$this->token = '';
+				// Fire the "while_parsing" plugins
+				call_user_func_array(
+					array($this, 'while_parsing_plugins'),
+					array('property', &$this->current['pr'])
+				);
+				call_user_func_array(
+					array($this, 'while_parsing_plugins'),
+					array('value', &$this->current['va'])
+				);
+				// Merge into the tree
 				$this->merge();
 			}
 			else{
@@ -616,7 +766,12 @@ class Parser2 extends Base{
 		$pr = $this->current['pr'];
 		$va = $this->current['va'];
 		$fi = $this->current['fi'];
+		// Merge only if a property and a value do exist
 		if($pr !== '' && $va !== ''){
+			// Make special properties invisible
+			if(in_array($pr, $this->special_properties)){
+				$pr = '_' . $pr;
+			}
 			// Special destination for @font-face
 			if($se == '@font-face'){
 				$dest =& $this->parsed[$me][$se][$fi][$pr];
@@ -771,9 +926,11 @@ class Parser2 extends Base{
 		}
 		// Build the @font-face rules
 		foreach($fonts as $font => $styles){
-			$output .= '@font-face'.$s.'{'.$n;
-			$output .= $this->glue_properties($styles, '', $compressed);
-			$output .= '}'.$n;
+			if(!empty($styles)){
+				$output .= '@font-face'.$s.'{'.$n;
+				$output .= $this->glue_properties($styles, '', $compressed);
+				$output .= '}'.$n;
+			}
 		}
 		return $output;
 	}
@@ -822,11 +979,12 @@ class Parser2 extends Base{
 		if($compressed){
 			$selector = implode(',', $this->tokenize($selector, ','));
 		}
-		// Constuct the selecor
+		// Constuct the selector
 		$output .= $prefix . $selector . $s;
 		$output .= '{';
 		// Add comments
 		if(isset($rules['_comments']['selector']) && !$compressed){
+			$rules['_comments']['selector'] = array_unique($rules['_comments']['selector']);
 			$output .= ' /* ' . implode(', ', $rules['_comments']['selector']) . ' */';
 		}
 		$output .= $n;
@@ -841,7 +999,7 @@ class Parser2 extends Base{
 	 * glue_properties
 	 * Combine property sets
 	 * @param mixed $rules Property-value-pairs
-	 * @param string $prefix Prefix 
+	 * @param string $prefix Prefix
 	 * @param bool $compressed Compress CSS? (removes whitespace)
 	 * @return string $output Formatted CSS
 	 */
@@ -859,7 +1017,7 @@ class Parser2 extends Base{
 		foreach($this->last_properties as $property){
 			if(isset($rules[$property])){
 				$content = $rules[$property]; // Make a copy
-				unset($rules[$property]);     // Remove the original
+				unset($rules[$property]);	// Remove the original
 				$rules[$property] = $content; // Re-insert the property at the end
 			}
 		}
@@ -871,19 +1029,25 @@ class Parser2 extends Base{
 			// Ignore empty properties (might happen because of errors in plugins) and non-content-properties
 			if(!empty($property) && $property{0} != '_'){
 				$count_properties++;
-				// Implode values
-				$value = $this->get_final_value($values, $property, $compressed);
-				// Output property line
-				$output .= $prefix . $t . $property . ':' . $s . $value;
-				// When compressing, omit the last semicolon
-				if(!$compressed || $num_properties != $count_properties){
-					$output .= ';';
+				// Clean up values
+				$values = $this->get_final_value_array($values, $property, $compressed);
+				// Output property lines
+				$num_values = count($values);
+				$count_values = 0;
+				foreach($values as $value){
+					$count_values++;
+					$output .= $prefix . $t . $property . ':' . $s . $value;
+					// When compressing, omit the last semicolon
+					if(!$compressed || $num_properties != $count_properties || $num_values != $count_values){
+						$output .= ';';
+					}
+					// Add comments
+					if(isset($rules['_comments'][$property]) && !$compressed){
+						$rules['_comments'][$property] = array_unique($rules['_comments'][$property]);
+						$output .= ' /* ' . implode(', ', $rules['_comments'][$property]) . ' */';
+					}
+					$output .= $n;
 				}
-				// Add comments
-				if(isset($rules['_comments'][$property]) && !$compressed){
-					$output .= ' /* ' . implode(', ', $rules['_comments'][$property]) . ' */';
-				}
-				$output .= $n;
 			}
 		}
 		return $output;
@@ -911,6 +1075,60 @@ class Parser2 extends Base{
 		}
 		// Otherwise find the last and/or most !important value
 		else{
+			// Check if we are dealing with IE-filters
+			if(in_array($property,array('filter','-ms-filter'))){
+				$filters = array();
+				$filters['chroma'] = array();
+				$filters['matrix'] = array();
+				$filters['standard'] = array();
+				$transformfilters = array();
+				$num_values = count($values);
+				reset($values);
+				for($i = 0; $i < $num_values; $i++){
+					if(stristr(current($values),'chroma')){
+						$filters['chroma'][] = current($values);
+					}
+					elseif(stristr(current($values),'matrix')){
+						$filters['matrix'][] = current($values);
+					}
+					else{
+						$filters['standard'][] = current($values);
+					}
+					next($values);
+				}
+				reset($values);
+				$values = array_merge($filters['chroma'],$filters['matrix'],$filters['standard']);
+			}
+			// Check if we are dealing with IE-behaviors
+			if(in_array($property,array('behavior'))){
+				$behavior = array();
+				$behavior['borderradius'] = array();
+				$behavior['transform'] = array();
+				$behavior['standard'] = array();
+				$transformfilters = array();
+				$num_values = count($values);
+				reset($values);
+				echo "/*count: ".count($values)."*/\r\n";
+				for($i = 0; $i < $num_values; $i++){
+					echo "/*".current($values)."*/\r\n";
+					if(stristr(current($values),'borderradius.htc')){
+						echo "/*borderradius!*/\r\n";
+						$behavior['borderradius'][] = current($values);
+					}
+					elseif(stristr(current($values),'transform.htc')){
+						echo "/*transform!*/\r\n";
+						$behavior['transform'][] = current($values);
+					}
+					else{
+						echo "/*standard!*/\r\n";
+						$behavior['standard'][] = current($values);
+					}
+					next($values);
+				}
+				reset($values);
+				$values = array_merge($behavior['borderradius'],$behavior['transform'],$behavior['standard']);
+				echo '/*'.implode(',',$values)."*/\r\n";
+			}
 			// Whitspace characters
 			$s = ' ';
 			// Forget the whitespace if we're compressing
@@ -956,6 +1174,27 @@ class Parser2 extends Base{
 			$final = '"' . $final . '"';
 		}
 		$final = trim($final);
+		return $final;
+	}
+
+
+	/**
+	 * get_final_value_array
+	 * Returns a cleaned up version of an array of values
+	 * @param array $values A list of values
+	 * @param string $property The property the values belong to
+	 * @param bool $compressed Compress CSS? (removes whitespace)
+	 * @return array $final The final values
+	 */
+	public function get_final_value_array($values, $property = NULL, $compressed = false){
+		// In the case of listed/tokenized properties, get a single combined final value
+		if(in_array($property, $this->tokenized_properties) || in_array($property, $this->listed_properties)){
+			$final = array($this->get_final_value($values, $property, $compressed));
+		}
+		// Otherwise just clean up the value array and return it
+		else{
+			$final = array_unique($values);
+		}
 		return $final;
 	}
 
@@ -1079,7 +1318,7 @@ class Parser2 extends Base{
 			'ci' => 0
 		);
 		$this->options = array(
-			'indention_char' => "	"
+			'indention_char' => "   "
 		);
 	}
 
