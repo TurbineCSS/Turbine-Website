@@ -34,7 +34,6 @@
 				<li><a href="#plugins-bugfix">Browser bugfixes</a></li>
 				<li><a href="#plugins-color">Color</a></li>
 				<li><a href="#plugins-datauri">Data URIs</a></li>
-				<li><a href="#plugins-html5">HTML5</a></li>
 				<li><a href="#plugins-inlineblock">Inline block</a></li>
 				<li><a href="#plugins-load">Load</a></li>
 				<li><a href="#plugins-minifier">Minifier</a></li>
@@ -77,7 +76,7 @@
 
 <h2 id="intro">Introduction</h2><div>
 <p class="warning">
-	This document descibes <em>Turbine 1.1</em>, which is currently in beta state. You can find the docs for the 1.0 branch in the <a href="docs-10.php">old docs</a>.
+	This document descibes <em>Turbine 1.1</em>, which is currently in beta state. This document may be slightly out of date. You can find the docs for the 1.0 branch in the <a href="docs-10.php">old docs</a>.
 </p>
 <p>
 	Turbine is a PHP-powered tool that introduces a new way for writing CSS. It's syntax and features are designed to
@@ -1658,24 +1657,6 @@ p.foobar
 
 
 
-<h3 id="plugins-html5">HTML5</h3><div>
-<p class="abstract">
-	Adds the correct default styles for HTML5 elements
-</p>
-<p>
-	The HTML5 plugin adds most of the correct default styles for HTML5 elements according to <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/rendering.html#the-css-user-agent-style-sheet-and-presentational-hints">the specifications</a>.
-	Some parts of the specifications (like the font size for headlines in sectioning content) are ignored because they would require a
-	huge amount of css code to implement correctly. Note that for this plugin to work in Internet Explorer you still have to
-	<a href="http://code.google.com/p/html5shiv/">enable HTML5 elements via JavaScript</a>.
-</p>
-<h4>Usage</h4>
-<p>
-	Just add <code>html5</code> to your <code>@turbine</code> plugins rule. Done!
-</p>
-</div>
-
-
-
 <h3 id="plugins-inlineblock">Legacy inline block support</h3><div>
 <p class="abstract">
 	Enables <code>display:inline-block</code> in older Browsers
@@ -1903,7 +1884,8 @@ p.foobar
 	Includes a reset stylesheet.
 </p>
 <p>
-	Auto-includes a handy set of css rules that unset the default styling for all elements.
+	Auto-includes a handy set of css rules that unset the default styling for all elements and add minimal default styles for
+	new HTML5 elements.
 </p>
 <h4>Usage</h4>
 <p>
@@ -1956,15 +1938,33 @@ q:before, q:after {
 :focus {
     outline: 0;
 }
-ins {
-    text-decoration: none;
-}
-del {
-    text-decoration: line-through;
-}
 table {
     border-collapse: collapse;
     border-spacing: 0;
+}
+command, datalist, source, track {
+    display: none;
+}
+article, aside, figure, figcaption, footer, header, hgroup, menu, nav, section, summary {
+    display: block;
+}
+figure, menu {
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+dir menu, dl menu, menu dir, menu dl, menu menu, menu ol, menu ul {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+input[type="radio"] {
+    vertical-align: text-bottom;
+}
+input[type="checkbox"] {
+    vertical-align: bottom;
+    *vertical-align: baseline;
+}
+label, input[type=button], input[type=submit], button {
+    cursor: pointer;
 }</pre>
 </div>
 
