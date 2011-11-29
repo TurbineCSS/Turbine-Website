@@ -76,7 +76,7 @@
 
 <h2 id="intro">Introduction</h2><div>
 <p class="warning">
-	This document descibes <em>Turbine 1.1</em>, which is currently in beta state. This document may be slightly out of date. You can find the docs for the 1.0 branch in the <a href="docs-10.php">old docs</a>.
+	This document describes <em>Turbine 1.1</em>, which is currently in beta state. This document may be slightly out of date. You can find the docs for the 1.0 branch in the <a href="docs.php">current docs</a>.
 </p>
 <p>
 	Turbine is a PHP-powered tool that introduces a new way for writing CSS. It's syntax and features are designed to
@@ -1179,14 +1179,14 @@ div.blackRound
 	This plugin creates a cross-browser linear vertical or horizontal background gradient
 	(angles or radial gradient not supported). As this CSS3 property is still very alpha,
 	the W3C's current draft's syntax for simple two-colored linear gradients is used.
-	For Mozilla, WebKit and Konquror the plugin generates their very differing vendor-specific gradient 
+	For Mozilla, WebKit and Konquror the plugin generates their very differing vendor-specific gradient
 	implementation syntax. For Opera a SVG file containing the gradient is dynamically created and
 	used as a background-image. Finally, the proprietary gradient filter is used for IE.
 </p>
 <h4>Usage</h4>
 <p>
-	Add <code>backgroundgradient</code> to your <code>@turbine</code> plugins rule and start using 
-	<code>linear-gradient</code> following W3C's current draft's syntax for a simple two-colored 
+	Add <code>backgroundgradient</code> to your <code>@turbine</code> plugins rule and start using
+	<code>linear-gradient</code> following W3C's current draft's syntax for a simple two-colored
 	linear gradient within a <code>background-image</code> or <code>background</code> property:
 </p>
 <pre>linear-gradient(&lt;direction&gt;,&lt;startcolor&gt;,&lt;endcolor&gt;);</pre>
@@ -1512,7 +1512,7 @@ div.blackRound
 <h5><code>engine</code> property</h5>
 <p>
 	Engine detection is a messy business because not all browsers anounce their engine and engine versions in the user agent string. To make the <code>engine</code>
-	property work, <strong>in some cases it has to be passed the browser name and version number instead of the actual engine!</strong> 
+	property work, <strong>in some cases it has to be passed the browser name and version number instead of the actual engine!</strong>
 </p>
 <pre class="turbine">// Webkit browsers usually tell us their engine, so we can target them easily
 #foo
@@ -1979,7 +1979,7 @@ label, input[type=button], input[type=submit], button {
 	inserts them wherever a <code>transform</code> property is found and also adds a proprietary filter in conjunction with a behavior for Internet Explorer.
 </p>
 <p>
-	For it to work in Internet Explorer the transformed object needs to have <code>width</code> and <code>height</code> set. Also, if you queue up transforms, 
+	For it to work in Internet Explorer the transformed object needs to have <code>width</code> and <code>height</code> set. Also, if you queue up transforms,
 	limit yourself to a maximum of one of each sort (translate, rotate, scale), e.g. <code>transform: rotate(25deg) translate(100px,0) scale(0.5)</code>.
 </p>
 <h4>Usage</h4>
@@ -2163,7 +2163,7 @@ label, input[type=button], input[type=submit], button {
 <h3 id="dev-contribute">Contribute</h3><div>
 <p>
 	Turbine is free open source software (LGPL) and development takes place on <a href="http://github.com/">GitHub</a>,
-	a hosting platform for the excellent distributed version control system <a href="http://git-scm.com/">Git</a>. 
+	a hosting platform for the excellent distributed version control system <a href="http://git-scm.com/">Git</a>.
 	Github membership is free and makes helping your favourite open source project really easy. See the following
 	video for details.
 </p>
