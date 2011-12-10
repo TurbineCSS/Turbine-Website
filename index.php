@@ -43,7 +43,7 @@
     }
 }</pre>
 
-	<p>It is somewhat comparable to <a href="http://sass-lang.com/">Sass</a> and <a href="http://lesscss.org/">Less</a>, but more radically geared towards getting as much done as possible in as few keystrokes as possible.</p>
+	<p>It is somewhat comparable to <a href="http://sass-lang.com/">Sass</a> and the old <a href="http://lesscss.org/">LessCSS</a> (not the JS-based one, the ruby-gem based), but more radically geared towards getting as much done as possible in as few keystrokes as possible.</p>
 
 
 	<h3>We need your help!</h3>
