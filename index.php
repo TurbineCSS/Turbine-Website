@@ -51,7 +51,7 @@
 	<ul>
 		<li>Download Turbine, test it and <a href="http://github.com/igorsantos07/Turbine/issues">report any bugs you find</a></li>
 		<li><a href="http://github.com/igorsantos07/Turbine">Fork it</a> and tackle some <a href="http://github.com/igorsantos07/Turbine/issues">open issues</a></li>
-		<li>Add some more <a href="http://github.com/igorsantos07/Turbine/blob/master/tests/browser.php">browser test cases</a>
+		<li>Add some more <a href="https://github.com/igorsantos07/Turbine-Browser/blob/master/test.php">browser test cases</a>
 	</ul>
 </div>
 <?php include('footer.php'); ?>
