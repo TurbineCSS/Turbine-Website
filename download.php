@@ -45,7 +45,7 @@ if($handle = opendir('files/beta')){
 
 <h3>Older versions</h3>
 <p>
-	If you're looking for an older version of Turbine, check out the <a href="http://github.com/SirPepe/Turbine/archives/master">Github download archive</a>.
+	If you're looking for an older version of Turbine, check out the <a href="http://github.com/igorsantos07/Turbine/archives/master">Github download archive</a>.
 </p>
 
 
