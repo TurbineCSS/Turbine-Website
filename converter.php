@@ -11,7 +11,7 @@
 <h2>CSS to Turbine converter</h2>
 
 
-<form action="converter" method="post">
+<form action="converter.php" method="post">
 
 <h3>Enter CSS code below</h3>
 <textarea cols="120" rows="20" name="css"><?php if(isset($_POST['css'])){echo stripslashes($_POST['css']);}?></textarea>
