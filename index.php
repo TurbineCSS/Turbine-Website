@@ -49,9 +49,9 @@
 	<h3>We need your help!</h3>
 	<p>Turbine is a stable software, but you can help us making it even better!</p>
 	<ul>
-		<li>Download Turbine, test it and <a href="http://github.com/igorsantos07/Turbine/issues">report any bugs you find</a></li>
-		<li><a href="http://github.com/igorsantos07/Turbine">Fork it</a> and tackle some <a href="http://github.com/igorsantos07/Turbine/issues">open issues</a></li>
-		<li>Add some more <a href="https://github.com/igorsantos07/Turbine-Browser/blob/master/test.php">browser test cases</a>
+		<li>Download Turbine, test it and <a href="http://github.com/TurbineCSS/Turbine/issues">report any bugs you find</a></li>
+		<li><a href="http://github.com/TurbineCSS/Turbine">Fork it</a> and tackle some <a href="http://github.com/TurbineCSS/Turbine/issues">open issues</a></li>
+		<li>Add some more <a href="https://github.com/TurbineCSS/Turbine-Browser/blob/master/test.php">browser test cases</a>
 	</ul>
 </div>
 <?php include('footer.php'); ?>

@@ -2,12 +2,12 @@
 					<ul>
 						<li><a href="#top">Back to top</a></li>
 						<li><a href="index.php">Home</a></li>
-						<li><a href="http://github.com/igorsantos07/Turbine/downloads">Download</a></li>
+						<li><a href="http://github.com/TurbineCSS/Turbine/downloads">Download</a></li>
 						<li><a href="docs.php">Docs</a></li>
 						<li><a href="support.php">Support</a></li>
 						<li><a href="shell.php">Shell</a></li>
 						<li><a href="converter.php">Converter</a></li>
-						<li><a href="http://github.com/igorsantos07/Turbine">Development</a></li>
+						<li><a href="http://github.com/TurbineCSS/Turbine">Development</a></li>
 					</ul>
 				</div>
 			</div>

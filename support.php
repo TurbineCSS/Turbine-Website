@@ -10,7 +10,7 @@
 </p>*/ ?>
 <h3>Found a bug?</h3>
 <p>
-	To report bugs please use the <a href="http://github.com/igorsantos07/Turbine/issues">issue tracker at Github</a>.
+	To report bugs please use the <a href="http://github.com/TurbineCSS/Turbine/issues">issue tracker at Github</a>.
 </p>
 
 </div>

@@ -40,7 +40,7 @@
 	</p>
 
 	<h3>Older versions</h3>
-	<p>If you're looking for an older version of Turbine, check out the <a href="http://github.com/igorsantos07/Turbine/archives/master">Github download archive</a>.</p>
+	<p>If you're looking for an older version of Turbine, check out the <a href="http://github.com/TurbineCSS/Turbine/archives/master">Github download archive</a>.</p>
 </div>
 
 <?php include('footer.php'); ?>
